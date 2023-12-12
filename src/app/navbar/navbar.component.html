@@ -1,0 +1,162 @@
+<nav *ngIf="_authService.loggedIn()" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"> <img style="width: 30px;" src="assets/images/icono.png"> MS Farmacia</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul *ngIf="nivel != 3" class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Egresos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" routerLink="/recetas">
+                        <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                        Receta</a>
+                    <a class="dropdown-item" routerLink="/clearingServicio" aria-disabled="true"><i
+                            class="fa fa-exchange" aria-hidden="true"></i>
+                        Clearing a Servicios</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Ingresos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" routerLink="/remito"><i class="fa fa-address-card-o"
+                            aria-hidden="true"></i>
+                        Remito</a>
+
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">Reportes</a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" routerLink="/informeStock"><i class="fa fa-bar-chart"
+                            aria-hidden="true"></i>Stock de medicamentos</a>
+
+                    <a class="dropdown-item" routerLink="/informeStockLote"><i class="fa fa-database"
+                            aria-hidden="true"></i>Stock de medicamentos por Lote</a>
+
+                    <a class="dropdown-item" routerLink="/informeStockFecha"> <i class="fa fa-line-chart"
+                            aria-hidden="true"></i>
+                        Stock por Fecha</a>
+
+                    <a class="dropdown-item" routerLink="/informeVencimientoLote"> <i class="fa fa-calendar" aria-hidden="true"></i>
+                        Vencimientos de lotes</a>
+
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" routerLink="/informeReceta"><i class="fa fa-list" aria-hidden="true"></i>
+                        Listado de recetas</a>
+                    <a class="dropdown-item" routerLink="/salidasEntreFecha"><i class="fa fa-list"
+                            aria-hidden="true"></i>
+                        Listado salidas entre fechas</a>
+                    <a class="dropdown-item" routerLink="/informeRecetaPaciente"><i class="fa fa-server"
+                            aria-hidden="true"></i>
+                        Listado de recetas - Pacientes</a>
+                    <a class="dropdown-item" routerLink="/informeRecetaMedico"><i class="fa fa-server"
+                            aria-hidden="true"></i>
+                        Listado de recetas - Médicos</a>
+                    <a class="dropdown-item" routerLink="/recetaArchivada"><i class="fa fa-pie-chart"
+                            aria-hidden="true"></i>Recetas Archivadas</a>
+                    <a class="dropdown-item" routerLink="/monodrogaMedico"><i class="fa fa-server"
+                            aria-hidden="true"></i> Monodrogas por médico</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" routerLink="/informeRemitos"><i class="fa fa-bars" aria-hidden="true"></i>
+                        Listado de remitos</a>
+                    <a class="dropdown-item" routerLink="/informeAjustes"><i class="fa fa-bars" aria-hidden="true"></i>
+                        Listado de ajustes</a>
+                    <a class="dropdown-item" routerLink="/informeClearings"><i class="fa fa-bars" aria-hidden="true"></i>
+                        Listado de clearings</a>
+                </div>
+            </li>
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Administrar
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <!-- <a class="dropdown-item" routerLink="/drogas" routerLinkActive="active"><i
+                            class="fa fa-thermometer-full" aria-hidden="true"></i> Drogas</a> -->
+                    <a class="dropdown-item" routerLink="/listado" routerLinkActive="active"><i class="fa fa-cubes"
+                            aria-hidden="true"></i> Productos</a>
+                    <a class="dropdown-item" routerLink="/listadoProveedor" routerLinkActive="active"><i
+                            class="fa fa-truck" aria-hidden="true"></i> Proveedores</a>
+                    <a class="dropdown-item" routerLink="/listadoMedicos" routerLinkActive="active"><i
+                            class="fa fa-users" aria-hidden="true"></i> Médicos</a>
+                    <a class="dropdown-item" routerLink="/listadoLaboratorios" routerLinkActive="active"><i
+                            class="fa fa-flask" aria-hidden="true"></i> Laboratorios</a>
+                    <a class="dropdown-item" routerLink="/ajusteNegativo" routerLinkActive="active"><i
+                            class="fa fa-sliders" aria-hidden="true"></i> Ajustes</a>
+                    <a class="dropdown-item" routerLink="/cancelarReceta" routerLinkActive="active"><i
+                            class="fa fa-sliders" aria-hidden="true"></i> Cancelar Receta</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown float-left">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user" aria-hidden="true"></i> {{usuario.user_name}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" *ngIf="usuario.nivel_id == 1" routerLink="/listarUsuario">
+                        <i class="fa fa-users" aria-hidden="true"></i> Administrar Usuarios</a>
+
+                    <div class="dropdown-divider" *ngIf="usuario.nivel_id == 1"></div>
+                    <a class="dropdown-item" *ngIf="!_authService.loggedIn()" routerLink="/login"
+                        routerLinkActive="active">Login</a>
+                    <a class="dropdown-item" style="cursor: pointer" *ngIf="_authService.loggedIn()"
+                        (click)="_authService.logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar
+                        sesión</a>
+                </div>
+            </li>
+        </ul>
+        <ul *ngIf="nivel === 3" class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">Reportes</a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" routerLink="/informeStock"><i class="fa fa-bar-chart"
+                            aria-hidden="true"></i>Stock de medicamentos</a>
+
+                    <a class="dropdown-item" routerLink="/informeStockLote"><i class="fa fa-database"
+                            aria-hidden="true"></i>Stock de medicamentos por Lote</a>
+
+                    <a class="dropdown-item" routerLink="/informeStockFecha"> <i class="fa fa-line-chart"
+                            aria-hidden="true"></i>
+                        Stock por Fecha</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown float-left">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user" aria-hidden="true"></i> {{usuario.user_name}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" *ngIf="usuario.nivel_id == 1" routerLink="/listarUsuario">
+                        <i class="fa fa-users" aria-hidden="true"></i> Administrar Usuarios</a>
+
+                    <div class="dropdown-divider" *ngIf="usuario.nivel_id == 1"></div>
+                    <a class="dropdown-item" *ngIf="!_authService.loggedIn()" routerLink="/login"
+                        routerLinkActive="active">Login</a>
+                    <a class="dropdown-item" style="cursor: pointer" *ngIf="_authService.loggedIn()"
+                        (click)="_authService.logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar
+                        sesión</a>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</nav>
