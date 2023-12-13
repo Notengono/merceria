@@ -6,17 +6,23 @@ import { AppComponent } from './app.component';
 import { GruposComponent } from './components/grupos/grupos.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SubGruposComponent } from './components/sub-grupos/sub-grupos.component';
+import { ProductosComponent } from './components/productos/productos.component';
+import { NuevoProductoComponent } from './components/nuevo-producto/nuevo-producto.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     GruposComponent,
     NavbarComponent,
-    SubGruposComponent
+    SubGruposComponent,
+    ProductosComponent,
+    NuevoProductoComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

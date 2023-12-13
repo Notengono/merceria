@@ -1,0 +1,118 @@
+<div class="container">
+    <br />
+
+    <div class="row">
+        <div class="col-4">
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="inputGroupSelect01">Categoría</label>
+                <select class="form-select" id="inputGroupSelect01">
+                    <option selected>Seleccionar...</option>
+                    <option *ngFor="let categoria of listadoCategoria" value="categoria.idgrupo">
+                        {{categoria.descripcion}}</option>
+                    <!-- <option value="1">ABROJOS</option> -->
+                    <!-- <option value="2">ANILINAS Y QUITAMANCHAS</option>
+                    <option value="3">AGUJAS Y ALFILERES</option>
+                    <option value="3">APLIQUES</option>
+                    <option value="3">BIES</option> -->
+                </select>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="inputGroupSelect01">Sub-Categoría</label>
+                <select class="form-select" id="inputGroupSelect01">
+                    <option selected>Choose...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-1">
+            <button type="button" class="btn btn-outline-light">Buscar</button>
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-4 offset-7">
+            <div class="input-group">
+                <span class="input-group-text">filtro</span>
+                <input type="text" aria-label="First name" class="form-control">
+            </div>
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-10 offset-1">
+            <div class="card">
+                <div class="card-header">
+                    Listado de Productos
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">#</th>
+                                <th scope="col">Código</th>
+                                <th scope="col">Categoría</th>
+                                <th scope="col">Sub-Categoría</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="text-center">1</th>
+                                <td>5140.50.25</td>
+                                <td>ABROJOS</td>
+                                <td>PARA COSER</td>
+                                <td>CINTA ABROJO 50MM X 25MTS</td>
+                                <td>
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    &nbsp;
+                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row" class="text-center">2</th>
+                                <td>2290</td>
+                                <td>ABROJOS</td>
+                                <td>PARA COSER</td>
+                                <td>SET MARCA VELCRO</td>
+                                <td>
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    &nbsp;
+                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row" class="text-center">3</th>
+                                <td>5140.20</td>
+                                <td>ABROJOS</td>
+                                <td>PARA COSER</td>
+                                <td>CINTA ABROJO 20MM X 10MTS</td>
+                                <td>
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    &nbsp;
+                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
