@@ -1,39 +1,36 @@
 <div class="container">
     <br />
+    <form [formGroup]="busquedaForm">
+        <div class="row">
+            <div class="col-4">
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupCategoria">Categoría</label>
+                    <select class="form-select" id="inputGroupCategoria" formControlName="inputGroupCategoria"
+                        (change)="onClikCategoria($event.target)">
+                        <option selected>Seleccionar...</option>
+                        <option *ngFor="let categoria of listadoCategoria" value="{{categoria.idgrupo}}">
+                            {{categoria.descripcion}}</option>
+                    </select>
+                </div>
+            </div>
 
-    <div class="row">
-        <div class="col-4">
-            <div class="input-group mb-3">
-                <label class="input-group-text" for="inputGroupSelect01">Categoría</label>
-                <select class="form-select" id="inputGroupSelect01">
-                    <option selected>Seleccionar...</option>
-                    <option *ngFor="let categoria of listadoCategoria" value="categoria.idgrupo">
-                        {{categoria.descripcion}}</option>
-                    <!-- <option value="1">ABROJOS</option> -->
-                    <!-- <option value="2">ANILINAS Y QUITAMANCHAS</option>
-                    <option value="3">AGUJAS Y ALFILERES</option>
-                    <option value="3">APLIQUES</option>
-                    <option value="3">BIES</option> -->
-                </select>
+            <div class="col-4">
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSubCategoria">Sub-Categoría</label>
+                    <select class="form-select" id="inputGroupSubCategoria" formControlName="inputGroupSubCategoria">
+                        <option selected>Choose...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-1">
+                <button type="button" class="btn btn-outline-light">Buscar</button>
             </div>
         </div>
-
-        <div class="col-4">
-            <div class="input-group mb-3">
-                <label class="input-group-text" for="inputGroupSelect01">Sub-Categoría</label>
-                <select class="form-select" id="inputGroupSelect01">
-                    <option selected>Choose...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="col-1">
-            <button type="button" class="btn btn-outline-light">Buscar</button>
-        </div>
-    </div>
+    </form>
     <br />
 
     <div class="row">

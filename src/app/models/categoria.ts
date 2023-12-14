@@ -1,5 +1,5 @@
 export interface Categoria {
-    id: number,
+    idgrupo: number,
     descripcion: string,
     created: string
 }

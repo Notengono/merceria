@@ -26,6 +26,29 @@ $app->get('/categorias', function ($request, $response) {
     return $this->response->withJson($resultado);
 });
 
+$app->get('/subcategorias/{valor}', function ($request, $response, $args) {
+    $valor = $args['valor'];
+    $sth = $this->db->prepare("SELECT * FROM `subgrupos` WHERE idgrupo = :grupo ORDER BY descripcion;");
+    $sth->bindParam('grupo', $valor);
+    
+    $sth->execute();
+    $resultado = $sth->fetchAll();
+    
+    var_dump($resultado);
+
+    if (count($resultado) == 0) {
+        $input['resultado'] = false;
+        $input['estado'] = 404;
+        $input['error'] = 'No se encontraron resultados.';
+    } else {
+        $input['resultado'] = $resultado;
+        $input['estado'] = 200;
+        $input['error'] = 'Se encontraron ' + count($resultado) + ' resultados.';
+    }
+
+    return $this->response->withJson($input, $input['estado']);
+});
+
 // $app->put('/medicos/habilitarMedico', function ($request, $response) {
 //     $input = $request->getParsedBody();
 //     $sth = $this->db->prepare("UPDATE medicos SET vigente = :habilitado
