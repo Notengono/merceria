@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Categoria } from 'src/app/models/categoria';
+import { Categoria } from 'src/app/model/categoria';
+import { ProductosI } from 'src/app/model/productos-i';
+import { SubCategoriaI } from 'src/app/model/sub-categoria-i';
 import { CategoriasService } from 'src/app/services/categorias.service';
+import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
   selector: 'app-productos',
@@ -11,30 +14,42 @@ import { CategoriasService } from 'src/app/services/categorias.service';
 export class ProductosComponent implements OnInit {
 
   busquedaForm = this.fb.group({
-    inputGroupCategoria: '',
-    inputGroupSubCategoria: ''
+    inputGroupCategoria: 0,
+    inputGroupSubCategoria: 0
   })
 
   constructor(
     private _categorias: CategoriasService,
+    private _productos: ProductosService,
     private fb: FormBuilder
   ) { }
 
   listadoCategoria: Categoria[] = []
-  listadoSubCategoria: Categoria[] = []
+  listadoSubCategoria: SubCategoriaI[] = []
+  listadoProductos: any[] = []
 
   ngOnInit(): void {
     this._categorias.getCategorias().subscribe(respuesta => {
       this.listadoCategoria = Object.values(respuesta)
-      console.log(this.listadoCategoria)
     });
   }
 
   onClikCategoria(event: any) {
+    this.listadoSubCategoria = []
+    this.busquedaForm.patchValue({ inputGroupSubCategoria: 0 });
+
     this._categorias.getSubCategorias(event.value).subscribe(respuesta => {
-      this.listadoSubCategoria = Object.values(respuesta)
-      console.log(this.listadoCategoria)
+      this.listadoSubCategoria = Object.values(respuesta['resultado'])
     });
+  }
+
+  onClikBuscarProductos() {
+    this._productos.postProductos(this.busquedaForm.value).subscribe(respuesta => {
+      this.listadoProductos = Object.values(respuesta['resultado'])
+      console.log(respuesta.descripcion)
+      console.log(this.listadoProductos)
+    })
+    console.log(this.busquedaForm.value)
   }
 
 }

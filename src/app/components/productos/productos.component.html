@@ -1,13 +1,15 @@
 <div class="container">
     <br />
+    <h2 class="text-light p-3">Productos</h2>
+    <br />
     <form [formGroup]="busquedaForm">
-        <div class="row">
+        <div class="row shadow">
             <div class="col-4">
                 <div class="input-group mb-3">
                     <label class="input-group-text" for="inputGroupCategoria">Categoría</label>
                     <select class="form-select" id="inputGroupCategoria" formControlName="inputGroupCategoria"
                         (change)="onClikCategoria($event.target)">
-                        <option selected>Seleccionar...</option>
+                        <option value="0">Seleccionar...</option>
                         <option *ngFor="let categoria of listadoCategoria" value="{{categoria.idgrupo}}">
                             {{categoria.descripcion}}</option>
                     </select>
@@ -18,16 +20,15 @@
                 <div class="input-group mb-3">
                     <label class="input-group-text" for="inputGroupSubCategoria">Sub-Categoría</label>
                     <select class="form-select" id="inputGroupSubCategoria" formControlName="inputGroupSubCategoria">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option value="0">Seleccionar...</option>
+                        <option *ngFor="let subCategoria of listadoSubCategoria" value="{{subCategoria.idsubgrupo}}">
+                            {{subCategoria.descripcion}}</option>
                     </select>
                 </div>
             </div>
 
             <div class="col-1">
-                <button type="button" class="btn btn-outline-light">Buscar</button>
+                <button type="button" class="btn btn-outline-light" (click)="onClikBuscarProductos()">Buscar</button>
             </div>
         </div>
     </form>
@@ -45,7 +46,7 @@
 
     <div class="row">
         <div class="col-10 offset-1">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                     Listado de Productos
                 </div>
@@ -58,58 +59,31 @@
                                 <th scope="col">Categoría</th>
                                 <th scope="col">Sub-Categoría</th>
                                 <th scope="col">Descripción</th>
+                                <th scope="col">Precio</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let producto of listadoProductos">
                                 <th scope="row" class="text-center">1</th>
-                                <td>5140.50.25</td>
-                                <td>ABROJOS</td>
-                                <td>PARA COSER</td>
-                                <td>CINTA ABROJO 50MM X 25MTS</td>
+                                <td>{{producto.codigo}}</td>
+                                <td>{{producto.grupo}}</td>
+                                <td>{{producto.subgrupo}}</td>
+                                <td>{{producto.producto}}</td>
+                                <td>{{producto.idprecio}}$9.565,56</td>
                                 <td>
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    <i class="fa fa-pencil" aria-hidden="true" title="Edición" data-toggle="tooltip"></i>
                                     &nbsp;
-                                    <i class="fa fa-ban" aria-hidden="true"></i>
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                    <i class="fa fa-ban" aria-hidden="true" title="Bloquear" data-toggle="tooltip"></i>
+                                    <i class="fa fa-plus" aria-hidden="true" title="Habilitar" data-toggle="tooltip"></i>
+                                    &nbsp;
+                                    <i class="fa fa-history" aria-hidden="true" title="Historial" data-toggle="tooltip"></i>
                                 </td>
                             </tr>
-
-                            <tr>
-                                <th scope="row" class="text-center">2</th>
-                                <td>2290</td>
-                                <td>ABROJOS</td>
-                                <td>PARA COSER</td>
-                                <td>SET MARCA VELCRO</td>
-                                <td>
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    &nbsp;
-                                    <i class="fa fa-ban" aria-hidden="true"></i>
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row" class="text-center">3</th>
-                                <td>5140.20</td>
-                                <td>ABROJOS</td>
-                                <td>PARA COSER</td>
-                                <td>CINTA ABROJO 20MM X 10MTS</td>
-                                <td>
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    &nbsp;
-                                    <i class="fa fa-ban" aria-hidden="true"></i>
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </td>
-                            </tr>
-
                         </tbody>
                     </table>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>

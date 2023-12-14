@@ -1,8 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from '@angular/core';
-import { tap } from "rxjs";
 import { environment } from 'src/environments/environment';
-import { Categoria } from "../models/categoria";
+import { Categoria } from "../model/categoria";
 
 const apiURL = environment.apiURL;
 
@@ -24,7 +23,7 @@ export class CategoriasService {
   getSubCategorias(valor: number) {
     const header = new HttpHeaders();
     header.append("Content-Type", "applications/json");
-    return this._http.get<Categoria>(
+    return this._http.get<any>(
       `${apiURL}subcategorias/${valor}`, { headers: header });
   }
 }
