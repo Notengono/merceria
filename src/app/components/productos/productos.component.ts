@@ -23,7 +23,8 @@ export class ProductosComponent implements OnInit {
     private _productos: ProductosService,
     private fb: FormBuilder
   ) { }
-
+  
+  filtro: string = ""
   listadoCategoria: Categoria[] = []
   listadoSubCategoria: SubCategoriaI[] = []
   listadoProductos: any[] = []

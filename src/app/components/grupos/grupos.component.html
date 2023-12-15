@@ -1,41 +1,49 @@
 <div class="container">
     <br />
+    <h2 class="text-light p-3">Categorías</h2>
+    <br />
     <div class="card">
         <div class="card-header">
-            Categorías
+            Nueva Categoría
         </div>
         <div class="card-body">
             <h6 class="card-subtitle mb-2 text-body-secondary">Nueva Categoría</h6>
-            <div class="row">
-                <div class="col-3">
-                    <div class="mb-3">
-                        <div class="input-group">
-                            <span class="input-group-text" id="basic-addon3">Código</span>
-                            <input type="text" class="form-control" id="basic-url"
-                                aria-describedby="basic-addon3 basic-addon4">
+            <form [formGroup]="altaForm">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon3">Código</span>
+                                <input type="number" class="form-control" id="basic-url"
+                                    aria-describedby="basic-addon3 basic-addon4" formControlName="inputGroupCategoria">
+                            </div>
+                            <div class="form-text" id="basic-addon4">Ejemplo: 56974.</div>
                         </div>
-                        <div class="form-text" id="basic-addon4">Ejemplo: 56974.</div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="mb-3">
-                        <div class="input-group">
-                            <span class="input-group-text" id="basic-addon3">Descripción</span>
-                            <input type="text" class="form-control" id="basic-url"
-                                aria-describedby="basic-addon3 basic-addon4">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon3">Descripción</span>
+                                <input type="text" class="form-control" id="basic-url"
+                                    aria-describedby="basic-addon3 basic-addon4" formControlName="descripcionCategoria">
+                            </div>
+                            <div class="form-text" id="basic-addon4">Ejemplo: Hilo, Lana.</div>
                         </div>
-                        <div class="form-text" id="basic-addon4">Ejemplo: Hilo, Lana.</div>
                     </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div id="liveAlertPlaceholder"></div>
+                </div>
+            </form>
         </div>
+
         <div class="card-footer text-end">
-            <a href="#" class="btn btn-primary">Almacenar Categoría</a>
+            <button type="button" class="btn btn-primary" (click)="almacenarCategoria()">Almacenar Categoría</button>
             &nbsp;
-            <a href="#" class="btn btn-danger">Limpiar Categoría</a>
+            <button type="button" class="btn btn-danger" (click)="limpiarCategoria()">Limpiar Categoría</button>
         </div>
     </div>
     <br />
@@ -56,28 +64,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row" class="text-center">1</th>
-                                <td>59637</td>
-                                <td>Hilo</td>
-
+                            <tr *ngFor="let categoria of listadoCategoria; let i = index;">
+                                <th scope="row" class="text-center">{{i}}</th>
+                                <td class="text-end">{{categoria.idgrupo}}</td>
+                                <td>{{categoria.descripcion}}</td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="text-center">2</th>
-                                <td>56875</td>
-                                <td>Lana</td>
-
-                            </tr>
-                            <tr>
-                                <th scope="row" class="text-center">3</th>
-                                <td>56879</td>
-                                <td>CINTA MAGDALA 60MM X10M</td>
-                            </tr>
-                            <!-- <tr>
-                                <th scope="row" class="text-center">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td colspan="2">Larry the Bird</td>
-                            </tr> -->
                         </tbody>
                     </table>
                 </div>

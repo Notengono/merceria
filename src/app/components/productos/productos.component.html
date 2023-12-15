@@ -38,14 +38,14 @@
         <div class="col-4 offset-7">
             <div class="input-group">
                 <span class="input-group-text">filtro</span>
-                <input type="text" aria-label="First name" class="form-control">
+                <input type="text" aria-label="Filtro" class="form-control" [(ngModel)]="filtro">
             </div>
         </div>
     </div>
     <br />
 
     <div class="row">
-        <div class="col-10 offset-1">
+        <div class="col-12 col-lg-10 offset-lg-1">
             <div class="card shadow">
                 <div class="card-header">
                     Listado de Productos
@@ -64,7 +64,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let producto of listadoProductos">
+                            <tr *ngFor="let producto of listadoProductos | filtro:filtro">
                                 <th scope="row" class="text-center">1</th>
                                 <td>{{producto.codigo}}</td>
                                 <td>{{producto.grupo}}</td>
@@ -72,12 +72,15 @@
                                 <td>{{producto.producto}}</td>
                                 <td>{{producto.idprecio}}$9.565,56</td>
                                 <td>
-                                    <i class="fa fa-pencil" aria-hidden="true" title="Edición" data-toggle="tooltip"></i>
+                                    <i class="fa fa-pencil" aria-hidden="true" title="Edición"
+                                        data-toggle="tooltip"></i>
                                     &nbsp;
                                     <i class="fa fa-ban" aria-hidden="true" title="Bloquear" data-toggle="tooltip"></i>
-                                    <i class="fa fa-plus" aria-hidden="true" title="Habilitar" data-toggle="tooltip"></i>
+                                    <i class="fa fa-plus" aria-hidden="true" title="Habilitar"
+                                        data-toggle="tooltip"></i>
                                     &nbsp;
-                                    <i class="fa fa-history" aria-hidden="true" title="Historial" data-toggle="tooltip"></i>
+                                    <i class="fa fa-history" aria-hidden="true" title="Historial"
+                                        data-toggle="tooltip"></i>
                                 </td>
                             </tr>
                         </tbody>

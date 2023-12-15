@@ -4,17 +4,17 @@
         <div class="card-header">
             Sub-Categorías
         </div>
-        <div class="card-body">
+        <div class="card-body" [formGroup]="altaForm">
             <h6 class="card-subtitle mb-2 text-body-secondary">Nueva Sub-Categoría</h6>
             <div class="row">
                 <div class="col-6">
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="inputGroupSelect01">Categoría</label>
-                        <select class="form-select" id="inputGroupSelect01">
-                            <option selected>Seleccionar Categoría</option>
-                            <option value="1">Hilo</option>
-                            <option value="2">Lana</option>
-                            <option value="3">Accesorios de tejido</option>
+                        <label class="input-group-text" for="inputGroupCategoria">Categoría</label>
+                        <select class="form-select" id="inputGroupCategoria" formControlName="inputGroupCategoria"
+                            (change)="onClikCategoria($event.target)">
+                            <option value="0">Seleccionar...</option>
+                            <option *ngFor="let categoria of listadoCategoria; let i = index;"
+                                value="{{categoria.idgrupo}}">{{categoria.descripcion}}</option>
                         </select>
                     </div>
                 </div>
@@ -24,9 +24,10 @@
                 <div class="col-3">
                     <div class="mb-3">
                         <div class="input-group">
-                            <span class="input-group-text" id="basic-addon3">Código</span>
-                            <input type="text" class="form-control" id="basic-url"
-                                aria-describedby="basic-addon3 basic-addon4">
+                            <span class="input-group-text" id="inputGroupSubCategoria1">Código</span>
+                            <input type="number" class="form-control" id="inputGroupSubCategoria"
+                                formControlName="inputGroupSubCategoria"
+                                aria-describedby="inputGroupSubCategoria1 basic-addon4">
                         </div>
                         <div class="form-text" id="basic-addon4">Ejemplo: 56974.</div>
                     </div>
@@ -37,19 +38,30 @@
                 <div class="col-12">
                     <div class="mb-3">
                         <div class="input-group">
-                            <span class="input-group-text" id="basic-addon3">Descripción</span>
-                            <input type="text" class="form-control" id="basic-url"
-                                aria-describedby="basic-addon3 basic-addon4">
+                            <span class="input-group-text" id="descripcionSubCategoria3">Descripción</span>
+                            <input type="text" class="form-control" id="descripcionSubCategoria"
+                                formControlName="descripcionSubCategoria"
+                                aria-describedby="descripcionSubCategoria3 basic-addon4">
                         </div>
                         <div class="form-text" id="basic-addon4">Ejemplo: Hilo, Lana.</div>
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div id="liveAlertPlaceholder"></div>
+            </div>
         </div>
         <div class="card-footer text-end">
-            <a href="#" class="btn btn-primary">Almacenar Sub-Categoría</a>
-            &nbsp;
-            <a href="#" class="btn btn-danger">Limpiar Sub-Categoría</a>
+            <div class="card-footer text-end">
+                <button type="button" class="btn btn-primary" (click)="almacenarSubCategoria()">
+                    Almacenar Sub-Categoría
+                </button>
+                &nbsp;
+                <button type="button" class="btn btn-danger" (click)="limpiarSubCategoria()">
+                    Limpiar Sub-Categoría
+                </button>
+            </div>
         </div>
     </div>
     <br />

@@ -6,16 +6,43 @@ $app->post(
     '/productos',
     function ($request, $response, $args) {
         $input = $request->getParsedBody();
-        // $sth = $this->db->prepare("SELECT * From productos WHERE idgrupo = :idgrupo AND idsubgrupo =  :idsubgrupo");
-        $sth = $this->db->prepare("SELECT p.idproducto, p.codigo, p.idgrupo, p.idsubgrupo, idproductometa, idprecio, pm.descripcion AS producto,
-                    sg.descripcion AS subgrupo, g.descripcion AS grupo
-                    FROM `productos` p
-                    LEFT JOIN `productos_meta` pm on p.idproductometa = pm.id
-                    LEFT JOIN `subgrupos` sg on p.idsubgrupo = sg.idsubgrupo
-                    LEFT JOIN `grupos` g on p.idgrupo = g.idgrupo WHERE p.idgrupo = :idgrupo AND p.idsubgrupo =  :idsubgrupo 
-                    ORDER BY pm.descripcion");
-        $sth->bindParam("idgrupo", $input['inputGroupCategoria']);
-        $sth->bindParam("idsubgrupo", $input['inputGroupSubCategoria']);
+        if (
+            $input['inputGroupCategoria'] != 0 &&
+            $input['inputGroupSubCategoria'] != 0
+        ) {
+            $sth = $this->db->prepare("SELECT p.idproducto, p.codigo, p.idgrupo, p.idsubgrupo, idproductometa, idprecio, pm.descripcion AS producto,
+                        sg.descripcion AS subgrupo, g.descripcion AS grupo
+                        FROM `productos` p
+                        LEFT JOIN `productos_meta` pm on p.idproductometa = pm.id
+                        LEFT JOIN `subgrupos` sg on p.idsubgrupo = sg.idsubgrupo
+                        LEFT JOIN `grupos` g on p.idgrupo = g.idgrupo WHERE p.idgrupo = :idgrupo AND p.idsubgrupo =  :idsubgrupo 
+                        ORDER BY pm.descripcion");
+            $sth->bindParam("idgrupo", $input['inputGroupCategoria']);
+            $sth->bindParam("idsubgrupo", $input['inputGroupSubCategoria']);
+        } elseif (
+            $input['inputGroupCategoria'] != 0 &&
+            $input['inputGroupSubCategoria'] == 0
+        ) {
+            $sth = $this->db->prepare("SELECT p.idproducto, p.codigo, p.idgrupo, p.idsubgrupo, idproductometa, idprecio, pm.descripcion AS producto,
+                        sg.descripcion AS subgrupo, g.descripcion AS grupo
+                        FROM `productos` p
+                        LEFT JOIN `productos_meta` pm on p.idproductometa = pm.id
+                        LEFT JOIN `subgrupos` sg on p.idsubgrupo = sg.idsubgrupo
+                        LEFT JOIN `grupos` g on p.idgrupo = g.idgrupo WHERE p.idgrupo = :idgrupo
+                        ORDER BY pm.descripcion");
+            $sth->bindParam("idgrupo", $input['inputGroupCategoria']);
+        } elseif (
+            $input['inputGroupCategoria'] == 0 &&
+            $input['inputGroupSubCategoria'] == 0
+        ) {
+            $sth = $this->db->prepare("SELECT p.idproducto, p.codigo, p.idgrupo, p.idsubgrupo, idproductometa, idprecio, pm.descripcion AS producto,
+                        sg.descripcion AS subgrupo, g.descripcion AS grupo
+                        FROM `productos` p
+                        LEFT JOIN `productos_meta` pm on p.idproductometa = pm.id
+                        LEFT JOIN `subgrupos` sg on p.idsubgrupo = sg.idsubgrupo
+                        LEFT JOIN `grupos` g on p.idgrupo = g.idgrupo ORDER BY pm.descripcion");
+        };
+
         $sth->execute();
         $resultado = $sth->fetchAll();
 

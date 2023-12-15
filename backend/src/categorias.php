@@ -2,21 +2,28 @@
 
 // grabar una categoria
 $app->post('/categoria', function ($request, $response) {
-    $input = $request->getParsedBody();
-    $sql = "INSERT INTO grupos (idgrupo, descripcion) VALUES (null, :descripcion)";
-    $sth = $this->db->prepare($sql);
-    $sth->bindParam("descripcion", $input['descripcion']);
+    try {
+        $input = $request->getParsedBody();
+        $sql = "INSERT INTO grupos (idgrupo, descripcion) VALUES (:inputGroupCategoria, :descripcionCategoria)";
+        $sth = $this->db->prepare($sql);
+        $sth->bindParam("inputGroupCategoria", $input['inputGroupCategoria']);
+        $sth->bindParam("descripcionCategoria", $input['descripcionCategoria']);
 
-    if (!$sth->execute()) {
+        if (!$sth->execute()) {
+            $input['estado'] = 402;
+            $input['error'] = 'Error al grabar el registro.';
+            return $this->response->withJson($input);
+        } else {
+            $input['id'] = $this->db->lastInsertId();
+            $input['estado'] = 200;
+            $input['error'] = 'El registro se almacenó correctamente.';
+        }
+        return $this->response->withJson($input);
+    } catch (\Throwable $th) {
         $input['estado'] = 402;
         $input['error'] = 'Error al grabar el registro.';
         return $this->response->withJson($input);
-    } else {
-        $input['id'] = $this->db->lastInsertId();
-        $input['estado'] = 200;
-        $input['error'] = 'El registro se almacenó correctamente.';
     }
-    return $this->response->withJson($input);
 });
 
 $app->get('/categorias', function ($request, $response) {
@@ -44,6 +51,33 @@ $app->get('/subcategorias/{valor}', function ($request, $response, $args) {
     }
 
     return $this->response->withJson($input, $input['estado']);
+});
+
+
+$app->post('/subcategoria', function ($request, $response) {
+    try {
+        $input = $request->getParsedBody();
+        $sql = "INSERT INTO subgrupos (idsubgrupo, idgrupo, descripcion) VALUES (:inputGroupSubCategoria, :inputGroupCategoria, :descripcionSubCategoria)";
+        $sth = $this->db->prepare($sql);
+        $sth->bindParam("inputGroupCategoria", $input['inputGroupCategoria']);
+        $sth->bindParam("inputGroupSubCategoria", $input['inputGroupSubCategoria']);
+        $sth->bindParam("descripcionSubCategoria", $input['descripcionSubCategoria']);
+
+        if (!$sth->execute()) {
+            $input['estado'] = 402;
+            $input['error'] = 'Error al grabar el registro.';
+            return $this->response->withJson($input);
+        } else {
+            $input['id'] = $this->db->lastInsertId();
+            $input['estado'] = 200;
+            $input['error'] = 'El registro se almacenó correctamente.';
+        }
+        return $this->response->withJson($input);
+    } catch (\Throwable $th) {
+        $input['estado'] = 402;
+        $input['error'] = 'Error al grabar el registro.';
+        return $this->response->withJson($input);
+    }
 });
 
 // $app->put('/medicos/habilitarMedico', function ($request, $response) {
