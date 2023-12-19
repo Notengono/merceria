@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Categoria } from 'src/app/model/categoria';
+import { SubCategoriaI } from 'src/app/model/sub-categoria-i';
 import { CategoriasService } from 'src/app/services/categorias.service';
 
 @Component({
@@ -12,11 +13,15 @@ export class SubGruposComponent implements OnInit {
 
   altaForm = this.fb.group({
     inputGroupCategoria: 0,
-    inputGroupSubCategoria: '',
+    inputGroupSubCategoria: 0,
     descripcionSubCategoria: ''
   })
+  cantidad: number = 0
 
   listadoCategoria: Categoria[] = [];
+  listadoSubCategoria: SubCategoriaI[] = []
+  categoriaElegida: string = ''
+
   constructor(private fb: FormBuilder,
     private _categoria: CategoriasService) { }
 
@@ -38,6 +43,7 @@ export class SubGruposComponent implements OnInit {
       this.appendAlert(resultado.error, (resultado.estado == 200 ? 'success' : 'danger'))
     })
   }
+
   appendAlert(mensaje: string, estado: any) {
     const wrapper = document.createElement('div')
     wrapper.innerHTML = [
@@ -52,9 +58,9 @@ export class SubGruposComponent implements OnInit {
 
   // filtro: string = ""
   // listadoCategoria: Categoria[] = []
-  // listadoSubCategoria: SubCategoriaI[] = []
+
   // listadoProductos: any[] = []
-  
+
   /**
    * 
    * Buscar las sub categorias de la principal categoria
@@ -62,11 +68,17 @@ export class SubGruposComponent implements OnInit {
    */
 
   onClikCategoria(event: any) {
-    // this.listadoSubCategoria = []
-    // this.busquedaForm.patchValue({ inputGroupSubCategoria: 0 });
+    this.listadoSubCategoria = []
+    // console.log(event.value)
+    // console.log(event.text)
+    // console.log(event.textContent)
+    this.categoriaElegida = event[event.selectedIndex].innerText
 
-    // this._categorias.getSubCategorias(event.value).subscribe(respuesta => {
-    //   this.listadoSubCategoria = Object.values(respuesta['resultado'])
-    // });
+
+    this.altaForm.patchValue({ inputGroupCategoria: event.value });
+
+    this._categoria.getSubCategorias(event.value).subscribe(respuesta => {
+      this.listadoSubCategoria = Object.values(respuesta['resultado'])
+    });
   }
 }

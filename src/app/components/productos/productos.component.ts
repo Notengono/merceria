@@ -23,7 +23,7 @@ export class ProductosComponent implements OnInit {
     private _productos: ProductosService,
     private fb: FormBuilder
   ) { }
-  
+
   filtro: string = ""
   listadoCategoria: Categoria[] = []
   listadoSubCategoria: SubCategoriaI[] = []
@@ -45,12 +45,9 @@ export class ProductosComponent implements OnInit {
   }
 
   onClikBuscarProductos() {
+    this.listadoProductos = []
     this._productos.postProductos(this.busquedaForm.value).subscribe(respuesta => {
       this.listadoProductos = Object.values(respuesta['resultado'])
-      console.log(respuesta.descripcion)
-      console.log(this.listadoProductos)
     })
-    console.log(this.busquedaForm.value)
   }
-
 }

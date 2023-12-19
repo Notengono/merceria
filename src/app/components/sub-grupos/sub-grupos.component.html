@@ -1,5 +1,7 @@
 <div class="container">
     <br />
+    <h2 class="text-light p-3">Sub-Categorías</h2>
+    <br />
     <div class="card">
         <div class="card-header">
             Sub-Categorías
@@ -53,15 +55,13 @@
             </div>
         </div>
         <div class="card-footer text-end">
-            <div class="card-footer text-end">
-                <button type="button" class="btn btn-primary" (click)="almacenarSubCategoria()">
-                    Almacenar Sub-Categoría
-                </button>
-                &nbsp;
-                <button type="button" class="btn btn-danger" (click)="limpiarSubCategoria()">
-                    Limpiar Sub-Categoría
-                </button>
-            </div>
+            <button type="button" class="btn btn-primary" (click)="almacenarSubCategoria()">
+                Almacenar Sub-Categoría
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-danger" (click)="limpiarSubCategoria()">
+                Limpiar Sub-Categoría
+            </button>
         </div>
     </div>
     <br />
@@ -72,7 +72,7 @@
                 <div class="card-header">
                     Listado de Categorías
                 </div>
-                <div class="card-body">
+                <div class="card-body" *ngIf="listadoSubCategoria.length > 0">
                     <table class="table table-striped">
                         <thead>
                             <tr class="text-center">
@@ -84,11 +84,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let sub of listadoSubCategoria">
                                 <th scope="row" class="text-center">1</th>
-                                <td>Hilo</td>
-                                <td>59637</td>
-                                <td>Hilo</td>
+                                <td>{{sub.idsubgrupo}}</td>
+                                <td>{{categoriaElegida}}</td>
+                                <td>{{sub.descripcion}}</td>
                                 <td>
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                     &nbsp;
@@ -96,41 +96,14 @@
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                 </td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="text-center">2</th>
-                                <td>Lana</td>
-                                <td>56875</td>
-                                <td>Lana</td>
-                                <td>
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    &nbsp;
-                                    <i class="fa fa-ban" aria-hidden="true"></i>
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="text-center">3</th>
-                                <td>Accesorios de tejido</td>
-                                <td>56876</td>
-                                <td>CINTA MAGDALA 60MM X10M</td>
-                                <td>
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    &nbsp;
-                                    <i class="fa fa-ban" aria-hidden="true"></i>
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </td>
-                            </tr>
-                            <!-- <tr>
-                                <th scope="row" class="text-center">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td colspan="2">Larry the Bird</td>
-                            </tr> -->
                         </tbody>
                     </table>
                 </div>
+
+                <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="listadoSubCategoria.length == 0">
+                    <div>No se han encotrado Sub-Categorías para la Categoría seleccionada</div>
+                </div>
             </div>
-
-
         </div>
     </div>
 </div>

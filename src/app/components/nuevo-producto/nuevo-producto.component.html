@@ -1,24 +1,45 @@
 <div class="container">
     <br />
+    <h2 class="text-light p-3">Nuevo Producto</h2>
+    <br />
     <div class="card">
         <div class="card-header">
             Productos
         </div>
         <div class="card-body">
             <h6 class="card-subtitle mb-2 text-body-secondary">Nuevo Producto</h6>
-            <div class="row">
-                <div class="col-6">
-                    <div class="input-group mb-3">
-                        <label class="input-group-text" for="inputGroupSelect01">Categoría</label>
-                        <select class="form-select" id="inputGroupSelect01">
-                            <option selected>Seleccionar Categoría</option>
-                            <option value="1">Hilo</option>
-                            <option value="2">Lana</option>
-                            <option value="3">Accesorios de tejido</option>
-                        </select>
+
+            <form [formGroup]="busquedaForm">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupCategoria">Categoría</label>
+                            <select class="form-select" id="inputGroupCategoria" formControlName="inputGroupCategoria"
+                                (change)="onClikCategoria($event.target)">
+                                <option value="0">Seleccionar...</option>
+                                <option *ngFor="let categoria of listadoCategoria" value="{{categoria.idgrupo}}">
+                                    {{categoria.descripcion}}</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
+                
+                <div class="row">
+                    <div class="col-6">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSubCategoria">Sub-Categoría</label>
+                            <select class="form-select" id="inputGroupSubCategoria"
+                                formControlName="inputGroupSubCategoria">
+                                <option value="0">Seleccionar...</option>
+                                <option *ngFor="let subCategoria of listadoSubCategoria"
+                                    value="{{subCategoria.idsubgrupo}}">
+                                    {{subCategoria.descripcion}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
 
             <div class="row">
                 <div class="col-3">
