@@ -4,7 +4,7 @@ import { Categoria } from 'src/app/model/categoria';
 import { SubCategoriaI } from 'src/app/model/sub-categoria-i';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { ProductosService } from 'src/app/services/productos.service';
-
+import { ProductoDetalleI } from 'src/app/model/producto-detalle';
 @Component({
   selector: 'app-nuevo-producto',
   templateUrl: './nuevo-producto.component.html',
@@ -12,9 +12,12 @@ import { ProductosService } from 'src/app/services/productos.service';
 })
 export class NuevoProductoComponent implements OnInit {
 
-  busquedaForm = this.fb.group({
+  altaForm = this.fb.group({
     inputGroupCategoria: 0,
-    inputGroupSubCategoria: 0
+    inputGroupSubCategoria: 0,
+    codigo: '',
+    descripcion: '',
+    precio: 0
   })
 
   constructor(
@@ -27,6 +30,14 @@ export class NuevoProductoComponent implements OnInit {
   listadoCategoria: Categoria[] = []
   listadoSubCategoria: SubCategoriaI[] = []
   listadoProductos: any[] = []
+  productoNuevo: ProductoDetalleI = {
+    idproducto: 0,
+    categoria: '',
+    subcategoria: '',
+    idproductometa: 0,
+    precio: '',
+    descripcion: ''
+  }
 
   ngOnInit(): void {
     this._categorias.getCategorias().subscribe(respuesta => {
@@ -36,7 +47,7 @@ export class NuevoProductoComponent implements OnInit {
 
   onClikCategoria(event: any) {
     this.listadoSubCategoria = []
-    this.busquedaForm.patchValue({ inputGroupSubCategoria: 0 });
+    this.altaForm.patchValue({ inputGroupSubCategoria: 0 });
 
     this._categorias.getSubCategorias(event.value).subscribe(respuesta => {
       this.listadoSubCategoria = Object.values(respuesta['resultado'])
@@ -45,8 +56,15 @@ export class NuevoProductoComponent implements OnInit {
 
   onClikBuscarProductos() {
     this.listadoProductos = []
-    this._productos.postProductos(this.busquedaForm.value).subscribe(respuesta => {
+    this._productos.postProductos(this.altaForm.value).subscribe(respuesta => {
       this.listadoProductos = Object.values(respuesta['resultado'])
     })
+  }
+
+  almacenarProducto(){
+    console.table(this.altaForm.value)
+  }
+  limpiarProducto(){
+    this.altaForm.reset()
   }
 }

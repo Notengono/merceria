@@ -9,7 +9,7 @@
         <div class="card-body">
             <h6 class="card-subtitle mb-2 text-body-secondary">Nuevo Producto</h6>
 
-            <form [formGroup]="busquedaForm">
+            <div [formGroup]="altaForm">
                 <div class="row">
                     <div class="col-6">
                         <div class="input-group mb-3">
@@ -23,13 +23,13 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-6">
                         <div class="input-group mb-3">
                             <label class="input-group-text" for="inputGroupSubCategoria">Sub-Categoría</label>
                             <select class="form-select" id="inputGroupSubCategoria"
-                                formControlName="inputGroupSubCategoria">
+                                formControlName="inputGroupSubCategoria" (change)="onClikBuscarProductos()">
                                 <option value="0">Seleccionar...</option>
                                 <option *ngFor="let subCategoria of listadoSubCategoria"
                                     value="{{subCategoria.idsubgrupo}}">
@@ -38,48 +38,61 @@
                         </div>
                     </div>
                 </div>
-            </form>
 
-
-            <div class="row">
-                <div class="col-3">
-                    <div class="mb-3">
-                        <div class="input-group">
-                            <span class="input-group-text" id="basic-addon3">Código</span>
-                            <input type="text" class="form-control" id="basic-url"
-                                aria-describedby="basic-addon3 basic-addon4">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text" id="codigo-addon3">Código</span>
+                                <input type="text" class="form-control" id="codigo-url" formControlName="codigo"
+                                    aria-describedby="codigo-addon3 codigo-addon4" autocomplete="off">
+                            </div>
+                            <div class="form-text" id="codigo-addon4">Ejemplo: 56974.</div>
                         </div>
-                        <div class="form-text" id="basic-addon4">Ejemplo: 56974.</div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="mb-3">
-                        <div class="input-group">
-                            <span class="input-group-text" id="basic-addon3">Descripción</span>
-                            <input type="text" class="form-control" id="basic-url"
-                                aria-describedby="basic-addon3 basic-addon4">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text" id="descripcion-addon3">Descripción</span>
+                                <input type="text" class="form-control" id="descripcion-url"
+                                    formControlName="descripcion"
+                                    aria-describedby="descripcion-addon3 descripcion-addon4" autocomplete="off">
+                            </div>
+                            <div class="form-text" id="descripcion-addon4">Ejemplo: Hilo, Lana.</div>
                         </div>
-                        <div class="form-text" id="basic-addon4">Ejemplo: Hilo, Lana.</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text" id="precio-addon3">Precio</span>
+                                <input type="text" class="form-control" id="precio" formControlName="precio"
+                                    aria-describedby="precio-addon3 precio-addon4">
+                            </div>
+                            <div class="form-text" id="precio-addon4">Ejemplo: $1509.</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="card-footer text-end">
-            <a href="#" class="btn btn-primary">Almacenar Sub-Categoría</a>
+            <button type="button" class="btn btn-primary" (click)="almacenarProducto()">Almacenar Producto</button>
             &nbsp;
-            <a href="#" class="btn btn-danger">Limpiar Sub-Categoría</a>
+            <button type="button" class="btn btn-danger" (click)="limpiarProducto()">Limpiar Producto</button>
         </div>
     </div>
     <br />
 
     <div class="row">
-        <div class="col-6 offset-3">
-            <div class="card">
+        <div class="col-12 col-lg-10 offset-lg-1">
+            <div class="card ">
                 <div class="card-header">
-                    Listado de Categorías
+                    Listado de Productos
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -88,58 +101,24 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Código</th>
                                 <th scope="col">Categoría</th>
+                                <th scope="col">Sub-Categoría</th>
                                 <th scope="col">Descripción</th>
-                                <th scope="col">Acciones</th>
+                                <th scope="col">Precio</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let producto of listadoProductos | filtro:filtro">
                                 <th scope="row" class="text-center">1</th>
-                                <td>Hilo</td>
-                                <td>59637</td>
-                                <td>Hilo</td>
-                                <td>
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    &nbsp;
-                                    <i class="fa fa-ban" aria-hidden="true"></i>
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </td>
+                                <td>{{producto.codigo}}</td>
+                                <td>{{producto.grupo}}</td>
+                                <td>{{producto.subgrupo}}</td>
+                                <td>{{producto.producto}}</td>
+                                <td>{{producto.idprecio}}$9.565,56</td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="text-center">2</th>
-                                <td>Lana</td>
-                                <td>56875</td>
-                                <td>Lana</td>
-                                <td>
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    &nbsp;
-                                    <i class="fa fa-ban" aria-hidden="true"></i>
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="text-center">3</th>
-                                <td>Accesorios de tejido</td>
-                                <td>56876</td>
-                                <td>CINTA MAGDALA 60MM X10M</td>
-                                <td>
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    &nbsp;
-                                    <i class="fa fa-ban" aria-hidden="true"></i>
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </td>
-                            </tr>
-                            <!-- <tr>
-                                <th scope="row" class="text-center">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td colspan="2">Larry the Bird</td>
-                            </tr> -->
                         </tbody>
                     </table>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
