@@ -57,14 +57,18 @@ export class NuevoProductoComponent implements OnInit {
   onClikBuscarProductos() {
     this.listadoProductos = []
     this._productos.postProductos(this.altaForm.value).subscribe(respuesta => {
+      console.log(respuesta)
       this.listadoProductos = Object.values(respuesta['resultado'])
     })
   }
 
-  almacenarProducto(){
+  almacenarProducto() {
+
     console.table(this.altaForm.value)
+
+    this._productos.postProducto(this.altaForm.value).subscribe(resultado => console.log(resultado))
   }
-  limpiarProducto(){
+  limpiarProducto() {
     this.altaForm.reset()
   }
 }

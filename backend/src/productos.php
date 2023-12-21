@@ -10,10 +10,11 @@ $app->post(
             $input['inputGroupCategoria'] != 0 &&
             $input['inputGroupSubCategoria'] != 0
         ) {
-            $sth = $this->db->prepare("SELECT p.idproducto, p.codigo, p.idgrupo, p.idsubgrupo, idproductometa, idprecio, pm.descripcion AS producto,
+            $sth = $this->db->prepare("SELECT p.idproducto, p.codigo, p.idgrupo, p.idsubgrupo, idproductometa, p.idprecio, precio, pm.descripcion AS producto,
                         sg.descripcion AS subgrupo, g.descripcion AS grupo
                         FROM `productos` p
                         LEFT JOIN `productos_meta` pm on p.idproductometa = pm.id
+                        LEFT JOIN `precios` pr ON pr.idprecio = p.idprecio
                         LEFT JOIN `subgrupos` sg on p.idsubgrupo = sg.idsubgrupo
                         LEFT JOIN `grupos` g on p.idgrupo = g.idgrupo WHERE p.idgrupo = :idgrupo AND p.idsubgrupo =  :idsubgrupo 
                         ORDER BY pm.descripcion");
@@ -23,10 +24,11 @@ $app->post(
             $input['inputGroupCategoria'] != 0 &&
             $input['inputGroupSubCategoria'] == 0
         ) {
-            $sth = $this->db->prepare("SELECT p.idproducto, p.codigo, p.idgrupo, p.idsubgrupo, idproductometa, idprecio, pm.descripcion AS producto,
+            $sth = $this->db->prepare("SELECT p.idproducto, p.codigo, p.idgrupo, p.idsubgrupo, idproductometa, p.idprecio, precio, pm.descripcion AS producto,
                         sg.descripcion AS subgrupo, g.descripcion AS grupo
                         FROM `productos` p
                         LEFT JOIN `productos_meta` pm on p.idproductometa = pm.id
+                        LEFT JOIN `precios` pr ON pr.idprecio = p.idprecio
                         LEFT JOIN `subgrupos` sg on p.idsubgrupo = sg.idsubgrupo
                         LEFT JOIN `grupos` g on p.idgrupo = g.idgrupo WHERE p.idgrupo = :idgrupo
                         ORDER BY pm.descripcion");
@@ -35,10 +37,11 @@ $app->post(
             $input['inputGroupCategoria'] == 0 &&
             $input['inputGroupSubCategoria'] == 0
         ) {
-            $sth = $this->db->prepare("SELECT p.idproducto, p.codigo, p.idgrupo, p.idsubgrupo, idproductometa, idprecio, pm.descripcion AS producto,
+            $sth = $this->db->prepare("SELECT p.idproducto, p.codigo, p.idgrupo, p.idsubgrupo, idproductometa, p.idprecio, precio, pm.descripcion AS producto,
                         sg.descripcion AS subgrupo, g.descripcion AS grupo
                         FROM `productos` p
                         LEFT JOIN `productos_meta` pm on p.idproductometa = pm.id
+                        LEFT JOIN `precios` pr ON pr.idprecio = p.idprecio
                         LEFT JOIN `subgrupos` sg on p.idsubgrupo = sg.idsubgrupo
                         LEFT JOIN `grupos` g on p.idgrupo = g.idgrupo ORDER BY pm.descripcion");
         };
@@ -58,6 +61,49 @@ $app->post(
 
         // return $this->response->withJson($input)->withStatus($input['estado']);
         return $this->response->withJson($resultado)->withJson($input)->withStatus($input['estado']);
+    }
+);
+$app->post(
+    '/producto',
+    function ($request, $response, $args) {
+        $input = $request->getParsedBody();
+        // Descripción y precio van en tablas separadas, obtengo los id de lo almacenado y luego grabo en productos.
+        try {
+            $sth = $this->db->prepare("INSERT INTO productos_meta (descripcion) VALUES(:descripcion);");
+            $sth->bindParam("descripcion", $input['descripcion']);
+
+            $sth->execute();
+            $idpm = $this->db->lastInsertId();
+
+            $sth = $this->db->prepare("INSERT INTO precios (precio, vigente) VALUES(:precio, 1);");
+            $sth->bindParam("precio", $input['precio']);
+
+            $sth->execute();
+            $idprecio = $this->db->lastInsertId();
+
+            $sth = $this->db->prepare("INSERT INTO productos (codigo, idgrupo, idsubgrupo, idproductometa, idprecio)
+                                        VALUES(:codigo, :inputGroupCategoria, :inputGroupSubCategoria, :idproductometa, :idprecio);");
+            $sth->bindParam("codigo", $input['codigo']);
+            $sth->bindParam("inputGroupCategoria", $input['inputGroupCategoria']);
+            $sth->bindParam("inputGroupSubCategoria", $input['inputGroupSubCategoria']);
+            $sth->bindParam("idproductometa", $idpm);
+            $sth->bindParam("idprecio", $idprecio);
+
+            if (!$sth->execute()) {
+                $input['estado'] = 402;
+                $input['error'] = 'Error al grabar el registro.';
+                return $this->response->withJson($input);
+            } else {
+                $input['id'] = $this->db->lastInsertId();
+                $input['estado'] = 200;
+                $input['error'] = 'El registro se almacenó correctamente.';
+            }
+            return $this->response->withJson($input);
+        } catch (\Throwable $th) {
+            $input['estado'] = 402;
+            $input['error'] = 'Error al grabar el registro.';
+            return $this->response->withJson($input);
+        }
     }
 );
 

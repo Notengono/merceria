@@ -8,8 +8,6 @@ export class FiltroPipe implements PipeTransform {
   transform(value: any[], args: any): any {
     const resultadoPost = [];
     const searchText = args;
-    console.log('Palabra a buscar => ', searchText)
-    console.log('Palabra a buscar => ', searchText)
 
     if (!searchText) {
       return value;
