@@ -107,6 +107,46 @@ $app->post(
     }
 );
 
+$app->post(
+    '/postNuevoPrecio',
+    function ($request, $response, $args) {
+        $input = $request->getParsedBody();
+        try {
+            foreach ($input['valor2'] as $key => $value) {
+
+                $sth = $this->db->prepare("SELECT (precio * :valor1) AS precio FROM `precios` WHERE idprecio = :idprecio;");
+                $sth->bindParam("valor1", $input['valor1']);
+                $sth->bindParam("idprecio", $value);
+
+                $sth->execute();
+                $precio = $sth->fetchObject();
+
+                $sth = $this->db->prepare("UPDATE precios SET vigente = 2 WHERE idprecio = :idprecio;");
+                $sth->bindParam("idprecio", $value);
+                $sth->execute();
+
+                $sth = $this->db->prepare("INSERT INTO precios (precio, vigente) VALUES(:precio, 1);");
+                $sth->bindParam("precio", $precio->precio);
+                $sth->execute();
+                $idprecio = $this->db->lastInsertId();
+
+                $sth = $this->db->prepare("UPDATE productos SET idprecio = :idprecion WHERE idprecio = :idpreciov;");
+                $sth->bindParam("idprecion", $idprecio);
+                $sth->bindParam("idpreciov", $value);
+                $sth->execute();
+            }
+
+            $input['estado'] = 200;
+            $input['error'] = 'El registro se almacenó correctamente.';
+            return $this->response->withJson($input);
+        } catch (\Throwable $th) {
+            $input['estado'] = 402;
+            $input['error'] = 'Error al grabar el registro.';
+            return $this->response->withJson($th);
+        }
+    }
+);
+
 // $app->put('/postProductoEstablecimiento/{oficina}', function ($request, $response, $args) {
 //     $input = $request->getParsedBody();
 //     $oficina = $args['oficina'];

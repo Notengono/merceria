@@ -27,4 +27,11 @@ export class ProductosService {
     return this._http.post<ProductoDetalleI>(
       `${apiURL}producto`, valor, { headers: header });
   }
+
+  postNuevoPrecio(valor1: any, valor2: any) {
+    const header = new HttpHeaders();
+    header.append("Content-Type", "applications/json");
+    return this._http.post<any>(
+      `${apiURL}postNuevoPrecio`, { valor1, valor2 }, { headers: header });
+  }
 }
