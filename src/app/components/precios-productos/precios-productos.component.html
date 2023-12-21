@@ -1,0 +1,98 @@
+<div class="container">
+    <br />
+    <h2 class="text-light p-3">Productos</h2>
+    <br />
+    <form [formGroup]="busquedaForm">
+        <div class="row shadow">
+            <div class="col-4">
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupCategoria">Categoría</label>
+                    <select class="form-select" id="inputGroupCategoria" formControlName="inputGroupCategoria"
+                        (change)="onClikCategoria($event.target)">
+                        <option value="0">Seleccionar...</option>
+                        <option *ngFor="let categoria of listadoCategoria" value="{{categoria.idgrupo}}">
+                            {{categoria.descripcion}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSubCategoria">Sub-Categoría</label>
+                    <select class="form-select" id="inputGroupSubCategoria" formControlName="inputGroupSubCategoria">
+                        <option value="0">Seleccionar...</option>
+                        <option *ngFor="let subCategoria of listadoSubCategoria" value="{{subCategoria.idsubgrupo}}">
+                            {{subCategoria.descripcion}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-1">
+                <button type="button" class="btn btn-outline-light" (click)="onClikBuscarProductos()">Buscar</button>
+            </div>
+
+            <div class="col-2 offset-1 text-end">
+                <a routerLink="/nuevo_producto" type="button" class="btn btn-outline-light">
+                    <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Nuevo
+                </a>
+            </div>
+        </div>
+    </form>
+    <br />
+
+    <div class="row">
+        <div class="col-4 offset-7">
+            <div class="input-group">
+                <span class="input-group-text">filtro</span>
+                <input type="text" aria-label="Filtro" class="form-control" [(ngModel)]="filtro">
+            </div>
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-12 col-lg-10 offset-lg-1">
+            <div class="card shadow">
+                <div class="card-header">
+                    Listado de Productos
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">#</th>
+                                <th scope="col">Código</th>
+                                <th scope="col">Categoría</th>
+                                <th scope="col">Sub-Categoría</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let producto of listadoProductos | filtro:filtro">
+                                <th scope="row" class="text-center">1</th>
+                                <td>{{producto.codigo}}</td>
+                                <td>{{producto.grupo}}</td>
+                                <td>{{producto.subgrupo}}</td>
+                                <td>{{producto.producto}}</td>
+                                <td>{{producto.idprecio}}$9.565,56</td>
+                                <td>
+                                    <i class="fa fa-pencil" aria-hidden="true" title="Edición"
+                                        data-toggle="tooltip"></i>
+                                    &nbsp;
+                                    <i class="fa fa-ban" aria-hidden="true" title="Bloquear" data-toggle="tooltip"></i>
+                                    <i class="fa fa-plus" aria-hidden="true" title="Habilitar"
+                                        data-toggle="tooltip"></i>
+                                    &nbsp;
+                                    <i class="fa fa-history" aria-hidden="true" title="Historial"
+                                        data-toggle="tooltip"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

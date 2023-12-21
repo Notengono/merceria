@@ -11,6 +11,7 @@ import { NuevoProductoComponent } from './components/nuevo-producto/nuevo-produc
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FiltroPipe } from './pipes/filtro.pipe';
+import { PreciosProductosComponent } from './components/precios-productos/precios-productos.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FiltroPipe } from './pipes/filtro.pipe';
     SubGruposComponent,
     ProductosComponent,
     NuevoProductoComponent,
-    FiltroPipe
+    FiltroPipe,
+    PreciosProductosComponent
   ],
   imports: [
     BrowserModule,
