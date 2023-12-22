@@ -1,6 +1,6 @@
 <div class="container">
     <br />
-    <h2 class="text-light p-3">Precios</h2>
+    <h2 class="text-light p-3">Productos</h2>
     <br />
     <form [formGroup]="busquedaForm">
         <div class="row shadow">
@@ -32,27 +32,6 @@
             </div>
         </div>
     </form>
-    <br />
-
-    <div class="row shadow">
-        <div class="col-2">
-            <div class="input-group mb-3">
-                <label class="input-group-text" for="porcentajeNuevo">Precio %</label>
-                <input type="number" aria-label="porcentajeNuevo" class="form-control" id="porcentajeNuevo"
-                    name="porcentajeNuevo" [(ngModel)]="porcentajeNuevo" min="0" max="1000" step="0.1">
-            </div>
-        </div>
-
-        <div class="col-1">
-            <button type="button" class="btn btn-outline-light" (click)="onClikAjustarPrecios()"
-                data-bs-toggle="tooltip" data-bs-placement="top"
-                data-bs-title="Ajustar todos los productos encontrados">Ajustar</button>
-        </div>
-    </div>
-
-    <div class="row">
-        <div id="liveAlertPlaceholder"></div>
-    </div>
     <br />
 
     <div class="row">
@@ -91,7 +70,7 @@
                                 <td>{{producto.grupo}}</td>
                                 <td>{{producto.subgrupo}}</td>
                                 <td>{{producto.producto}}</td>
-                                <td>${{producto.precio}}</td>
+                                <td>{{producto.idprecio}}$9.565,56</td>
                                 <td>
                                     <i class="fa fa-pencil" aria-hidden="true" title="Edición"
                                         data-toggle="tooltip"></i>
