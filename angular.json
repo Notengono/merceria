@@ -6,7 +6,7 @@
     "merceria": {
       "projectType": "application",
       "schematics": {},
-      "root": "",
+      "root": "/merceria/",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
