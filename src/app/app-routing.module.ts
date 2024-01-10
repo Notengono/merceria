@@ -5,6 +5,9 @@ import { SubGruposComponent } from './components/sub-grupos/sub-grupos.component
 import { ProductosComponent } from './components/productos/productos.component';
 import { NuevoProductoComponent } from './components/nuevo-producto/nuevo-producto.component';
 import { PreciosProductosComponent } from './components/precios-productos/precios-productos.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
+import { BuscarProductoComponent } from './components/buscar-producto/buscar-producto.component';
+import { EdicionProductoComponent } from './components/edicion-producto/edicion-producto.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'grupos', pathMatch: 'full' },
@@ -12,7 +15,10 @@ const routes: Routes = [
   { path: 'subgrupos', component: SubGruposComponent },
   { path: 'productos', component: ProductosComponent },
   { path: 'nuevo_producto', component: NuevoProductoComponent },
+  { path: 'editar_producto/:id', component: EdicionProductoComponent },
   { path: 'precio_producto', component: PreciosProductosComponent },
+  { path: 'carrito', component: CarritoComponent },
+  { path: 'buscar', component: BuscarProductoComponent },
 
 ];
 

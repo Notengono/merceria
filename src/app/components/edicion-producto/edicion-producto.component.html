@@ -1,0 +1,89 @@
+<div class="container">
+    <br />
+    <h2 class="text-light p-3">Edición de Producto</h2>
+    <br />
+    <div class="card">
+        <div class="card-header">
+            Productos
+        </div>
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-body-secondary">Edición de Producto</h6>
+
+            <div [formGroup]="altaForm">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupCategoria">Categoría</label>
+                            <select class="form-select" id="inputGroupCategoria" formControlName="inputGroupCategoria"
+                                (change)="onClikCategoria($event.target)">
+                                <option value="0">Seleccionar...</option>
+                                <option *ngFor="let categoria of listadoCategoria" value="{{categoria.idgrupo}}">
+                                    {{categoria.descripcion}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSubCategoria">Sub-Categoría</label>
+                            <select class="form-select" id="inputGroupSubCategoria"
+                                formControlName="inputGroupSubCategoria" (change)="onClikBuscarProductos()">
+                                <option value="0">Seleccionar...</option>
+                                <option *ngFor="let subCategoria of listadoSubCategoria"
+                                    value="{{subCategoria.idsubgrupo}}">
+                                    {{subCategoria.descripcion}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text" id="codigo-addon3">Código</span>
+                                <input type="text" class="form-control" id="codigo-url" formControlName="codigo"
+                                    aria-describedby="codigo-addon3 codigo-addon4" autocomplete="off">
+                            </div>
+                            <div class="form-text" id="codigo-addon4">Ejemplo: 56974.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text" id="descripcion-addon3">Descripción</span>
+                                <input type="text" class="form-control" id="descripcion-url"
+                                    formControlName="descripcion"
+                                    aria-describedby="descripcion-addon3 descripcion-addon4" autocomplete="off">
+                            </div>
+                            <div class="form-text" id="descripcion-addon4">Ejemplo: Hilo, Lana.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text" id="precio-addon3">Precio</span>
+                                <input type="text" class="form-control" id="precio" formControlName="precio"
+                                    aria-describedby="precio-addon3 precio-addon4">
+                            </div>
+                            <div class="form-text" id="precio-addon4">Ejemplo: $1509.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <button type="button" class="btn btn-primary" (click)="almacenarProducto()">Almacenar Producto</button>
+            &nbsp;
+            <button type="button" class="btn btn-danger" (click)="limpiarProducto()">Limpiar Producto</button>
+        </div>
+    </div>
+</div>

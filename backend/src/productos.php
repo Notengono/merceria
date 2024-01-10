@@ -106,6 +106,83 @@ $app->post(
         }
     }
 );
+$app->get(
+    '/producto/{id}',
+    function ($request, $response, $args) {
+        // Descripción y precio van en tablas separadas, obtengo los id de lo almacenado y luego grabo en productos.
+        try {
+            $id = $args['id'];
+            $sth = $this->db->prepare("SELECT * FROM productos WHERE idproducto = :id;");
+            $sth->bindParam("id", $id);
+
+            if (!$sth->execute()) {
+                $input['estado'] = 402;
+                $input['error'] = 'Error al buscar el producto.';
+                return $this->response->withJson($input);
+            } else {
+                $input['datos'] = $sth->fetchObject();;
+                $input['estado'] = 200;
+                $input['error'] = 'El registro se encontró.';
+            }
+            return $this->response->withJson($input);
+        } catch (\Throwable $th) {
+            $input['estado'] = 402;
+            $input['error'] = 'Error al buscar el registro.' . $th;
+            return $this->response->withJson($input);
+        }
+    }
+);
+$app->get(
+    '/getProdutoMeta/{id}',
+    function ($request, $response, $args) {
+        try {
+            $id = $args['id'];
+            $sth = $this->db->prepare("SELECT * FROM productos_meta WHERE id = :id;");
+            $sth->bindParam("id", $id);
+
+            if (!$sth->execute()) {
+                $input['estado'] = 402;
+                $input['error'] = 'Error al buscar el producto.';
+                return $this->response->withJson($input);
+            } else {
+                $input['datos'] = $sth->fetchObject();;
+                $input['estado'] = 200;
+                $input['error'] = 'El registro se encontró.';
+            }
+            return $this->response->withJson($input);
+        } catch (\Throwable $th) {
+            $input['estado'] = 402;
+            $input['error'] = 'Error al buscar el registro.' . $th;
+            return $this->response->withJson($input);
+        }
+    }
+);
+
+$app->get(
+    '/getPrecios/{id}',
+    function ($request, $response, $args) {
+        try {
+            $id = $args['id'];
+            $sth = $this->db->prepare("SELECT * FROM precios WHERE idprecio = :id;");
+            $sth->bindParam("id", $id);
+
+            if (!$sth->execute()) {
+                $input['estado'] = 402;
+                $input['error'] = 'Error al buscar el producto.';
+                return $this->response->withJson($input);
+            } else {
+                $input['datos'] = $sth->fetchObject();;
+                $input['estado'] = 200;
+                $input['error'] = 'El registro se encontró.';
+            }
+            return $this->response->withJson($input);
+        } catch (\Throwable $th) {
+            $input['estado'] = 402;
+            $input['error'] = 'Error al buscar el registro.' . $th;
+            return $this->response->withJson($input);
+        }
+    }
+);
 
 $app->post(
     '/postNuevoPrecio',

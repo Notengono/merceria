@@ -12,6 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FiltroPipe } from './pipes/filtro.pipe';
 import { PreciosProductosComponent } from './components/precios-productos/precios-productos.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
+import { EdicionProductoComponent } from './components/edicion-producto/edicion-producto.component';
+import { BuscarProductoComponent } from './components/buscar-producto/buscar-producto.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { PreciosProductosComponent } from './components/precios-productos/precio
     ProductosComponent,
     NuevoProductoComponent,
     FiltroPipe,
-    PreciosProductosComponent
+    PreciosProductosComponent,
+    CarritoComponent,
+    EdicionProductoComponent,
+    BuscarProductoComponent
   ],
   imports: [
     BrowserModule,

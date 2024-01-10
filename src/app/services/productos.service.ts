@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { ProductosI } from '../model/productos-i';
 import { ProductoDetalleI } from "../model/producto-detalle";
 
+
 const apiURL = environment.apiURL;
 
 @Injectable({
@@ -33,5 +34,29 @@ export class ProductosService {
     header.append("Content-Type", "applications/json");
     return this._http.post<any>(
       `${apiURL}postNuevoPrecio`, { valor1, valor2 }, { headers: header });
+  }
+
+  getProduto(valor: any) {
+    const header = new HttpHeaders();
+    header.append("Content-Type", "applications/json");
+    console.clear()
+    return this._http.get<any>(
+      `${apiURL}producto/${valor}`, { headers: header });
+  }
+  
+  getProdutoMeta(valor: any) {
+    const header = new HttpHeaders();
+    header.append("Content-Type", "applications/json");
+    console.clear()
+    return this._http.get<any>(
+      `${apiURL}getProdutoMeta/${valor}`, { headers: header });
+  }
+
+  getPrecios(valor: any) {
+    const header = new HttpHeaders();
+    header.append("Content-Type", "applications/json");
+    console.clear()
+    return this._http.get<any>(
+      `${apiURL}getPrecios/${valor}`, { headers: header });
   }
 }
