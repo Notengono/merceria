@@ -224,6 +224,56 @@ $app->post(
     }
 );
 
+
+$app->put(
+    '/producto',
+    function ($request, $response, $args) {
+        $input = $request->getParsedBody();
+        // Descripción y precio van en tablas separadas, obtengo los id de lo almacenado y luego grabo en productos.
+        try {
+            $sth = $this->db->prepare("INSERT INTO productos_meta (descripcion) VALUES(:descripcion);");
+            $sth->bindParam("descripcion", $input['descripcion']);
+
+            $sth->execute();
+            $idpm = $this->db->lastInsertId();
+
+            $sth = $this->db->prepare("INSERT INTO precios (precio, vigente) VALUES(:precio, 1);");
+            $sth->bindParam("precio", $input['precio']);
+
+            $sth->execute();
+            $idprecio = $this->db->lastInsertId();
+
+            $sth = $this->db->prepare("UPDATE productos SET codigo = :codigo, idgrupo = :inputGroupCategoria,
+                         idsubgrupo = :inputGroupSubCategoria, idproductometa = :idproductometa, idprecio = :idprecio
+                         WHERE idproducto = :id;");
+            $sth->bindParam("codigo", $input['codigo']);
+            $sth->bindParam("inputGroupCategoria", $input['inputGroupCategoria']);
+            $sth->bindParam("inputGroupSubCategoria", $input['inputGroupSubCategoria']);
+            $sth->bindParam("idproductometa", $idpm);
+            $sth->bindParam("idprecio", $idprecio);
+            $sth->bindParam("id", $input['idproducto']);
+
+            if (!$sth->execute()) {
+                $input['estado'] = 402;
+                $input['error'] = 'Error al grabar el registro.';
+                return $this->response->withJson($input);
+            } else {
+                $input['id'] = $this->db->lastInsertId();
+                $input['estado'] = 200;
+                $input['error'] = 'El registro se actualizó correctamente.';
+            }
+            return $this->response->withJson($input);
+        } catch (\Throwable $th) {
+            $input['estado'] = 402;
+            $input['error'] = 'Error al grabar el registro.';
+            return $this->response->withJson($input);
+        }
+    }
+);
+
+
+
+
 // $app->put('/postProductoEstablecimiento/{oficina}', function ($request, $response, $args) {
 //     $input = $request->getParsedBody();
 //     $oficina = $args['oficina'];

@@ -92,7 +92,7 @@ export class EdicionProductoComponent implements OnInit {
               })
             }
             )
-            
+
             const precio = this.altaForm.get('precio')?.value
             this._productos.getPrecios(descripcion).subscribe(respuesta => {
               this.altaForm.patchValue({
@@ -125,12 +125,11 @@ export class EdicionProductoComponent implements OnInit {
     })
   }
 
-  almacenarProducto() {
-
+  editarProducto() {
     console.table(this.altaForm.value)
-
-    this._productos.postProducto(this.altaForm.value).subscribe(resultado => console.log(resultado))
+    this._productos.putProducto(this.altaForm.value).subscribe(resultado => console.log(resultado))
   }
+
   limpiarProducto() {
     this.altaForm.reset()
   }

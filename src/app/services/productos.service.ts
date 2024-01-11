@@ -29,6 +29,13 @@ export class ProductosService {
       `${apiURL}producto`, valor, { headers: header });
   }
 
+  putProducto(valor: any) {
+    const header = new HttpHeaders();
+    header.append("Content-Type", "applications/json");
+    return this._http.put(
+      `${apiURL}producto`, valor, { headers: header });
+  }
+
   postNuevoPrecio(valor1: any, valor2: any) {
     const header = new HttpHeaders();
     header.append("Content-Type", "applications/json");
@@ -43,7 +50,7 @@ export class ProductosService {
     return this._http.get<any>(
       `${apiURL}producto/${valor}`, { headers: header });
   }
-  
+
   getProdutoMeta(valor: any) {
     const header = new HttpHeaders();
     header.append("Content-Type", "applications/json");
