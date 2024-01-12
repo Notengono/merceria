@@ -1,1 +1,78 @@
-<p>buscar-producto works!</p>
+<div class="container">
+    <br />
+    <h2 class="text-light p-3">Edición de Producto</h2>
+    <br />
+    <div class="card">
+        <div class="card-header">
+            Productos
+        </div>
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-body-secondary">Buscador de Productos</h6>
+
+            <!-- <div [formGroup]="altaForm"> -->
+            <div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="input-group">
+                            <span class="input-group-text" id="codigo-addon3">Producto</span>
+                            <input type="text" class="form-control" placeholder="Ingrese nombre de producto "
+                                aria-label="Producto" [formControl]="myControl" [matAutocomplete]="auto"
+                                aria-describedby="codigo-addon3">
+                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                <mat-option (onSelectionChange)="onEnter($event)"
+                                    *ngFor="let option of filteredoptions | async; track option"
+                                    [value]="option">{{option}}</mat-option>
+                            </mat-autocomplete>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-4 offset-7">
+                    <div class="input-group">
+                        <span class="input-group-text">filtro</span>
+                        <input type="text" aria-label="Filtro" class="form-control" [(ngModel)]="filtro">
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <div class="row" *ngIf="filtro.length>0">
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col">#</th>
+                            <th scope="col">Código</th>
+                            <th scope="col">Categoría</th>
+                            <th scope="col">Sub-Categoría</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let producto of listadoProductosTodos | filtro:filtro">
+                            <th scope="row" class="text-center">1</th>
+                            <td>{{producto.codigo}}</td>
+                            <td>{{producto.grupo}}</td>
+                            <td>{{producto.subgrupo}}</td>
+                            <td>{{producto.producto}}</td>
+                            <td>${{producto.precio}}</td>
+                            <td>
+                                <i class="fa fa-plus" aria-hidden="true" title="Habilitar" data-toggle="tooltip"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="card-footer text-end">
+            <button type="button" class="btn btn-primary">Editar Producto</button>
+            <!-- <button type="button" class="btn btn-primary" (click)="editarProducto()">Editar Producto</button>
+            &nbsp;
+            <button type="button" class="btn btn-danger" (click)="limpiarProducto()">Limpiar Producto</button> -->
+        </div>
+    </div>
+</div>

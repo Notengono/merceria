@@ -15,6 +15,11 @@ import { PreciosProductosComponent } from './components/precios-productos/precio
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { EdicionProductoComponent } from './components/edicion-producto/edicion-producto.component';
 import { BuscarProductoComponent } from './components/buscar-producto/buscar-producto.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -31,11 +36,15 @@ import { BuscarProductoComponent } from './components/buscar-producto/buscar-pro
     BuscarProductoComponent
   ],
   imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NoopAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
