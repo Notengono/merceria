@@ -69,6 +69,7 @@ $app->post(
         $input = $request->getParsedBody();
         // Descripción y precio van en tablas separadas, obtengo los id de lo almacenado y luego grabo en productos.
         try {
+            $this->db->beginTransaction();
             $sth = $this->db->prepare("INSERT INTO productos_meta (descripcion) VALUES(:descripcion);");
             $sth->bindParam("descripcion", $input['descripcion']);
 
@@ -76,6 +77,7 @@ $app->post(
             $idpm = $this->db->lastInsertId();
 
             $sth = $this->db->prepare("INSERT INTO precios (precio, vigente) VALUES(:precio, 1);");
+            $input['precio'] = $input['precio'] === NULL ? 0 : $input['precio'];
             $sth->bindParam("precio", $input['precio']);
 
             $sth->execute();
@@ -90,10 +92,12 @@ $app->post(
             $sth->bindParam("idprecio", $idprecio);
 
             if (!$sth->execute()) {
+                $this->db->rollBack();
                 $input['estado'] = 402;
                 $input['error'] = 'Error al grabar el registro.';
                 return $this->response->withJson($input);
             } else {
+                $this->db->commit();
                 $input['id'] = $this->db->lastInsertId();
                 $input['estado'] = 200;
                 $input['error'] = 'El registro se almacenó correctamente.';
@@ -231,6 +235,7 @@ $app->put(
         $input = $request->getParsedBody();
         // Descripción y precio van en tablas separadas, obtengo los id de lo almacenado y luego grabo en productos.
         try {
+            $this->db->beginTransaction();
             $sth = $this->db->prepare("INSERT INTO productos_meta (descripcion) VALUES(:descripcion);");
             $sth->bindParam("descripcion", $input['descripcion']);
 
@@ -254,16 +259,19 @@ $app->put(
             $sth->bindParam("id", $input['idproducto']);
 
             if (!$sth->execute()) {
+                $this->db->rollBack();
                 $input['estado'] = 402;
                 $input['error'] = 'Error al grabar el registro.';
                 return $this->response->withJson($input);
             } else {
+                $this->db->commit();
                 $input['id'] = $this->db->lastInsertId();
                 $input['estado'] = 200;
                 $input['error'] = 'El registro se actualizó correctamente.';
             }
             return $this->response->withJson($input);
         } catch (\Throwable $th) {
+            $this->db->rollBack();
             $input['estado'] = 402;
             $input['error'] = 'Error al grabar el registro.';
             return $this->response->withJson($input);
