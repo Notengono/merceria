@@ -66,11 +66,7 @@ export class NuevoProductoComponent implements OnInit {
   }
 
   almacenarProducto() {
-
-    console.table(this.altaForm.value)
-
     this._productos.postProducto(this.altaForm.value).subscribe(resultado => {
-      console.log(resultado)
       if ((resultado as any).estado == 402) {
         this._snackBar.open((resultado as any).error, '',
           { duration: 3000, horizontalPosition: 'center', panelClass: ['mat-toolbar', 'mat-warn'] }
@@ -79,9 +75,20 @@ export class NuevoProductoComponent implements OnInit {
         this._snackBar.open((resultado as any).error, '',
           { duration: 3000, horizontalPosition: 'center', panelClass: ['mat-toolbar', 'mat-primary'] }
         );
+        this.onClikBuscarProductos()
+        this.limpiarCarga()
       }
     })
   }
+
+  limpiarCarga() {
+    this.altaForm.patchValue({
+      codigo: '',
+      descripcion: '',
+      precio: 0
+    })
+  }
+
   limpiarProducto() {
     this.altaForm.reset()
   }
