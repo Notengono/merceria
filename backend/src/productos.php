@@ -136,6 +136,7 @@ $app->get(
         }
     }
 );
+
 $app->get(
     '/getProdutoMeta/{id}',
     function ($request, $response, $args) {
@@ -150,6 +151,39 @@ $app->get(
                 return $this->response->withJson($input);
             } else {
                 $input['datos'] = $sth->fetchObject();;
+                $input['estado'] = 200;
+                $input['error'] = 'El registro se encontró.';
+            }
+            return $this->response->withJson($input);
+        } catch (\Throwable $th) {
+            $input['estado'] = 402;
+            $input['error'] = 'Error al buscar el registro.' . $th;
+            return $this->response->withJson($input);
+        }
+    }
+);
+
+$app->get(
+    '/getProductos/{filtro}',
+    function ($request, $response, $args) {
+        try {
+            $filtro = '%' . $args['filtro'] . '%';
+            $sth = $this->db->prepare("SELECT p.idproducto, p.codigo, g.descripcion AS grupo, sg.descripcion AS subgrupo,
+                            pr.precio, pm.descripcion AS producto FROM productos p
+                            LEFT JOIN grupos g ON g.idgrupo = p.idgrupo
+                            LEFT JOIN subgrupos sg ON sg.idsubgrupo = p.idsubgrupo
+                            LEFT JOIN precios pr ON pr.idprecio = p.idprecio
+                            LEFT JOIN productos_meta pm ON pm.id = p.idproductometa
+                            WHERE codigo LIKE :filtro OR g.descripcion LIKE :filtro OR
+                                    sg.descripcion LIKE :filtro OR pm.descripcion LIKE :filtro;");
+            $sth->bindParam("filtro", $filtro);
+
+            if (!$sth->execute()) {
+                $input['estado'] = 402;
+                $input['error'] = 'Error al buscar el producto.';
+                return $this->response->withJson($input);
+            } else {
+                $input['datos'] = $sth->fetchAll();;
                 $input['estado'] = 200;
                 $input['error'] = 'El registro se encontró.';
             }
@@ -216,6 +250,39 @@ $app->post(
                 $sth->bindParam("idpreciov", $value);
                 $sth->execute();
             }
+
+            $input['estado'] = 200;
+            $input['error'] = 'El registro se almacenó correctamente.';
+            return $this->response->withJson($input);
+        } catch (\Throwable $th) {
+            $input['estado'] = 402;
+            $input['error'] = 'Error al grabar el registro.';
+            return $this->response->withJson($th);
+        }
+    }
+);
+
+$app->post(
+    '/postNuevoPrecioIndividual',
+    function ($request, $response, $args) {
+        $input = $request->getParsedBody();
+        try {
+
+            // No tengo el id del precio actual
+
+            // $sth = $this->db->prepare("UPDATE precios SET vigente = 2 WHERE idprecio = :idprecio;");
+            // $sth->bindParam("idprecio", $value);
+            // $sth->execute();
+
+            $sth = $this->db->prepare("INSERT INTO precios (precio, vigente) VALUES(:precio, 1);");
+            $sth->bindParam("precio", $input['precio']);
+            $sth->execute();
+            $idprecio = $this->db->lastInsertId();
+
+            $sth = $this->db->prepare("UPDATE productos SET idprecio = :idprecion WHERE idproducto = :idpreciov;");
+            $sth->bindParam("idprecion", $idprecio);
+            $sth->bindParam("idpreciov", $input['idproducto']);
+            $sth->execute();
 
             $input['estado'] = 200;
             $input['error'] = 'El registro se almacenó correctamente.';
