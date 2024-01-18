@@ -20,6 +20,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { InicioComponent } from './components/inicio/inicio.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     PreciosProductosComponent,
     CarritoComponent,
     EdicionProductoComponent,
-    BuscarProductoComponent
+    BuscarProductoComponent,
+    InicioComponent
   ],
   imports: [
     MatFormFieldModule,

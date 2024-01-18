@@ -8,9 +8,11 @@ import { PreciosProductosComponent } from './components/precios-productos/precio
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { BuscarProductoComponent } from './components/buscar-producto/buscar-producto.component';
 import { EdicionProductoComponent } from './components/edicion-producto/edicion-producto.component';
+import { InicioComponent } from './components/inicio/inicio.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'grupos', pathMatch: 'full' },
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  { path: 'inicio', component: InicioComponent },
   { path: 'grupos', component: GruposComponent },
   { path: 'subgrupos', component: SubGruposComponent },
   { path: 'productos', component: ProductosComponent },
