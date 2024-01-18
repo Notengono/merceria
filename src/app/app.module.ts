@@ -21,6 +21,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { InicioComponent } from './components/inicio/inicio.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PrecioPorProductoComponent } from './components/precio-por-producto/precio-por-producto.component';
 
 @NgModule({
   declarations: [
@@ -35,12 +37,14 @@ import { InicioComponent } from './components/inicio/inicio.component';
     CarritoComponent,
     EdicionProductoComponent,
     BuscarProductoComponent,
-    InicioComponent
+    InicioComponent,
+    PrecioPorProductoComponent
   ],
   imports: [
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
+    MatSnackBarModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

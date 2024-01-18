@@ -43,12 +43,27 @@ export class ProductosService {
       `${apiURL}postNuevoPrecio`, { valor1, valor2 }, { headers: header });
   }
 
+  postNuevoPrecioIndividual(valor: any) {
+    const header = new HttpHeaders();
+    header.append("Content-Type", "applications/json");
+    return this._http.post<any>(
+      `${apiURL}postNuevoPrecioIndividual`, valor, { headers: header });
+  }
+
   getProduto(valor: any) {
     const header = new HttpHeaders();
     header.append("Content-Type", "applications/json");
     console.clear()
     return this._http.get<any>(
       `${apiURL}producto/${valor}`, { headers: header });
+  }
+
+  getProdutos(valor: any) {
+    const header = new HttpHeaders();
+    header.append("Content-Type", "applications/json");
+    console.clear()
+    return this._http.get<any>(
+      `${apiURL}getProductos/${valor}`, { headers: header });
   }
 
   getProdutoMeta(valor: any) {

@@ -1,0 +1,115 @@
+<div class="container">
+    <br />
+    <h2 class="text-light p-3">Precio de Producto</h2>
+    <br />
+    <div class="card">
+        <div class="card-header">
+            Productos
+        </div>
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-body-secondary">Buscador de Productos</h6>
+
+            <div [formGroup]="busquedaForm">
+                <!-- <div> -->
+                <div class="row">
+                    <div class="col-6">
+                        <div class="input-group">
+                            <span class="input-group-text" id="buscar-addon">Producto</span>
+                            <input type="text" class="form-control" placeholder="Ingrese dato a buscar"
+                                aria-label="Producto" formControlName="buscar" aria-describedby="buscar-addon">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-primary" (click)="buscarProducto()">
+                            Buscar Producto
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="row">
+                <div class="col-4 offset-7">
+                    <div class="input-group">
+                        <span class="input-group-text">filtro</span>
+                        <input type="text" aria-label="Filtro" class="form-control" [(ngModel)]="filtro">
+                    </div>
+                </div>
+            </div> -->
+            <br />
+
+            <!-- <div class="row" *ngIf="filtro.length>0"> -->
+
+            <div class="row">
+                <div class="modal modal-lg fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Actualización de precio</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h5>
+                                    {{this.precioForm.controls['grupo'].value}} -
+                                    {{this.precioForm.controls['subgrupo'].value}}
+                                </h5>
+                                <h5 class="text-success"><b>{{this.precioForm.controls['codigo'].value}} |
+                                        {{this.precioForm.controls['producto'].value}}</b></h5>
+                                <div [formGroup]="precioForm">
+                                    <div class="col-4">
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="text" aria-label="precio" class="form-control"
+                                                formControlName="precio">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="buscarProducto()">Cerrar</button>
+                                <button type="button" class="btn btn-primary" (click)="actualizarPrecio()">Actualizar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col">#</th>
+                            <th scope="col">Código</th>
+                            <th scope="col">Categoría</th>
+                            <th scope="col">Sub-Categoría</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let producto of listadoProductosTodos | filtro:filtro">
+                            <th scope="row" class="text-center">1</th>
+                            <td>{{producto.codigo}}</td>
+                            <td>{{producto.grupo}}</td>
+                            <td>{{producto.subgrupo}}</td>
+                            <td>{{producto.producto}}</td>
+                            <td>${{producto.precio}}</td>
+                            <td class="text-center">
+                                <i class="fa fa-edit" aria-hidden="true" title="Habilitar" data-toggle="tooltip"
+                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                    (click)="cambio(producto)"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <!-- <button type="button" class="btn btn-primary">Editar Producto</button> -->
+            <!-- <button type="button" class="btn btn-primary" (click)="editarProducto()">Editar Producto</button>
+            &nbsp;
+            <button type="button" class="btn btn-danger" (click)="limpiarProducto()">Limpiar Producto</button> -->
+        </div>
+    </div>
+</div>
