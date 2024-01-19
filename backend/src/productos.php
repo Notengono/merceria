@@ -105,7 +105,7 @@ $app->post(
             return $this->response->withJson($input);
         } catch (\Throwable $th) {
             $input['estado'] = 402;
-            $input['error'] = 'Error al grabar el registro.';
+            $input['error'] = 'Error al grabar el registro.' . $th;
             return $this->response->withJson($input);
         }
     }
