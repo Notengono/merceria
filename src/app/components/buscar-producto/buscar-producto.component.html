@@ -27,18 +27,9 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-4 offset-7">
-                    <div class="input-group">
-                        <span class="input-group-text">filtro</span>
-                        <input type="text" aria-label="Filtro" class="form-control" [(ngModel)]="filtro">
-                    </div>
-                </div>
-            </div>
             <br />
-
-            <div class="row" *ngIf="filtro.length>0">
+            
+            <div class="row" *ngIf="listadoMostrar.length>0">
                 <table class="table table-striped">
                     <thead>
                         <tr class="text-center">
@@ -52,7 +43,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let producto of listadoProductosTodos | filtro:filtro">
+                        <tr *ngFor="let producto of listadoMostrar ">
                             <th scope="row" class="text-center">1</th>
                             <td>{{producto.codigo}}</td>
                             <td>{{producto.grupo}}</td>
