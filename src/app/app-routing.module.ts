@@ -22,8 +22,7 @@ const routes: Routes = [
   { path: 'precio_producto', component: PreciosProductosComponent },
   { path: 'precio_por_producto', component: PrecioPorProductoComponent },
   { path: 'carrito', component: CarritoComponent },
-  { path: 'buscar', component: BuscarProductoComponent },
-
+  { path: 'buscar', component: BuscarProductoComponent }
 ];
 
 @NgModule({

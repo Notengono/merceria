@@ -22,6 +22,11 @@ export class BuscarProductoComponent implements OnInit {
         inputGroupSubCategoria: 0
     })
 
+    productoModal: string = ''
+    idProductoModal: number = 0;
+    cantidad: number = 1;
+    precioModal: number = 0;
+    precio: number = 0;
 
     constructor(private _productos: ProductosService, private fb: FormBuilder) { }
 
@@ -49,6 +54,7 @@ export class BuscarProductoComponent implements OnInit {
     }
 
     onEnter(evt: any) {
+
         if (evt.source.selected) {
             const valor = evt.source.value
             const filterValue = valor.toLowerCase();
@@ -60,4 +66,29 @@ export class BuscarProductoComponent implements OnInit {
             return false
         }
     }
+
+    cargar(producto: any) {
+        console.table(producto)
+        this.idProductoModal = producto.idproducto
+        this.productoModal = producto.producto
+        this.precioModal = producto.precio
+        this.precio = Math.round(producto.precio)
+        this.cantidad = 1
+
+    }
+
+    precioCambio() {
+        this.precioModal = Math.round((this.precio * this.cantidad) * 100) / 100
+    }
+
+    cargaProducto() {
+        console.clear()
+        // console.log({ 'id': this.idProductoModal, 'descripcion': this.productoModal, 'precio': this.precioModal, 'precioIndividual': this.precio, 'caintidad': this.cantidad })
+        const l = 'listado' + this.idProductoModal
+        console.log('l => ', l)
+        localStorage.setItem(l, JSON.stringify({ 'id': this.idProductoModal, 'descripcion': this.productoModal, 'precio': this.precioModal, 'precioIndividual': this.precio, 'caintidad': this.cantidad }))
+
+        console.log(JSON.parse(localStorage.getItem('listado') || '{}'));
+    }
 }
+
