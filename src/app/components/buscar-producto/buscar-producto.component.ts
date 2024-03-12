@@ -90,7 +90,7 @@ export class BuscarProductoComponent implements OnInit {
 
     cargaProducto() {
         console.clear()
-        this.addToCart({ 'id': this.idProductoModal, 'descripcion': this.productoModal, 'precio': this.precioModal, 'precioIndividual': this.precio, 'caintidad': this.cantidad })
+        this.addToCart({ 'id': this.idProductoModal, 'descripcion': this.productoModal, 'precio': parseFloat(this.precioModal.toFixed(2)), 'precioIndividual': parseFloat(this.precio.toFixed(2)), 'caintidad': this.cantidad })
         localStorage.setItem('carrito', JSON.stringify(this.cartItems))
     }
 }

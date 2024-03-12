@@ -1,6 +1,6 @@
 <div class="container">
     <br>
-    <div class="table-responsive">
+    <div class="table-responsive" *ngIf="enCarrito > 0">
         <table class="table table-striped table-hover">
             <thead class="table-dark">
                 <th>Producto</th>
@@ -9,18 +9,33 @@
                 <th>Precio Total</th>
             </thead>
             <tbody>
-                <tr *ngFor="let item of carrito">
+                <tr *ngFor="let item of carrito; index as i">
                     <td>{{item.descripcion}}</td>
                     <td>${{item.precioIndividual}}</td>
                     <td class="text-end">{{item.caintidad}}</td>
                     <td class="text-center">${{item.precio}}</td>
+                    <td class="text-center" (click)="quitarItem(i)">X</td>
                 </tr>
                 <tr>
                     <td colspan="3" class="text-end">Total</td>
                     <td colspan="1" class="text-center"><b>$ {{precioTotal}}</b></td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
+        <div class="text-end">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancelarCompra()">Cancelar
+                Compra</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="imprimirCarrito()">Imprimir
+                Compra</button>
+        </div>
+    </div>
+
+    <div *ngIf="enCarrito == 0">
+        <div class="alert alert-warning text-center" role="alert">
+            <b>No</b> hay datos cargados en el carrito para poder mostrar.
+        </div>
+
     </div>
 </div>
 
