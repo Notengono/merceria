@@ -1,1 +1,130 @@
-<p>carrito works!</p>
+<div class="container">
+    <br>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <th>Producto</th>
+                <th>individual</th>
+                <th>Cantidad</th>
+                <th>Precio Total</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of carrito">
+                    <td>{{item.descripcion}}</td>
+                    <td>${{item.precioIndividual}}</td>
+                    <td class="text-end">{{item.caintidad}}</td>
+                    <td class="text-center">${{item.precio}}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-end">Total</td>
+                    <td colspan="1" class="text-center"><b>$ {{precioTotal}}</b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Martin Remedi
+hacer una función para cargar un carrito de compras
+ChatGPT
+
+Claro, puedo ayudarte a crear una función para cargar un carrito de compras en un programa. ¿Tienes alguna preferencia sobre en qué lenguaje de programación te gustaría hacerlo?
+
+Martin Remedi
+angular
+ChatGPT
+
+¡Perfecto! En Angular, puedes crear un servicio para gestionar el carrito de compras. Aquí te dejo un ejemplo básico de cómo podrías implementar una función para agregar un producto al carrito:
+
+En tu servicio de carrito (por ejemplo, cart.service.ts), puedes crear un método para agregar un producto al carrito:
+
+typescript
+
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CartService {
+  cartItems: any[] = [];
+
+  addToCart(product: any) {
+    this.cartItems.push(product);
+  }
+}
+Luego, en tu componente donde deseas agregar productos al carrito, puedes inyectar el servicio CartService y llamar al método addToCart:
+
+typescript
+
+import { Component } from '@angular/core';
+import { CartService } from 'ruta/del/servicio/cart.service';
+
+@Component({
+  selector: 'app-product-list',
+  template: `
+    <div *ngFor="let product of products">
+      <p>{{ product.name }} - <button (click)="addToCart(product)">Add to Cart</button></p>
+    </div>
+  `
+})
+export class ProductListComponent {
+  products: any[] = [
+    { id: 1, name: 'Product 1', price: 10 },
+    { id: 2, name: 'Product 2', price: 20 }
+  ];
+
+  constructor(private cartService: CartService) {}
+
+  addToCart(product: any) {
+    this.cartService.addToCart(product);
+    console.log('Product added to cart:', product);
+  }
+}
+Recuerda ajustar el código según la estructura y necesidades de tu aplicación. ¡Espero que esto te dé un buen punto de partida para implementar tu función de carga de carrito en Angular!
+
+Martin Remedi
+como guardar el array products en localstorage
+ChatGPT
+
+Para guardar el array de productos en localStorage en Angular, puedes seguir estos pasos:
+
+En el componente donde tienes el array de productos (ProductListComponent en el ejemplo anterior), puedes utilizar el servicio localStorage de JavaScript para guardar y recuperar datos.
+
+Primero, importa Injectable y Inject de @angular/core en tu servicio:
+
+typescript
+
+import { Injectable, Inject } from '@angular/core';
+Luego, modifica tu servicio para utilizar localStorage:
+typescript
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CartService {
+  cartItems: any[] = [];
+
+  constructor(@Inject('LOCALSTORAGE') private localStorage: Storage) {
+    const items = this.localStorage.getItem('cartItems');
+    if (items) {
+      this.cartItems = JSON.parse(items);
+    }
+  }
+
+  addToCart(product: any) {
+    this.cartItems.push(product);
+    this.localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+  }
+}
+En tu módulo principal (por ejemplo, app.module.ts), puedes proporcionar localStorage como un proveedor para que pueda ser inyectado en el servicio:
+typescript
+
+import { NgModule } from '@angular/core';
+
+@NgModule({
+  providers: [
+    { provide: 'LOCALSTORAGE', useValue: window.localStorage }
+  ]
+})
+export class AppModule { }
+Con estos cambios, ahora tus productos se guardarán en localStorage y se recuperarán al recargar la página. ¡Espero que esta información te sea útil para guardar el array de productos en localStorage en Angular! -->

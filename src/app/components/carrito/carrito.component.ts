@@ -7,34 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarritoComponent implements OnInit {
 
+  carrito: any[] = [];
+  precioTotal = 0
   constructor() { }
 
   ngOnInit(): void {
-    // console.log(JSON.parse(localStorage.getItem('listado') || '{}'));
-
-
+    this.carrito = JSON.parse(localStorage.getItem('carrito') || '{}');
     console.clear()
-    let keys = Object.keys(localStorage);
-
-    // const cabecera = keys.includes('listad');
-    // console.log('=> ', cabecera)
-
-    for (let key of keys) {
-      // console.log(key)
+    console.log('Carrito =>', this.carrito)
 
 
-
-
-
-      if (key.includes('listad')){
-        console.log(key)
-      }
-      // const { caintidad, descripcion, id, precio, precioIndividual } = JSON.parse(localStorage.getItem('listado') || '{}')
-      const listado = JSON.parse(localStorage.getItem('listado') || '{}')
-
+    for (let item of this.carrito) {
+      this.precioTotal += item.precio
     }
 
-    // console.log(caintidad, descripcion, id, precio, precioIndividual)
   }
 
 }

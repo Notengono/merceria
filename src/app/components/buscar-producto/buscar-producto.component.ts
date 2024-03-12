@@ -28,7 +28,14 @@ export class BuscarProductoComponent implements OnInit {
     precioModal: number = 0;
     precio: number = 0;
 
+    cartItems: any[] = [];
+
     constructor(private _productos: ProductosService, private fb: FormBuilder) { }
+
+
+    addToCart(product: any) {
+        this.cartItems.push(product);
+    }
 
     ngOnInit() {
         this.listadoProductos = []
@@ -83,12 +90,8 @@ export class BuscarProductoComponent implements OnInit {
 
     cargaProducto() {
         console.clear()
-        // console.log({ 'id': this.idProductoModal, 'descripcion': this.productoModal, 'precio': this.precioModal, 'precioIndividual': this.precio, 'caintidad': this.cantidad })
-        const l = 'listado' + this.idProductoModal
-        console.log('l => ', l)
-        localStorage.setItem(l, JSON.stringify({ 'id': this.idProductoModal, 'descripcion': this.productoModal, 'precio': this.precioModal, 'precioIndividual': this.precio, 'caintidad': this.cantidad }))
-
-        console.log(JSON.parse(localStorage.getItem('listado') || '{}'));
+        this.addToCart({ 'id': this.idProductoModal, 'descripcion': this.productoModal, 'precio': this.precioModal, 'precioIndividual': this.precio, 'caintidad': this.cantidad })
+        localStorage.setItem('carrito', JSON.stringify(this.cartItems))
     }
 }
 
