@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, NgModel } from '@angular/forms';
 import { jsPDF } from "jspdf";
 
 @Component({
@@ -11,7 +12,16 @@ export class CarritoComponent implements OnInit {
     carrito: any[] = [];
     precioTotal = 0
     enCarrito = 0
-    constructor() { }
+    precioForm = this.fb.group({
+        codigo: 10002,
+        grupo: 17,
+        subgrupo: 10002,
+        producto: 'Varios',
+        idproducto: 41,
+        precio: 0,
+        cantidad: 1,
+    })
+    constructor(private fb: FormBuilder,) { }
 
     ngOnInit(): void {
         this.carrito = JSON.parse(localStorage.getItem('carrito') || '{}');
@@ -30,31 +40,28 @@ export class CarritoComponent implements OnInit {
     }
 
     imprimirCarrito() {
-
-
         // Default export is a4 paper, portrait, using millimeters for units
         const doc = new jsPDF();
 
-        doc.text("Angel Andres", 10, 10);
+        doc.text("Presupuesto", 10, 10);
 
+        doc.line(30, 25, 30, 225, 'D')
+        doc.line(145, 25, 145, 225, 'D')
+        doc.line(167, 25, 167, 225, 'D')
+        doc.line(15, 215, 195, 215, 'D')
+        doc.rect(15, 25, 180, 200, 'D')
         let linea = 30
         for (let item of this.carrito) {
             console.log(item.cantidad)
             doc.setFontSize(10);
-            doc.text(item.descripcion, 10, linea);
-            doc.text('$ ' + item.precioIndividual.toString(), 130, linea);
-            doc.text(item.caintidad.toString(), 150, linea);
-            doc.text('$ ' + item.precio.toString(), 160, linea);
-            linea += 10
+            doc.text(item.descripcion, 31, linea);
+            doc.text('$ ' + item.precioIndividual.toString(), 146, linea);
+            doc.text(item.caintidad.toString(), 21, linea);
+            doc.text('$ ' + item.precio.toString(), 168, linea);
+            linea += 5
         }
-
-        // <td>{{item.descripcion}}</td>
-        //             <td>${{item.precioIndividual}}</td>
-        //             <td class="text-end">{{item.caintidad}}</td>
-        //             <td class="text-center">${{item.precio}}</td>
-
+        doc.text('$ ' + this.precioTotal.toString(), 168, 221)
         doc.output('dataurlnewwindow');
-        // doc.save("a4.pdf");
     }
 
     quitarItem(indice: any) {
@@ -68,5 +75,31 @@ export class CarritoComponent implements OnInit {
         this.carrito = []
         this.precioTotal = 0
         this.enCarrito = 0
+    }
+
+    controlarKeyUp(op: string) {
+        console.clear()
+
+
+//  Pasar los campos de entrada a [(NgModel)]
+
+
+        const h = this.precioForm.value;
+        // console.log(parseInt(h.precio) * h.cantidad)
+
+        // console.log(this.precioForm.get('cantidad')?.value)
+        // const precio = this.precioForm.get('precio')!.value
+        // const cantidad = this.precioForm.get('cantidad')!.value != null ? this.precioForm.get('cantidad')!.value : 1;
+
+        // console.log(this.precioForm.get('precio')?.value * this.precioForm.get('cantidad')?.value)
+        // console.log(cantidad * precio)
+        // switch (op) {
+        //     case 'pi':
+        //         break;
+        //     case 'pt':
+        //         break;
+        //     default:
+        //         break;
+        // }
     }
 }

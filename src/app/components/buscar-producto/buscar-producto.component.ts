@@ -39,6 +39,7 @@ export class BuscarProductoComponent implements OnInit {
 
     ngOnInit() {
         this.listadoProductos = []
+        this.cartItems = JSON.parse(localStorage.getItem('carrito') || '{}');
         this._productos.postProductos(this.busquedaForm.value).subscribe(respuesta => {
             this.listadoProductosTodos = (respuesta['resultado'])
             Object.values(respuesta['resultado']).forEach(element => {
@@ -49,6 +50,8 @@ export class BuscarProductoComponent implements OnInit {
                 map(value => this._filter(value || '')),
             );
         })
+
+        console.table(this.cartItems)
     }
 
     private _filter(value: string): string[] {
