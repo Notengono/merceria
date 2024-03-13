@@ -35,8 +35,26 @@ export class CarritoComponent implements OnInit {
         // Default export is a4 paper, portrait, using millimeters for units
         const doc = new jsPDF();
 
-        doc.text("Hello world!", 10, 10);
-        doc.save("a4.pdf");
+        doc.text("Angel Andres", 10, 10);
+
+        let linea = 30
+        for (let item of this.carrito) {
+            console.log(item.cantidad)
+            doc.setFontSize(10);
+            doc.text(item.descripcion, 10, linea);
+            doc.text('$ ' + item.precioIndividual.toString(), 130, linea);
+            doc.text(item.caintidad.toString(), 150, linea);
+            doc.text('$ ' + item.precio.toString(), 160, linea);
+            linea += 10
+        }
+
+        // <td>{{item.descripcion}}</td>
+        //             <td>${{item.precioIndividual}}</td>
+        //             <td class="text-end">{{item.caintidad}}</td>
+        //             <td class="text-center">${{item.precio}}</td>
+
+        doc.output('dataurlnewwindow');
+        // doc.save("a4.pdf");
     }
 
     quitarItem(indice: any) {
