@@ -21,6 +21,11 @@ export class CarritoComponent implements OnInit {
         precio: 0,
         cantidad: 1,
     })
+
+    cantidad = 1
+    precio = 0
+    precioTotalModal = 0
+
     constructor(private fb: FormBuilder,) { }
 
     ngOnInit(): void {
@@ -77,29 +82,28 @@ export class CarritoComponent implements OnInit {
         this.enCarrito = 0
     }
 
-    controlarKeyUp(op: string) {
+    agregarProducto() {
         console.clear()
+        console.log(this.carrito)
+        this.carrito.push({
+            'caintidad': this.cantidad, 'descripcion': "Varios", id: 17, 'precio': this.precioTotalModal, 'precioIndividual': this.precio
+        });
+        localStorage.setItem('carrito', JSON.stringify(this.carrito))
+        this.contarCarrito()
+        console.log(this.carrito)
+    }
 
-
-//  Pasar los campos de entrada a [(NgModel)]
-
-
-        const h = this.precioForm.value;
-        // console.log(parseInt(h.precio) * h.cantidad)
-
-        // console.log(this.precioForm.get('cantidad')?.value)
-        // const precio = this.precioForm.get('precio')!.value
-        // const cantidad = this.precioForm.get('cantidad')!.value != null ? this.precioForm.get('cantidad')!.value : 1;
-
-        // console.log(this.precioForm.get('precio')?.value * this.precioForm.get('cantidad')?.value)
-        // console.log(cantidad * precio)
-        // switch (op) {
-        //     case 'pi':
-        //         break;
-        //     case 'pt':
-        //         break;
-        //     default:
-        //         break;
-        // }
+    controlarKeyUp(op: string) {
+        switch (op) {
+            case 'pi':
+                this.precioTotalModal = parseFloat((this.precio * this.cantidad).toFixed(2))
+                break;
+            case 'pt':
+                this.precio = parseFloat((this.precioTotalModal / this.cantidad).toFixed(2))
+                break;
+            default:
+                this.precioTotalModal = parseFloat((this.precio * this.cantidad).toFixed(2))
+                break;
+        }
     }
 }

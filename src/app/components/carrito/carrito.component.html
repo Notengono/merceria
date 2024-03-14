@@ -71,27 +71,30 @@
                         <h5>
                             Producto: <b>{{this.precioForm.controls['producto'].value}}</b>
                         </h5>
-                        <div [formGroup]="precioForm">
+                        <!-- <div [formGroup]="precioForm"> -->
+                        <div>
                             <div class="row">
                                 <div class="col-4">
                                     <div class="input-group">
                                         <span class="input-group-text">$ individual</span>
                                         <input type="text" aria-label="precio" class="form-control"
-                                            formControlName="precio" (keyup)="controlarKeyUp('pi')">
+                                            [(ngModel)]="precio" (keyup)="controlarKeyUp('pi')">
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="input-group">
                                         <span class="input-group-text">Cantidad</span>
                                         <input type="number" aria-label="cantidad" class="form-control"
-                                            formControlName="cantidad" (keyup)="controlarKeyUp('ca')">
+                                            [(ngModel)]="cantidad" (keyup)="controlarKeyUp('ca')">
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="input-group">
                                         <span class="input-group-text">$ total</span>
                                         <input type="text" aria-label="precio" class="form-control"
-                                            formControlName="precio" (keyup)="controlarKeyUp('pt')">
+                                            [(ngModel)]="precioTotalModal" (keyup)="controlarKeyUp('pt')">
                                     </div>
                                 </div>
                             </div>
@@ -99,8 +102,8 @@
                     </div>
                     <div class="modal-footer">
                         <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                            (click)="buscarProducto()">Cerrar</button>
-                        <button type="button" class="btn btn-primary" (click)="actualizarPrecio()">Actualizar</button> -->
+                            (click)="buscarProducto()">Cerrar</button> -->
+                        <button type="button" class="btn btn-primary" (click)="agregarProducto()">Agregar</button>
                     </div>
                 </div>
             </div>
