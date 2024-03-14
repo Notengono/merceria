@@ -59,6 +59,10 @@ export class BuscarProductoComponent implements OnInit {
     ngOnInit() {
         this.listadoProductos = []
         this.cartItems = JSON.parse(localStorage.getItem('carrito') || '[]');
+
+        console.log(this.cartItems, typeof(this.cartItems))
+
+
         this._productos.postProductos(this.busquedaForm.value).subscribe(respuesta => {
             this.listadoProductosTodos = (respuesta['resultado'])
             Object.values(respuesta['resultado']).forEach(element => {
@@ -112,18 +116,16 @@ export class BuscarProductoComponent implements OnInit {
 
     cargaProducto() {
         console.clear()
-        // console.log({ 'id': this.idProductoModal, 'descripcion': this.productoModal, 'precio': parseFloat(this.precioModal.toString()).toFixed(2), 'precioIndividual': this.precio, 'caintidad': this.cantidad })
-        // console.log([{ id: this.idProductoModal, descripcion: this.productoModal, precio: parseFloat(this.precioModal.toString()).toFixed(2), precioIndividual: this.precio, caintidad: this.cantidad }])
         // this.cartItems.push([{ 'id': this.idProductoModal, 'descripcion': this.productoModal, 'precio': parseFloat(this.precioModal.toString()).toFixed(2), 'precioIndividual': this.precio, 'caintidad': this.cantidad }])
 
         this.products.push({ id: this.idProductoModal, descripcion: this.productoModal, precio: parseFloat(this.precioModal.toString()).toFixed(2), precioIndividual: this.precio, caintidad: this.cantidad })
 
         console.log(this.products)
         // this.addToCart({ id: this.idProductoModal, descripcion: this.productoModal, precio: parseFloat(this.precioModal.toString()).toFixed(2), precioIndividual: this.precio, caintidad: this.cantidad })
-        this.addToCart({ 'id': this.idProductoModal, 'descripcion': this.productoModal, 'precio': parseFloat(this.precioModal.toString()).toFixed(2), 'precioIndividual': this.precio, 'caintidad': this.cantidad })
-        localStorage.setItem('carrito', JSON.stringify(this.cartItems))
+        this.addToCart([{ 'id': this.idProductoModal, 'descripcion': this.productoModal, 'precio': parseFloat(this.precioModal.toString()).toFixed(2), 'precioIndividual': this.precio, 'caintidad': this.cantidad }])
+        localStorage.setItem('carrito', JSON.stringify(this.products))
+        // localStorage.setItem('carrito', JSON.stringify(this.cartItems))
 
-        console.log()
     }
 }
 
