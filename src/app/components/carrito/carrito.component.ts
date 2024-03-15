@@ -29,17 +29,17 @@ export class CarritoComponent implements OnInit {
     constructor(private fb: FormBuilder,) { }
 
     ngOnInit(): void {
-        this.carrito = JSON.parse(localStorage.getItem('carrito') || '{}');
+        this.carrito = JSON.parse(localStorage.getItem('carrito') || '[{}]');
         this.contarCarrito()
     }
 
     contarCarrito() {
         this.precioTotal = 0
         this.enCarrito = Array.isArray(this.carrito) ? this.carrito.length : 0
-
         if (this.enCarrito > 0) {
             for (let item of this.carrito) {
-                this.precioTotal += parseFloat(item.precio.toFixed(2))
+                // this.precioTotal += parseFloat(item.precio.toFixed(2))
+                this.precioTotal += parseFloat(item.precio)
             }
         }
     }
@@ -57,7 +57,6 @@ export class CarritoComponent implements OnInit {
         doc.rect(15, 25, 180, 200, 'D')
         let linea = 30
         for (let item of this.carrito) {
-            console.log(item.cantidad)
             doc.setFontSize(10);
             doc.text(item.descripcion, 31, linea);
             doc.text('$ ' + item.precioIndividual.toString(), 146, linea);
@@ -70,7 +69,6 @@ export class CarritoComponent implements OnInit {
     }
 
     quitarItem(indice: any) {
-        console.log(indice)
         this.carrito.splice(indice, 1)
         this.contarCarrito()
     }
@@ -83,14 +81,9 @@ export class CarritoComponent implements OnInit {
     }
 
     agregarProducto() {
-        console.clear()
-        console.log(this.carrito)
-        this.carrito.push({
-            'caintidad': this.cantidad, 'descripcion': "Varios", id: 17, 'precio': this.precioTotalModal, 'precioIndividual': this.precio
-        });
+        this.carrito.push({ id: 17, 'descripcion': "Varios", 'precio': this.precioTotalModal, 'precioIndividual': this.precio, 'caintidad': this.cantidad });
         localStorage.setItem('carrito', JSON.stringify(this.carrito))
         this.contarCarrito()
-        console.log(this.carrito)
     }
 
     controlarKeyUp(op: string) {

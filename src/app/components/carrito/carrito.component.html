@@ -15,17 +15,17 @@
         <div class="table-responsive" *ngIf="enCarrito > 0">
             <table class="table table-striped table-hover">
                 <thead class="table-dark">
-                    <th>Producto</th>
-                    <th>individual</th>
-                    <th>Cantidad</th>
-                    <th>Precio Total</th>
+                    <th class="text-center">Cantidad</th>
+                    <th class="text-center">Producto</th>
+                    <th class="text-center">individual</th>
+                    <th class="text-center">Precio Total</th>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of carrito; index as i">
-                        <td>{{item.descripcion}}</td>
-                        <td>${{item.precioIndividual}}</td>
                         <td class="text-end">{{item.caintidad}}</td>
-                        <td class="text-center">${{item.precio}}</td>
+                        <td><b>{{item.descripcion}}</b></td>
+                        <td>$ {{item.precioIndividual|number:'1.2'}}</td>
+                        <td class="text-end">$ {{item.precio|number:'1.2'}}</td>
                         <td class="text-center" (click)="quitarItem(i)">
                             <i class="fa fa-times"></i>
 
@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                         <td colspan="3" class="text-end">Total</td>
-                        <td colspan="1" class="text-center"><b>$ {{precioTotal}}</b></td>
+                        <td colspan="1" class="text-center"><b>$ {{precioTotal|number:'1.2'}}</b></td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -57,7 +57,6 @@
         </div>
     </div>
 
-
     <div class="row">
         <div class="modal modal-lg fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -71,14 +70,13 @@
                         <h5>
                             Producto: <b>{{this.precioForm.controls['producto'].value}}</b>
                         </h5>
-                        <!-- <div [formGroup]="precioForm"> -->
                         <div>
                             <div class="row">
                                 <div class="col-4">
                                     <div class="input-group">
                                         <span class="input-group-text">$ individual</span>
-                                        <input type="text" aria-label="precio" class="form-control"
-                                            [(ngModel)]="precio" (keyup)="controlarKeyUp('pi')">
+                                        <input type="text" aria-label="precio" class="form-control" [(ngModel)]="precio"
+                                            (keyup)="controlarKeyUp('pi')">
                                     </div>
                                 </div>
 
@@ -86,7 +84,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Cantidad</span>
                                         <input type="number" aria-label="cantidad" class="form-control"
-                                            [(ngModel)]="cantidad" (keyup)="controlarKeyUp('ca')">
+                                            [(ngModel)]="cantidad" (keyup)="controlarKeyUp('ca')"
+                                            (click)="controlarKeyUp('ca')">
                                     </div>
                                 </div>
 
@@ -101,9 +100,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                            (click)="buscarProducto()">Cerrar</button> -->
-                        <button type="button" class="btn btn-primary" (click)="agregarProducto()">Agregar</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            (click)="agregarProducto()">Agregar</button>
                     </div>
                 </div>
             </div>
