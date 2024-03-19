@@ -346,6 +346,45 @@ $app->put(
     }
 );
 
+$app->post(
+    '/presupuesto',
+    function ($request, $response, $args) {
+        $input = $request->getParsedBody();
+        try {
+            $sth = $this->db->prepare("INSERT INTO presupuesto (idpresupuesto, numero, fecha, estado, fecha_fin)
+            VALUES(null, :numero, :fecha, :estado, :fechaFin);");
+            $sth->bindParam("fecha", $input["fecha"]);
+            $sth->bindParam("estado", $input["estado"]);
+            $sth->bindParam("numero", $input["numero"]);
+            $sth->bindParam("fechaFin", $input["fechaFin"]);
+            $sth->execute();
+
+            $idpresupuesto = $this->db->lastInsertId();
+
+
+            foreach ($input['productos'] as $llave => $valor) {
+                $valor["descuento"] = 0;
+
+                $sth = $this->db->prepare("INSERT INTO producto_presupuesto (idproducto, idpresupuesto, precio, cantidad, descuento)
+                VALUES(:idproducto, :idpresupuesto, :precio, :caintidad, :descuento);");
+                $sth->bindParam("idproducto", $valor["id"]);
+                $sth->bindParam("idpresupuesto", $idpresupuesto);
+                $sth->bindParam("precio", $valor["precio"]);
+                $sth->bindParam("caintidad", $valor["caintidad"]);
+                $sth->bindParam("descuento", $valor["descuento"]);
+                $sth->execute();
+            }
+
+            $input['estado'] = 200;
+            $input['error'] = 'El registro se almacenó correctamente.';
+            return $this->response->withJson($input);
+        } catch (\Throwable $th) {
+            $input['estado'] = 402;
+            $input['error'] = 'Error al grabar el registro.';
+            return $this->response->withJson($th);
+        }
+    }
+);
 
 
 

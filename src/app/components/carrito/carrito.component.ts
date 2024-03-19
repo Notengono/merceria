@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, NgModel } from '@angular/forms';
 import { jsPDF } from "jspdf";
+import { PresupuestoService } from 'src/app/services/presupuesto.service';
 
 @Component({
     selector: 'app-carrito',
@@ -8,6 +9,8 @@ import { jsPDF } from "jspdf";
     styleUrls: ['./carrito.component.css']
 })
 export class CarritoComponent implements OnInit {
+    fecha = ''
+    estado = 3
 
     carrito: any[] = [];
     precioTotal = 0
@@ -26,9 +29,14 @@ export class CarritoComponent implements OnInit {
     precio = 0
     precioTotalModal = 0
 
-    constructor(private fb: FormBuilder,) { }
+    constructor(private fb: FormBuilder, private _presupuestoService: PresupuestoService) { }
 
     ngOnInit(): void {
+        const aux_ = new Date();
+        const aux1_ = ((aux_.getMonth() + 1) > 9) ? (aux_.getMonth() + 1) : '0' + (aux_.getMonth() + 1);
+        const aux2_ = ((aux_.getUTCDate() + 1) > 9) ? aux_.getUTCDate() : '0' + aux_.getUTCDate();
+        this.fecha = aux_.getFullYear() + '-' + aux1_ + '-' + aux2_;
+
         this.carrito = JSON.parse(localStorage.getItem('carrito') || '[{}]');
         this.contarCarrito()
     }
@@ -38,33 +46,47 @@ export class CarritoComponent implements OnInit {
         this.enCarrito = Array.isArray(this.carrito) ? this.carrito.length : 0
         if (this.enCarrito > 0) {
             for (let item of this.carrito) {
-                // this.precioTotal += parseFloat(item.precio.toFixed(2))
                 this.precioTotal += parseFloat(item.precio)
             }
         }
+    }
+
+    finCarrito() {
+        console.log({ fecha: this.fecha, numero: 1, estado: this.estado, fechaFin: this.fecha, productos: this.carrito })
+
+        this._presupuestoService
+            .postProductos({ fecha: this.fecha, numero: 1, estado: this.estado, fechaFin: this.fecha, productos: this.carrito })
+            .subscribe(respuesta => console.log(respuesta))
     }
 
     imprimirCarrito() {
         // Default export is a4 paper, portrait, using millimeters for units
         const doc = new jsPDF();
 
-        doc.text("Presupuesto", 10, 10);
+        doc.text("Angel Andrés", 20, 20);
 
-        doc.line(30, 25, 30, 225, 'D')
-        doc.line(145, 25, 145, 225, 'D')
-        doc.line(167, 25, 167, 225, 'D')
-        doc.line(15, 215, 195, 215, 'D')
-        doc.rect(15, 25, 180, 200, 'D')
-        let linea = 30
+        doc.setLineWidth(0.5);
+        doc.line(30, 45, 30, 245, 'D')
+        doc.line(145, 45, 145, 245, 'D')
+        doc.line(167, 45, 167, 245, 'D')
+        doc.line(15, 235, 195, 235, 'D')
+        doc.rect(15, 45, 180, 200, 'D')
+        doc.rect(15, 10, 180, 35, 'D')
+        doc.rect(100, 10, 10, 10, 'D')
+        doc.line(105, 20, 105, 45, 'D')
+        let linea = 50
         for (let item of this.carrito) {
+            doc.setFontSize(20);
+            doc.text('X', 103, 17);
             doc.setFontSize(10);
+            doc.text('0001-000000001', 160, 20);
             doc.text(item.descripcion, 31, linea);
             doc.text('$ ' + item.precioIndividual.toString(), 146, linea);
             doc.text(item.caintidad.toString(), 21, linea);
             doc.text('$ ' + item.precio.toString(), 168, linea);
             linea += 5
         }
-        doc.text('$ ' + this.precioTotal.toString(), 168, 221)
+        doc.text('$ ' + this.precioTotal.toString(), 168, 241)
         doc.output('dataurlnewwindow');
     }
 
