@@ -25,6 +25,9 @@ export class CarritoComponent implements OnInit {
         cantidad: 1,
     })
 
+    modalDescuento = false
+    precioTotalD = 0
+    descuento = 0
     cantidad = 1
     precio = 0
     precioTotalModal = 0
@@ -48,12 +51,11 @@ export class CarritoComponent implements OnInit {
             for (let item of this.carrito) {
                 this.precioTotal += parseFloat(item.precio)
             }
+            this.precioTotal = this.precioTotal * (1 - (this.descuento / 100))
         }
     }
 
     finCarrito() {
-        console.log({ fecha: this.fecha, numero: 1, estado: this.estado, fechaFin: this.fecha, productos: this.carrito })
-
         this._presupuestoService
             .postProductos({ fecha: this.fecha, numero: 1, estado: this.estado, fechaFin: this.fecha, productos: this.carrito })
             .subscribe(respuesta => console.log(respuesta))
@@ -102,6 +104,10 @@ export class CarritoComponent implements OnInit {
         this.enCarrito = 0
     }
 
+    modal(valor: string) {
+        this.modalDescuento = valor == 'p' ? false : true
+    }
+
     agregarProducto() {
         this.carrito.push({ id: 17, 'descripcion': "Varios", 'precio': this.precioTotalModal, 'precioIndividual': this.precio, 'caintidad': this.cantidad });
         localStorage.setItem('carrito', JSON.stringify(this.carrito))
@@ -115,6 +121,9 @@ export class CarritoComponent implements OnInit {
                 break;
             case 'pt':
                 this.precio = parseFloat((this.precioTotalModal / this.cantidad).toFixed(2))
+                break;
+            case 'de':
+                this.precioTotalD = parseFloat((this.precioTotal * (1 - this.descuento / 100)).toFixed(2))
                 break;
             default:
                 this.precioTotalModal = parseFloat((this.precio * this.cantidad).toFixed(2))

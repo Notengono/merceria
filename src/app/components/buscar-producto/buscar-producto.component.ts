@@ -66,6 +66,7 @@ export class BuscarProductoComponent implements OnInit {
             const valor = evt.source.value
             const filterValue = valor.toLowerCase();
             this.listadoMostrar = this.listadoProductosTodos.filter(option => (option.codigo + ' - ' + option.producto).toLowerCase().includes(filterValue));
+            this.myControl.setValue('')
             return true
         }
         else {

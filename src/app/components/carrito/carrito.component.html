@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-2 offset-10 text-end">
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop">
+                data-bs-target="#staticBackdrop" (click)="modal('p')">
                 Agregar
             </button>
         </div>
@@ -46,6 +46,12 @@
                 </tbody>
             </table>
             <div class="text-end">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" (click)="modal('d')">
+                    Descuento
+                </button>
+                &nbsp;
+                &nbsp;
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancelarCompra()">
                     Cancelar Compra
                 </button>
@@ -73,7 +79,7 @@
         <div class="modal modal-lg fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content" *ngIf="!modalDescuento">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar producto</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -114,6 +120,39 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                             (click)="agregarProducto()">Agregar</button>
+                    </div>
+                </div>
+
+                <!-- Modal de Descuento  -->
+                <div class="modal-content" *ngIf="modalDescuento">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Aplicar descuento</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>
+                            Valor sin descuento: <b>$ {{precioTotal|number:'1.2'}}</b>
+                        </h5>
+                        <div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="input-group">
+                                        <span class="input-group-text">% descuento</span>
+                                        <input type="text" aria-label="descuento" class="form-control"
+                                            [(ngModel)]="descuento" (keyup)="controlarKeyUp('de')">
+                                    </div>
+                                </div>
+                                <div class="col-6 offset-1">
+                                    <h5>
+                                        Con descuento: <b>$ {{precioTotalD|number:'1.2'}}</b>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            (click)="contarCarrito()">Aplicar</button>
                     </div>
                 </div>
             </div>
