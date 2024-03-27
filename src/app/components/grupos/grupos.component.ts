@@ -9,6 +9,8 @@ import { CategoriasService } from 'src/app/services/categorias.service';
   styleUrls: ['./grupos.component.css']
 })
 export class GruposComponent implements OnInit {
+  idCategoria: number = 0
+  CategoriaDescripcion: string = ''
 
   altaForm = this.fb.group({
     inputGroupCategoria: '',
@@ -44,5 +46,11 @@ export class GruposComponent implements OnInit {
     ].join('')
 
     document.getElementById('liveAlertPlaceholder')?.append(wrapper)
+  }
+
+  eliminar(categoria: any) {
+
+    this.idCategoria = categoria.id
+    this.CategoriaDescripcion = categoria.descripcion
   }
 }
