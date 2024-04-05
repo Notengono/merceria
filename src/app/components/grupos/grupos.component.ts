@@ -49,8 +49,15 @@ export class GruposComponent implements OnInit {
   }
 
   eliminar(categoria: any) {
-
-    this.idCategoria = categoria.id
+    this.idCategoria = categoria.idgrupo
     this.CategoriaDescripcion = categoria.descripcion
+  }
+
+  eliminarGrupo() {
+    this._categoria.putCategoriaEliminar(this.idCategoria).subscribe(
+      resultado => {
+        this.ngOnInit();
+        this.appendAlert(resultado.error, (resultado.estado == 200 ? 'success' : 'danger'))
+      })
   }
 }

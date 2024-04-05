@@ -95,10 +95,16 @@
                     <br>
                     <b class="text-danger fs-4 text">{{CategoriaDescripcion}}</b>
                     <br>
+                    <br>
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <div>Sí elimina la categoría <b>dejará</b> de ver los productos asociados a la misma.</div>
+                    </div>
+                    <br>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Eliminar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        (click)="eliminarGrupo()">Eliminar</button>
                 </div>
             </div>
         </div>

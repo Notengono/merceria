@@ -26,16 +26,26 @@ export class CategoriasService {
     return this._http.get<any>(
       `${apiURL}subcategorias/${valor}`, { headers: header });
   }
+
   postCategoria(valor: any) {
     const header = new HttpHeaders();
     header.append("Content-Type", "applications/json");
     return this._http.post<any>(
       `${apiURL}categoria`, valor, { headers: header });
   }
+
   postSubCategoria(valor: any) {
     const header = new HttpHeaders();
     header.append("Content-Type", "applications/json");
     return this._http.post<any>(
       `${apiURL}subcategoria`, valor, { headers: header });
   }
+
+  putCategoriaEliminar(valor: any) {
+    const header = new HttpHeaders();
+    header.append("Content-Type", "applications/json");
+    return this._http.put<any>(
+      `${apiURL}CategoriaEliminar/${valor}`, { headers: header });
+  }
+
 }

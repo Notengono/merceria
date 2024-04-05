@@ -27,10 +27,34 @@ $app->post('/categoria', function ($request, $response) {
 });
 
 $app->get('/categorias', function ($request, $response) {
-    $sth = $this->db->prepare("SELECT * FROM `grupos` ORDER BY descripcion;");
+    $sth = $this->db->prepare("SELECT * FROM `grupos` WHERE baja = 0 ORDER BY descripcion;");
     $sth->execute();
     $resultado = $sth->fetchAll();
     return $this->response->withJson($resultado);
+});
+
+$app->put('/CategoriaEliminar/{valor}', function ($request, $response, $args) {
+    // ALTER TABLE `merceria`.`grupos` ADD COLUMN `baja` TINYINT UNSIGNED NOT NULL DEFAULT 0 AFTER `created`;
+    try {
+        $valor = $args['valor'];
+        $sth = $this->db->prepare("UPDATE `grupos` SET baja = 1 WHERE idgrupo = :idgrupo ;");
+        $sth->bindParam('idgrupo', $valor);
+        $sth->execute();
+
+        if (!$sth->execute()) {
+            $input['estado'] = 402;
+            $input['error'] = 'Error al dar de baja la categoría.';
+            return $this->response->withJson($input);
+        } else {
+            $input['estado'] = 200;
+            $input['error'] = 'La baja sé registró correctamente.';
+        }
+        return $this->response->withJson($input);
+    } catch (\Throwable $th) {
+        $input['estado'] = 402;
+        $input['error'] = 'Error al dar de baja la categoría.';
+        return $this->response->withJson($input);
+    }
 });
 
 $app->get('/subcategorias/{valor}', function ($request, $response, $args) {
