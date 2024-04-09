@@ -51,6 +51,12 @@
             </div>
 
             <div class="row">
+                <div class="alert alert-warning col-6 offset-3" *ngIf="modificar">
+                    Cantidada de productos asociados al subgrupo que quiere modificar: <b>{{modiSubGrupoTotal}}</b>
+                </div>
+            </div>
+
+            <div class="row">
                 <div id="liveAlertPlaceholder"></div>
             </div>
         </div>
@@ -90,7 +96,7 @@
                                 <td>{{categoriaElegida}}</td>
                                 <td>{{sub.descripcion}}</td>
                                 <td>
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    <i class="fa fa-pencil" aria-hidden="true" (click)="editar(sub)"></i>
                                     &nbsp;
                                     <i class="fa fa-ban" aria-hidden="true"></i>
                                     <i class="fa fa-plus" aria-hidden="true"></i>

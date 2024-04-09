@@ -17,6 +17,8 @@ export class SubGruposComponent implements OnInit {
     descripcionSubCategoria: ''
   })
   cantidad: number = 0
+  modiSubGrupoTotal: number = 0
+  modificar: boolean = false
 
   listadoCategoria: Categoria[] = [];
   listadoSubCategoria: SubCategoriaI[] = []
@@ -33,6 +35,8 @@ export class SubGruposComponent implements OnInit {
   limpiarSubCategoria() {
     this.altaForm.reset();
     this.altaForm.patchValue({ inputGroupCategoria: 0 })
+    this.modificar = false
+    this.modiSubGrupoTotal = 0
   }
 
   async almacenarSubCategoria() {
@@ -56,11 +60,6 @@ export class SubGruposComponent implements OnInit {
     document.getElementById('liveAlertPlaceholder')?.append(wrapper)
   }
 
-  // filtro: string = ""
-  // listadoCategoria: Categoria[] = []
-
-  // listadoProductos: any[] = []
-
   /**
    * 
    * Buscar las sub categorias de la principal categoria
@@ -69,16 +68,25 @@ export class SubGruposComponent implements OnInit {
 
   onClikCategoria(event: any) {
     this.listadoSubCategoria = []
-    // console.log(event.value)
-    // console.log(event.text)
-    // console.log(event.textContent)
     this.categoriaElegida = event[event.selectedIndex].innerText
-
-
     this.altaForm.patchValue({ inputGroupCategoria: event.value });
-
     this._categoria.getSubCategorias(event.value).subscribe(respuesta => {
       this.listadoSubCategoria = Object.values(respuesta['resultado'])
     });
   }
+
+
+  editar(sub: any) {
+    this.modificar = true
+    this.altaForm.patchValue({
+      inputGroupCategoria: sub.idgrupo,
+      inputGroupSubCategoria: sub.idsubgrupo,
+      descripcionSubCategoria: sub.descripcion
+    })
+
+    // corroborar sí hay productos asociados al subgrupo.
+    this._categoria.getSubCategoriasVerificar(sub.idsubgrupo).subscribe(resultado => this.modiSubGrupoTotal = resultado.total)
+
+  }
+
 }

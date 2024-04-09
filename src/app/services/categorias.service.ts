@@ -27,6 +27,13 @@ export class CategoriasService {
       `${apiURL}subcategorias/${valor}`, { headers: header });
   }
 
+  getSubCategoriasVerificar(valor: number) {
+    const header = new HttpHeaders();
+    header.append("Content-Type", "applications/json");
+    return this._http.get<any>(
+      `${apiURL}subcategoriasVerificar/${valor}`, { headers: header });
+  }
+
   postCategoria(valor: any) {
     const header = new HttpHeaders();
     header.append("Content-Type", "applications/json");

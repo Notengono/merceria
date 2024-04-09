@@ -77,6 +77,15 @@ $app->get('/subcategorias/{valor}', function ($request, $response, $args) {
     return $this->response->withJson($input, $input['estado']);
 });
 
+$app->get('/subcategoriasVerificar/{valor}', function ($request, $response, $args) {
+    $valor = $args['valor'];
+    $sth = $this->db->prepare("SELECT count(*) AS total FROM `productos` WHERE idsubgrupo = :idSubgrupo ;");
+    $sth->bindParam('idSubgrupo', $valor);
+    $sth->execute();
+    $resultado = $sth->fetchObject();
+    return $this->response->withJson($resultado, 200);
+});
+
 
 $app->post('/subcategoria', function ($request, $response) {
     try {
