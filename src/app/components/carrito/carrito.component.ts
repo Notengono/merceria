@@ -61,6 +61,34 @@ export class CarritoComponent implements OnInit {
             .subscribe(respuesta => console.log(respuesta))
     }
 
+    imprimirTiket() {
+        const doc = new jsPDF("p", "mm", [57, 100]);
+        doc.setFontSize(12);
+        doc.text('X', 28, 5, { align: 'center' });
+        doc.text("Mercería Angel Andrés", 28, 10, { align: 'center' });
+        // doc.text("Ministerio de Salud", 28, 10, { align: 'center' });
+
+        let linea = 15
+        doc.setFontSize(6);
+        doc.text(this.fecha, 54, 5, { align: 'right' });
+
+        for (let item of this.carrito) {
+            doc.text(item.descripcion, 3, linea);
+            linea += 3
+            doc.text('$ ' + item.precioIndividual.toString() + ' * ' + item.caintidad.toString(), 5, linea);
+            doc.text('$ ' + item.precio.toString(), 54, linea, { align: 'right' });
+            linea += 4
+        }
+
+        doc.line(0, 12, 57, 12, 'D')
+        doc.line(0, 91, 57, 91, 'D')
+        doc.setFontSize(8);
+        doc.setFont('', 'bold')
+        doc.text('Total: $ ' + this.precioTotal.toString(), 54, 95, { align: 'right' })
+
+        doc.output('dataurlnewwindow');
+    }
+
     imprimirCarrito() {
         // Default export is a4 paper, portrait, using millimeters for units
         const doc = new jsPDF();
@@ -77,11 +105,12 @@ export class CarritoComponent implements OnInit {
         doc.rect(100, 10, 10, 10, 'D')
         doc.line(105, 20, 105, 45, 'D')
         let linea = 50
+        doc.setFontSize(20);
+        doc.text('X', 103, 17);
+        doc.setFontSize(10);
+        doc.text('0001-000000001', 160, 20);
+
         for (let item of this.carrito) {
-            doc.setFontSize(20);
-            doc.text('X', 103, 17);
-            doc.setFontSize(10);
-            doc.text('0001-000000001', 160, 20);
             doc.text(item.descripcion, 31, linea);
             doc.text('$ ' + item.precioIndividual.toString(), 146, linea);
             doc.text(item.caintidad.toString(), 21, linea);
