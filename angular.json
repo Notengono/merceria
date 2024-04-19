@@ -26,6 +26,14 @@
               "src/custom-theme.scss",
               "src/styles.css"
             ],
+            "allowedCommonJsDependencies": [
+              "rxjs-compat",
+              "html2canvas",
+              "dompurify",
+              "rgbcolor",
+              "raf",
+              "core-js/modules"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -33,8 +41,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "3mb"
                 },
                 {
                   "type": "anyComponentStyle",

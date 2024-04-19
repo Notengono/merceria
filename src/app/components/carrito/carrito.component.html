@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-2 offset-10 text-end">
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop" (click)="modal('p')">
+                data-bs-backdrop="false" data-bs-target="#staticBackdrop" (click)="modal('p')">
                 Agregar
             </button>
         </div>
@@ -52,7 +52,7 @@
             </table>
             <div class="text-end">
                 <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop" (click)="modal('d')">
+                    data-bs-target="#staticBackdrop" data-backdrop="static" data-keyboard="false" (click)="modal('d')">
                     Descuento
                 </button>
                 &nbsp;
@@ -67,10 +67,10 @@
                 </button>
                 &nbsp;
                 &nbsp;
-                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal" (click)="imprimirCarrito()">
+                <button type="button" class="btn btn-outline-light" (click)="imprimirCarrito()">
                     <i class="fa fa-print" aria-hidden="true"></i>
                 </button>
-                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal" (click)="imprimirTiket()">
+                <button type="button" class="btn btn-outline-light" (click)="imprimirTiket()">
                     <i class="fa fa-print" aria-hidden="true"></i>
                 </button>
             </div>
