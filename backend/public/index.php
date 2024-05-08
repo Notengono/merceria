@@ -18,10 +18,7 @@ require __DIR__ . '/../src/dependencies.php';
 
 require __DIR__ . '/../src/middleware.php';
 require __DIR__ . '/../src/auth.php';
-// require __DIR__ . '/../src/routes.php';
-
-// require __DIR__ . '/../src/users.php';
+require __DIR__ . '/../src/reportes.php';
 require __DIR__ . '/../src/productos.php';
 require __DIR__ . '/../src/categorias.php';
-
 $app->run();

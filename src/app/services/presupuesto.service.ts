@@ -16,4 +16,11 @@ export class PresupuestoService {
     return this._http.post<any>(
       `${apiURL}presupuesto`, valor, { headers: header });
   }
+
+  buscarProductos(valor: any) {
+    const header = new HttpHeaders();
+    header.append("Content-Type", "applications/json");
+    return this._http.get<any>(
+      `${apiURL}ventasPorDia/${valor}`, { headers: header });
+  }
 }

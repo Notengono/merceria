@@ -23,6 +23,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PrecioPorProductoComponent } from './components/precio-por-producto/precio-por-producto.component';
+import { PorDiaComponent } from './components/informes/por-dia/por-dia.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PrecioPorProductoComponent } from './components/precio-por-producto/pre
     EdicionProductoComponent,
     BuscarProductoComponent,
     InicioComponent,
-    PrecioPorProductoComponent
+    PrecioPorProductoComponent,
+    PorDiaComponent
   ],
   imports: [
     MatFormFieldModule,

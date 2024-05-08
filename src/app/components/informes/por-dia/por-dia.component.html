@@ -1,0 +1,67 @@
+<div class="container">
+    <br />
+    <h2 class="text-light p-3">Informe de Ventas</h2>
+    <br />
+    <div class="card">
+        <div class="card-header">
+            Ventas
+        </div>
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-body-secondary">Informe de Ventas</h6>
+
+            <div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="input-group">
+                            <span class="input-group-text" id="fechaBusqueda01">Fecha de búsqueda</span>
+                            <input type="date" class="form-control" placeholder="Ingrese nombre de producto "
+                                aria-label="fechaBusqueda" [(ngModel)]="fechaBusqueda" id="fechaBusqueda"
+                                name="fechaBusqueda" aria-describedby="fechaBusqueda01">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-outline-primary" (click)="buscar()">
+                            <i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp;Buscar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <div class="row" *ngIf="buscando && listadoMostrar.length>0">
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col">#</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Código</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let producto of listadoMostrar ">
+                            <td>{{producto.numero}}</td>
+                            <td class="text-center">{{producto.fecha|date:'d/MM/Y'}}</td>
+                            <td class="text-end">{{producto.codigo}}</td>
+                            <td>{{producto.descripcion}}</td>
+                            <td class="text-center">{{producto.cantidad}}</td>
+                            <td class="text-end">${{producto.precio|number:'1.2'}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row" *ngIf="buscando && listadoMostrar.length==0">
+                <div class="alert alert-warning text-center" role="alert">
+                    <b>No</b> hay datos cargados para la fecha "<b>{{fechaBusqueda}}</b>".
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+        </div>
+    </div>
+</div>

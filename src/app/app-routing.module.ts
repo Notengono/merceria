@@ -10,6 +10,7 @@ import { BuscarProductoComponent } from './components/buscar-producto/buscar-pro
 import { EdicionProductoComponent } from './components/edicion-producto/edicion-producto.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { PrecioPorProductoComponent } from './components/precio-por-producto/precio-por-producto.component';
+import { PorDiaComponent } from './components/informes/por-dia/por-dia.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -22,7 +23,8 @@ const routes: Routes = [
   { path: 'precio_producto', component: PreciosProductosComponent },
   { path: 'precio_por_producto', component: PrecioPorProductoComponent },
   { path: 'carrito', component: CarritoComponent },
-  { path: 'buscar', component: BuscarProductoComponent }
+  { path: 'buscar', component: BuscarProductoComponent },
+  { path: 'inf_diario', component: PorDiaComponent }
 ];
 
 @NgModule({
