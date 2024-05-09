@@ -59,6 +59,7 @@ export class CarritoComponent implements OnInit {
         this._presupuestoService
             .postProductos({ fecha: this.fecha, numero: 1, estado: this.estado, fechaFin: this.fecha, productos: this.carrito })
             .subscribe(respuesta => console.log(respuesta))
+        this.cancelarCompra()
     }
 
     imprimirTiket() {
@@ -123,6 +124,7 @@ export class CarritoComponent implements OnInit {
 
     quitarItem(indice: any) {
         this.carrito.splice(indice, 1)
+        localStorage.setItem('carrito', JSON.stringify(this.carrito))
         this.contarCarrito()
     }
 
