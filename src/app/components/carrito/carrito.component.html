@@ -4,10 +4,21 @@
 <div class="container">
     <br>
     <div class="row">
-        <div class="col-2 offset-10 text-end">
+        <div class="col-3 offset-9 text-end">
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
                 data-bs-backdrop="false" data-bs-target="#staticBackdrop" (click)="modal('p')">
-                Agregar
+                Agregar&nbsp;<i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+            &nbsp;
+            &nbsp;
+            <button type="button" class="btn btn-outline-light" (click)="imprimirCarrito()">
+                <i class="fa fa-print" aria-hidden="true"></i>&nbsp;<i class="fa fa-shopping-cart"
+                    aria-hidden="true"></i>
+
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-outline-light" (click)="imprimirTiket()">
+                <i class="fa fa-print" aria-hidden="true"></i>&nbsp;<i class="fa fa-ticket" aria-hidden="true"></i>
             </button>
         </div>
     </div>
@@ -50,118 +61,122 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="text-end">
-                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop" data-backdrop="static" data-keyboard="false" (click)="modal('d')">
-                    Descuento
-                </button>
-                &nbsp;
-                &nbsp;
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancelarCompra()">
-                    Cancelar Compra
-                </button>
-                &nbsp;
-                &nbsp;
-                <button type="button" class="btn btn-primary" (click)="finCarrito()">
-                    Finalizar Compra
-                </button>
-                &nbsp;
-                &nbsp;
-                <button type="button" class="btn btn-outline-light" (click)="imprimirCarrito()">
-                    <i class="fa fa-print" aria-hidden="true"></i>
-                </button>
-                <button type="button" class="btn btn-outline-light" (click)="imprimirTiket()">
-                    <i class="fa fa-print" aria-hidden="true"></i>
-                </button>
-            </div>
-        </div>
-
-        <div *ngIf="enCarrito == 0">
-            <div class="alert alert-warning text-center" role="alert">
-                <b>No</b> hay datos cargados en el carrito para poder mostrar.
-            </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="modal modal-lg fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content" *ngIf="!modalDescuento">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar producto</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h5>
-                            Producto: <b>{{this.precioForm.controls['producto'].value}}</b>
-                        </h5>
-                        <div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="input-group">
-                                        <span class="input-group-text">$ individual</span>
-                                        <input type="text" aria-label="precio" class="form-control" [(ngModel)]="precio"
-                                            (keyup)="controlarKeyUp('pi')">
-                                    </div>
-                                </div>
+        <div class="col-4">
+            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop" data-backdrop="static" data-keyboard="false" (click)="modal('d')">
+                Descuento
+            </button>
+            &nbsp;
+            &nbsp;
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancelarCompra()">
+                Cancelar Compra
+            </button>
+        </div>
 
-                                <div class="col-4">
-                                    <div class="input-group">
-                                        <span class="input-group-text">Cantidad</span>
-                                        <input type="number" aria-label="cantidad" class="form-control"
-                                            [(ngModel)]="cantidad" (keyup)="controlarKeyUp('ca')"
-                                            (click)="controlarKeyUp('ca')">
-                                    </div>
-                                </div>
+        <div class="col-4 offset-4 text-end">
+            &nbsp;
+            &nbsp;
+            <button type="button" class="btn btn-outline-info" (click)="finCarrito()">
+                Finalizar Presupuesto
+            </button>
 
-                                <div class="col-4">
-                                    <div class="input-group">
-                                        <span class="input-group-text">$ total</span>
-                                        <input type="text" aria-label="precio" class="form-control"
-                                            [(ngModel)]="precioTotalModal" (keyup)="controlarKeyUp('pt')">
-                                    </div>
+            &nbsp;
+            &nbsp;
+            <button type="button" class="btn btn-success" (click)="finCarrito()">
+                Finalizar Compra
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="enCarrito == 0">
+        <div class="alert alert-warning text-center" role="alert">
+            <b>No</b> hay datos cargados en el carrito para poder mostrar.
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="modal modal-lg fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" *ngIf="!modalDescuento">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar producto</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5>
+                        Producto: <b>{{this.precioForm.controls['producto'].value}}</b>
+                    </h5>
+                    <div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="input-group">
+                                    <span class="input-group-text">$ individual</span>
+                                    <input type="text" aria-label="precio" class="form-control" [(ngModel)]="precio"
+                                        (keyup)="controlarKeyUp('pi')">
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="input-group">
+                                    <span class="input-group-text">Cantidad</span>
+                                    <input type="number" aria-label="cantidad" class="form-control"
+                                        [(ngModel)]="cantidad" (keyup)="controlarKeyUp('ca')"
+                                        (click)="controlarKeyUp('ca')">
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="input-group">
+                                    <span class="input-group-text">$ total</span>
+                                    <input type="text" aria-label="precio" class="form-control"
+                                        [(ngModel)]="precioTotalModal" (keyup)="controlarKeyUp('pt')">
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            (click)="agregarProducto()">Agregar</button>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        (click)="agregarProducto()">Agregar</button>
+                </div>
+            </div>
 
-                <!-- Modal de Descuento  -->
-                <div class="modal-content" *ngIf="modalDescuento">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Aplicar descuento</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h5>
-                            Valor sin descuento: <b>$ {{precioTotal|number:'1.2'}}</b>
-                        </h5>
-                        <div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="input-group">
-                                        <span class="input-group-text">% descuento</span>
-                                        <input type="text" aria-label="descuento" class="form-control"
-                                            [(ngModel)]="descuento" (keyup)="controlarKeyUp('de')">
-                                    </div>
+            <!-- Modal de Descuento  -->
+            <div class="modal-content" *ngIf="modalDescuento">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Aplicar descuento</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5>
+                        Valor sin descuento: <b>$ {{precioTotal|number:'1.2'}}</b>
+                    </h5>
+                    <div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="input-group">
+                                    <span class="input-group-text">% descuento</span>
+                                    <input type="text" aria-label="descuento" class="form-control"
+                                        [(ngModel)]="descuento" (keyup)="controlarKeyUp('de')">
                                 </div>
-                                <div class="col-6 offset-1">
-                                    <h5>
-                                        Con descuento: <b>$ {{precioTotalD|number:'1.2'}}</b>
-                                    </h5>
-                                </div>
+                            </div>
+                            <div class="col-6 offset-1">
+                                <h5>
+                                    Con descuento: <b>$ {{precioTotalD|number:'1.2'}}</b>
+                                </h5>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            (click)="contarCarrito()">Aplicar</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        (click)="contarCarrito()">Aplicar</button>
                 </div>
             </div>
         </div>

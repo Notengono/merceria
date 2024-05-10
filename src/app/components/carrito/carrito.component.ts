@@ -91,8 +91,13 @@ export class CarritoComponent implements OnInit {
     }
 
     imprimirCarrito() {
-        // Default export is a4 paper, portrait, using millimeters for units
         const doc = new jsPDF();
+        // const doc = new jsPDF('portrait', 'mm', 'a4');
+        doc.setProperties({
+            title: "Presupuesto_Merceria_Angel_Andres",
+            creator: 'Merceria Angel Andres.',
+            author: 'Merceria Angel Andres.'
+        })
 
         doc.text("Angel Andrés", 20, 20);
 
@@ -119,7 +124,7 @@ export class CarritoComponent implements OnInit {
             linea += 5
         }
         doc.text('$ ' + this.precioTotal.toString(), 168, 241)
-        doc.output('dataurlnewwindow');
+        doc.output('dataurlnewwindow', { filename: "Presupuesto Merceria Angel Andres" });
     }
 
     quitarItem(indice: any) {
@@ -139,7 +144,7 @@ export class CarritoComponent implements OnInit {
         this.modalDescuento = valor == 'p' ? false : true
     }
 
-    agregarProducto() {
+    agregarProducto = () => {
         this.carrito.push({ id: 17, 'descripcion': "Varios", 'precio': this.precioTotalModal, 'precioIndividual': this.precio, 'caintidad': this.cantidad });
         localStorage.setItem('carrito', JSON.stringify(this.carrito))
         this.contarCarrito()
