@@ -26,6 +26,7 @@ export class CarritoComponent implements OnInit {
     })
 
     modalDescuento = false
+    numero = 0
     precioTotalD = 0
     descuento = 0
     cantidad = 1
@@ -42,6 +43,8 @@ export class CarritoComponent implements OnInit {
 
         this.carrito = JSON.parse(localStorage.getItem('carrito') || '[{}]');
         this.contarCarrito()
+
+        this._presupuestoService.numeroPresupuesto().subscribe(resultado => { this.numero = resultado.datos.numero })
     }
 
     contarCarrito() {
@@ -57,9 +60,17 @@ export class CarritoComponent implements OnInit {
 
     finCarrito() {
         this._presupuestoService
-            .postProductos({ fecha: this.fecha, numero: 1, estado: this.estado, fechaFin: this.fecha, productos: this.carrito })
+            .postProductos({ fecha: this.fecha, numero: this.numero, estado: this.estado, fechaFin: this.fecha, productos: this.carrito })
             .subscribe(respuesta => console.log(respuesta))
         this.cancelarCompra()
+    }
+
+    finPresupuesto() {
+        // Va sin fecha de finalización.
+        this._presupuestoService
+            .postProductosPresupuesto({ fecha: this.fecha, numero: this.numero, estado: this.estado, productos: this.carrito })
+            .subscribe(respuesta => console.log(respuesta))
+        // this.cancelarCompra()
     }
 
     imprimirTiket() {

@@ -23,8 +23,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-3 offset-9 text-end text-light">
+        <div class="col-4 offset-8 text-end text-light">
             Fecha del Presupuesto: <b>{{fecha | date:'dd/MM/YYYY'}}</b>
+            &nbsp; - Nº: <b>{{numero}}</b>
         </div>
     </div>
     <div class="row">
@@ -80,7 +81,7 @@
         <div class="col-4 offset-4 text-end">
             &nbsp;
             &nbsp;
-            <button type="button" class="btn btn-outline-info" (click)="finCarrito()">
+            <button type="button" class="btn btn-outline-info" (click)="finPresupuesto()">
                 Finalizar Presupuesto
             </button>
 
