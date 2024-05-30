@@ -221,6 +221,30 @@ $app->get(
         }
     }
 );
+$app->get(
+    '/buscarPresupuestos/{dias}',
+    function ($request, $response, $args) {
+        try {
+            $sth = $this->db->prepare("SELECT * FROM presupuesto WHERE fecha_fin is null AND datediff(NOW(), fecha)<= :dias;");
+            $sth->bindParam("dias", $args['dias']);
+
+            if (!$sth->execute()) {
+                $input['estado'] = 402;
+                $input['error'] = 'Error al buscar el/los presupuesto/s.';
+                return $this->response->withJson($input);
+            } else {
+                $input['datos'] = $sth->fetchAll();;
+                $input['estado'] = 200;
+                $input['error'] = 'El registro se encontró.';
+            }
+            return $this->response->withJson($input);
+        } catch (\Throwable $th) {
+            $input['estado'] = 402;
+            $input['error'] = 'Error al buscar el registro.' . $th;
+            return $this->response->withJson($input);
+        }
+    }
+);
 
 $app->get(
     '/numeroPresupuesto',
