@@ -20,7 +20,8 @@ export class InfPresupuestoComponent implements OnInit {
         console.clear()
         this.buscando = true
         this._presupuestoService.buscarPresupuestos(this.diasBusqueda).subscribe(respuesta => {
-            this.listadoMostrar = respuesta
+            this.listadoMostrar = respuesta.datos
+            console.log(this.listadoMostrar)
         })
 
     }
