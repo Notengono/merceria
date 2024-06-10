@@ -30,11 +30,19 @@ export class PresupuestoService {
     return this._http.get<any>(
       `${apiURL}ventasPorDia/${valor}`, { headers: header });
   }
+
   buscarPresupuestos(valor: any) {
     const header = new HttpHeaders();
     header.append("Content-Type", "applications/json");
     return this._http.get<any>(
       `${apiURL}buscarPresupuestos/${valor}`, { headers: header });
+  }
+
+  buscarPresupuestoDetalle(valor: any) {
+    const header = new HttpHeaders();
+    header.append("Content-Type", "applications/json");
+    return this._http.get<any>(
+      `${apiURL}buscarPresupuestoDetalle/${valor}`, { headers: header });
   }
 
   numeroPresupuesto() {

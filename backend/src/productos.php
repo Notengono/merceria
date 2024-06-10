@@ -245,6 +245,32 @@ $app->get(
         }
     }
 );
+$app->get(
+    '/buscarPresupuestoDetalle/{id}',
+    function ($request, $response, $args) {
+        try {
+            $sth = $this->db->prepare("SELECT descripcion, cantidad, precio FROM `producto_presupuesto` pp
+                                        LEFT JOIN productos_meta pm ON pm.id = pp.idproducto
+                                        WHERE idpresupuesto = :id ORDER BY descripcion;");
+            $sth->bindParam("id", $args['id']);
+
+            if (!$sth->execute()) {
+                $input['estado'] = 402;
+                $input['error'] = 'Error al buscar el/los presupuesto/s.';
+                return $this->response->withJson($input);
+            } else {
+                $input['datos'] = $sth->fetchAll();;
+                $input['estado'] = 200;
+                $input['error'] = 'El registro se encontró.';
+            }
+            return $this->response->withJson($input);
+        } catch (\Throwable $th) {
+            $input['estado'] = 402;
+            $input['error'] = 'Error al buscar el registro.' . $th;
+            return $this->response->withJson($input);
+        }
+    }
+);
 
 $app->get(
     '/numeroPresupuesto',

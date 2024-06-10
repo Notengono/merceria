@@ -29,30 +29,53 @@
             <br />
 
             <div class="row" *ngIf="buscando && listadoMostrar.length>0">
-                <table class="table table-striped">
-                    <thead>
-                        <tr class="text-center">
-                            <th scope="col">#</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Código</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let producto of listadoMostrar ">
-                            <td>{{producto.numero}}</td>
-                            <td class="text-center">{{producto.fecha|date:'d/MM/Y'}}</td>
-                            <td class="text-end">{{producto.codigo}}</td>
-                            <td>{{producto.descripcion}}</td>
-                            <td class="text-center">{{producto.cantidad}}</td>
-                            <td class="text-end">${{producto.precio|number:'1.2'}}</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="col col-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">#</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let presupuesto of listadoMostrar ">
+                                <td class="text-center">{{presupuesto.numero}}</td>
+                                <td class="text-center">{{presupuesto.fecha|date:'d/MM/Y'}}</td>
+                                <td class="text-center">
+                                    <i class="fa fa-eye" aria-hidden="true"
+                                        (click)="ver(presupuesto.idpresupuesto)"></i>
+                                    &nbsp;&nbsp;
+                                    <i class="fa fa-paper-plane-o" aria-hidden="true" data-bs-toggle="modal"
+                                        data-bs-target="#eliminarModal"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col col-9" *ngIf="listadoMostrarProductos.length>0">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">Producto</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let producto of listadoMostrarProductos ">
+                                <td class="text-left">{{producto.descripcion}}</td>
+                                <td class="text-center">{{producto.cantidad}}</td>
+                                <td class="text-end">$ {{producto.precio}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-4 offset-8 text-end">
+                        <button type="button" class="btn btn-outline-primary" (click)="buscar()">
+                            <i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp;Finalizar Presupuesto
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div class="row" *ngIf="buscando && listadoMostrar.length==0">

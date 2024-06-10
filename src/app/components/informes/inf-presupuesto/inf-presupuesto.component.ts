@@ -10,11 +10,19 @@ export class InfPresupuestoComponent implements OnInit {
 
     diasBusqueda: number = 7;
     listadoMostrar: any = [];
+    listadoMostrarProductos: any = [];
     buscando: boolean = false
 
     constructor(private _presupuestoService: PresupuestoService) { }
 
     ngOnInit(): void { }
+
+    ver(id: number) {
+        this.listadoMostrarProductos = []
+        this._presupuestoService.buscarPresupuestoDetalle(id).subscribe(respuesta => {
+            this.listadoMostrarProductos = respuesta.datos
+        })
+    }
 
     buscar() {
         console.clear()
