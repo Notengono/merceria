@@ -18,12 +18,12 @@ export class InfPresupuestoComponent implements OnInit {
 
     ngOnInit(): void { }
 
-    ver(id: number) {
-        this.listadoMostrarProductos = []
-        this._presupuestoService.buscarPresupuestoDetalle(id).subscribe(respuesta => {
-            this.listadoMostrarProductos = respuesta.datos
-        })
-    }
+    // ver(id: number) {
+    //     this.listadoMostrarProductos = []
+    //     this._presupuestoService.buscarPresupuestoDetalle(id).subscribe(respuesta => {
+    //         this.listadoMostrarProductos = respuesta.datos
+    //     })
+    // }
 
     buscar() {
         console.clear()
@@ -35,7 +35,7 @@ export class InfPresupuestoComponent implements OnInit {
 
     }
 
-    enviar(id: number) {
+    ver(id: number) {
         console.clear()
         this.listadoMostrarProductos = []
         this._presupuestoService.buscarPresupuestoDetalle(id).subscribe(respuesta => {
@@ -44,7 +44,6 @@ export class InfPresupuestoComponent implements OnInit {
             this.listadoMostrarProductos.forEach((element: any) => {
                 mensaje = mensaje + element.descripcion + ' * ' + element.cantidad + ' -> $' + element.precio + '%0A'
             });
-            console.log(mensaje)
             this.enviarPresupuesto = `https://api.whatsapp.com/send?phone=543434156030&text=${mensaje}`
 
         })

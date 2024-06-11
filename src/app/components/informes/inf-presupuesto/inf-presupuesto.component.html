@@ -45,9 +45,9 @@
                                 <td class="text-center">
                                     <i class="fa fa-eye" aria-hidden="true"
                                         (click)="ver(presupuesto.idpresupuesto)"></i>
-                                    &nbsp;&nbsp;
+                                    <!-- &nbsp;&nbsp;
                                     <i class="fa fa-paper-plane-o" aria-hidden="true"
-                                        (click)="enviar(presupuesto.idpresupuesto)"></i>
+                                        (click)="venviar(presupuesto.idpresupuesto)"></i> -->
                                 </td>
                             </tr>
                         </tbody>
@@ -70,14 +70,16 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="col-4 offset-8 text-end">
-                        <a type="button" class="btn btn-outline-primary" href="{{enviarPresupuesto}}" target="_blank">
-                            <i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp;Enviar Presupuesto
+                    <div class="row gap-2">
+                        <a class="btn btn-outline-primary col-3 offset-5" href="{{enviarPresupuesto}}" target="_blank">
+                            <i class="fa fa-paper-plane-o" aria-hidden="true"></i>&nbsp;&nbsp;Enviar Presupuesto
                         </a>
-                        <button type="button" class="btn btn-outline-primary" (click)="buscar()">
-                            <i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp;Finalizar Presupuesto
-                        </button>
+                        &nbsp;
+                        <a class="btn btn-outline-success col-3" (click)="buscar()">
+                            <i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;Realizar Venta
+                        </a>
                     </div>
+
                 </div>
             </div>
 
