@@ -71,7 +71,17 @@
                         </tbody>
                     </table>
                     <div class="row gap-2">
-                        <a class="btn btn-outline-primary col-3 offset-5" href="{{enviarPresupuesto}}" target="_blank">
+                        <div class="col-4 offset-1">
+                            <div class="input-group">
+                                <span class="input-group-text" id="celular01">Celular</span>
+                                <input class="form-control" type="text" name="celular" id="celular"
+                                    [(ngModel)]="celular" (keyup)="cambioCelular()" autocomplete="off"
+                                    aria-describedby="celular01">
+                            </div>
+
+                        </div>
+
+                        <a class="btn btn-outline-primary col-3" href="{{enviarPresupuesto}}" target="_blank">
                             <i class="fa fa-paper-plane-o" aria-hidden="true"></i>&nbsp;&nbsp;Enviar Presupuesto
                         </a>
                         &nbsp;

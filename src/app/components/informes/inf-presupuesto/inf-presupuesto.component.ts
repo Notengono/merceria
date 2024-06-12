@@ -9,6 +9,8 @@ import { PresupuestoService } from 'src/app/services/presupuesto.service';
 export class InfPresupuestoComponent implements OnInit {
 
     enviarPresupuesto: string = '';
+    mensaje: string = '';
+    celular: number = 54343;
     diasBusqueda: number = 7;
     listadoMostrar: any = [];
     listadoMostrarProductos: any = [];
@@ -25,6 +27,10 @@ export class InfPresupuestoComponent implements OnInit {
     //     })
     // }
 
+    cambioCelular() {
+        this.enviarPresupuesto = `https://api.whatsapp.com/send?phone=${this.celular}&text=${this.mensaje}`
+    }
+
     buscar() {
         console.clear()
         this.buscando = true
@@ -40,11 +46,11 @@ export class InfPresupuestoComponent implements OnInit {
         this.listadoMostrarProductos = []
         this._presupuestoService.buscarPresupuestoDetalle(id).subscribe(respuesta => {
             this.listadoMostrarProductos = respuesta.datos
-            let mensaje = ''
+            console.log(respuesta.datos)
             this.listadoMostrarProductos.forEach((element: any) => {
-                mensaje = mensaje + element.descripcion + ' * ' + element.cantidad + ' -> $' + element.precio + '%0A'
+                this.mensaje = this.mensaje + element.descripcion + ' * ' + element.cantidad + ' -> $' + element.precio + '%0A'
             });
-            this.enviarPresupuesto = `https://api.whatsapp.com/send?phone=543434156030&text=${mensaje}`
+            this.enviarPresupuesto = `https://api.whatsapp.com/send?phone=${this.celular}&text=${this.mensaje}`
 
         })
     }
