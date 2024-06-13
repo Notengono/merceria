@@ -43,12 +43,13 @@ export class InfPresupuestoComponent implements OnInit {
 
     ver(id: number) {
         console.clear()
+        this.mensaje = '';
         this.listadoMostrarProductos = []
         this._presupuestoService.buscarPresupuestoDetalle(id).subscribe(respuesta => {
             this.listadoMostrarProductos = respuesta.datos
-            console.log(respuesta.datos)
+            this.mensaje = '*Merceria Ángel Andrés*'
             this.listadoMostrarProductos.forEach((element: any) => {
-                this.mensaje = this.mensaje + element.descripcion + ' * ' + element.cantidad + ' -> $' + element.precio + '%0A'
+                this.mensaje = this.mensaje + '%0A' + element.descripcion + ' x ' + element.cantidad + ' = $' + element.precio
             });
             this.enviarPresupuesto = `https://api.whatsapp.com/send?phone=${this.celular}&text=${this.mensaje}`
 

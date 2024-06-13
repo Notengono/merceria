@@ -249,8 +249,12 @@ $app->get(
     '/buscarPresupuestoDetalle/{id}',
     function ($request, $response, $args) {
         try {
+            // $sth = $this->db->prepare("SELECT descripcion, cantidad, precio FROM `producto_presupuesto` pp
+            //                             LEFT JOIN productos_meta pm ON pm.id = pp.idproducto
+            //                             WHERE idpresupuesto = :id ORDER BY descripcion;");
             $sth = $this->db->prepare("SELECT descripcion, cantidad, precio FROM `producto_presupuesto` pp
-                                        LEFT JOIN productos_meta pm ON pm.id = pp.idproducto
+	                                    LEFT JOIN productos p ON p.idproducto = pp.idproducto
+	                                    LEFT JOIN productos_meta pm ON pm.id = p.idproductometa
                                         WHERE idpresupuesto = :id ORDER BY descripcion;");
             $sth->bindParam("id", $args['id']);
 
