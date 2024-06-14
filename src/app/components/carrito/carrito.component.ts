@@ -77,7 +77,7 @@ export class CarritoComponent implements OnInit {
         const doc = new jsPDF("p", "mm", [57, 100]);
         doc.setFontSize(12);
         doc.text('X', 28, 5, { align: 'center' });
-        doc.text("Mercería Angel Andrés", 28, 10, { align: 'center' });
+        doc.text("Mercería Ángel Andrés", 28, 10, { align: 'center' });
         // doc.text("Ministerio de Salud", 28, 10, { align: 'center' });
 
         let linea = 15

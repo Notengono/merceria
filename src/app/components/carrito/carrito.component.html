@@ -4,7 +4,7 @@
 <div class="container">
     <br>
     <div class="row">
-        <div class="col-3 offset-9 text-end">
+        <div class="col-4 col-md-5 offset-md-7 offset-8 text-end">
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
                 data-bs-backdrop="false" data-bs-target="#staticBackdrop" (click)="modal('p')">
                 Agregar&nbsp;<i class="fa fa-plus" aria-hidden="true"></i>
@@ -66,27 +66,25 @@
     </div>
 
     <div class="row">
-        <div class="col-4">
+        <div class="col-2 col-md-3 d-grid btn-sm">
             <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
                 data-bs-target="#staticBackdrop" data-backdrop="static" data-keyboard="false" (click)="modal('d')">
                 Descuento
             </button>
-            &nbsp;
-            &nbsp;
+        </div>
+        <div class="col-2 col-md-3 d-grid btn-sm">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancelarCompra()">
                 Cancelar Compra
             </button>
         </div>
 
-        <div class="col-4 offset-4 text-end">
-            &nbsp;
-            &nbsp;
+        <div class="col-3 offset-lg-2 d-grid btn-sm">
             <button type="button" class="btn btn-outline-info" (click)="finPresupuesto()">
                 Finalizar Presupuesto
             </button>
 
-            &nbsp;
-            &nbsp;
+        </div>
+        <div class="col-3 d-grid btn-sm">
             <button type="button" class="btn btn-success" (click)="finCarrito()">
                 Finalizar Compra
             </button>
