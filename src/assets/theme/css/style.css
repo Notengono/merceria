@@ -655,7 +655,7 @@ input[type=range] {
   padding-right: 0 !important;
 }
 
-.modal-dialog,
+/* .modal-dialog,
 .modal-content {
   height: 100%;
 }
@@ -667,7 +667,7 @@ input[type=range] {
   .modal-dialog .carousel-inner {
     height: calc(100vh - 1rem);
   }
-}
+} */
 
 .carousel-item {
   text-align: center;
