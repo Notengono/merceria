@@ -74,29 +74,29 @@ export class CarritoComponent implements OnInit {
     }
 
     imprimirTiket() {
-        const doc = new jsPDF("p", "mm", [57, 100]);
+        const doc = new jsPDF("p", "mm", [49, 100]);
         doc.setFontSize(12);
-        doc.text('X', 28, 5, { align: 'center' });
-        doc.text("Mercería Ángel Andrés", 28, 10, { align: 'center' });
+        doc.text('X', 24, 5, { align: 'center' });
+        doc.text("Mercería Ángel Andrés", 24, 10, { align: 'center' });
         // doc.text("Ministerio de Salud", 28, 10, { align: 'center' });
 
         let linea = 15
-        doc.setFontSize(6);
-        doc.text(this.fecha, 54, 5, { align: 'right' });
+        doc.setFontSize(7);
+        doc.text(this.fecha, 47, 5, { align: 'right' });
 
         for (let item of this.carrito) {
-            doc.text(item.descripcion, 3, linea);
+            doc.text(item.descripcion.substring(0, 31), 1, linea);
             linea += 3
             doc.text('$ ' + item.precioIndividual.toString() + ' * ' + item.caintidad.toString(), 5, linea);
-            doc.text('$ ' + item.precio.toString(), 54, linea, { align: 'right' });
+            doc.text('$ ' + item.precio.toString(), 47, linea, { align: 'right' });
             linea += 4
         }
 
-        doc.line(0, 12, 57, 12, 'D')
-        doc.line(0, 91, 57, 91, 'D')
+        doc.line(0, 12, 49, 12, 'D')
+        doc.line(0, 91, 49, 91, 'D')
         doc.setFontSize(8);
         doc.setFont('', 'bold')
-        doc.text('Total: $ ' + this.precioTotal.toString(), 54, 95, { align: 'right' })
+        doc.text('Total: $ ' + this.precioTotal.toString(), 47, 95, { align: 'right' })
 
         doc.output('dataurlnewwindow');
     }
