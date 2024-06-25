@@ -70,7 +70,7 @@ export class CarritoComponent implements OnInit {
         this._presupuestoService
             .postProductosPresupuesto({ fecha: this.fecha, numero: this.numero, estado: this.estado, productos: this.carrito })
             .subscribe(respuesta => console.log(respuesta))
-        // this.cancelarCompra()
+        this.cancelarCompra()
     }
 
     imprimirTiket() {
@@ -139,9 +139,11 @@ export class CarritoComponent implements OnInit {
     }
 
     quitarItem(indice: any) {
+        const descripcion = this.carrito[indice].descripcion
         this.carrito.splice(indice, 1)
         localStorage.setItem('carrito', JSON.stringify(this.carrito))
         this.contarCarrito()
+        this.appendAlert(`Se quitó el producto ${descripcion}`, 'warning')
     }
 
     cancelarCompra() {
@@ -159,6 +161,7 @@ export class CarritoComponent implements OnInit {
         this.carrito.push({ id: 17, 'descripcion': "Varios", 'precio': this.precioTotalModal, 'precioIndividual': this.precio, 'caintidad': this.cantidad });
         localStorage.setItem('carrito', JSON.stringify(this.carrito))
         this.contarCarrito()
+        this.appendAlert(`Producto VARIOS, cantidad: ${this.cantidad} y precio $${this.precio} agregado.`, 'success')
     }
 
     controlarKeyUp(op: string) {
@@ -176,5 +179,20 @@ export class CarritoComponent implements OnInit {
                 this.precioTotalModal = parseFloat((this.precio * this.cantidad).toFixed(2))
                 break;
         }
+    }
+
+    appendAlert(mensaje: string, estado: any) {
+        const wrapper = document.createElement('div')
+        wrapper.innerHTML = [
+            `<div class="alert alert-${estado} alert-dismissible" role="alert">`,
+            `   <div>${mensaje}</div>`,
+            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+        ].join('')
+
+        document.getElementById('liveAlertPlaceholder')?.append(wrapper)
+        setTimeout(() => {
+            document.getElementById('liveAlertPlaceholder')?.remove()
+        }, 3000);
     }
 }
