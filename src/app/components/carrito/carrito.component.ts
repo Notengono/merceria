@@ -74,15 +74,16 @@ export class CarritoComponent implements OnInit {
     }
 
     imprimirTiket() {
-        const doc = new jsPDF("p", "mm", [49, 100]);
-        doc.setFontSize(12);
-        doc.text('X', 24, 5, { align: 'center' });
-        doc.text("Mercería Ángel Andrés", 24, 10, { align: 'center' });
-        // doc.text("Ministerio de Salud", 28, 10, { align: 'center' });
-
-        let linea = 15
+        const doc = new jsPDF("p", "mm", [49, 110]);
         doc.setFontSize(7);
-        doc.text(this.fecha, 47, 5, { align: 'right' });
+        doc.text('TICKET NO VALIDO COMO FACTURA', 24, 5, { align: 'center' });
+        doc.setFontSize(10);
+        // doc.text("Mercería Ángel Andrés", 24, 10, { align: 'center' });
+        doc.text("Ministerio de Salud", 24, 10, { align: 'center' });
+
+        let linea = 20
+        doc.setFontSize(7);
+        doc.text('fecha ' + this.fecha, 47, 15, { align: 'right' });
 
         for (let item of this.carrito) {
             doc.text(item.descripcion.substring(0, 31), 1, linea);
@@ -93,10 +94,10 @@ export class CarritoComponent implements OnInit {
         }
 
         doc.line(0, 12, 49, 12, 'D')
-        doc.line(0, 91, 49, 91, 'D')
+        doc.line(0, 100, 49, 100, 'D')
         doc.setFontSize(8);
         doc.setFont('', 'bold')
-        doc.text('Total: $ ' + this.precioTotal.toString(), 47, 95, { align: 'right' })
+        doc.text('Total: $ ' + this.precioTotal.toString(), 47, 104, { align: 'right' })
 
         doc.output('dataurlnewwindow');
     }
@@ -122,8 +123,8 @@ export class CarritoComponent implements OnInit {
         doc.rect(100, 10, 10, 10, 'D')
         doc.line(105, 20, 105, 45, 'D')
         let linea = 50
-        doc.setFontSize(20);
-        doc.text('X', 103, 17);
+        doc.setFontSize(18);
+        doc.text('TICKET NO VALIDO COMO FACTURA', 1, 17, { align: 'center' });
         doc.setFontSize(10);
         doc.text('0001-000000001', 160, 20);
 
