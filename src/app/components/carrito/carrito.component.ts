@@ -11,6 +11,7 @@ import { PresupuestoService } from 'src/app/services/presupuesto.service';
 export class CarritoComponent implements OnInit {
     fecha = ''
     estado = 3
+    hora = ''
 
     carrito: any[] = [];
     precioTotal = 0
@@ -39,6 +40,7 @@ export class CarritoComponent implements OnInit {
         const aux_ = new Date();
         const aux1_ = ((aux_.getMonth() + 1) > 9) ? (aux_.getMonth() + 1) : '0' + (aux_.getMonth() + 1);
         const aux2_ = ((aux_.getUTCDate() + 1) > 9) ? aux_.getUTCDate() : '0' + aux_.getUTCDate();
+        this.hora = aux_.getHours().toString() +':'+aux_.getMinutes().toString();
         this.fecha = aux_.getFullYear() + '-' + aux1_ + '-' + aux2_;
 
         this.carrito = JSON.parse(localStorage.getItem('carrito') || '[{}]');
@@ -74,16 +76,19 @@ export class CarritoComponent implements OnInit {
     }
 
     imprimirTiket() {
-        const doc = new jsPDF("p", "mm", [49, 110]);
+        const alto = (this.carrito.length * 7) + 30
+        const doc = new jsPDF("p", "mm", [49, alto]);
+        doc.setFont('Courier', 'Bold');
         doc.setFontSize(7);
         doc.text('TICKET NO VALIDO COMO FACTURA', 24, 5, { align: 'center' });
         doc.setFontSize(10);
-        // doc.text("Mercería Ángel Andrés", 24, 10, { align: 'center' });
-        doc.text("Ministerio de Salud", 24, 10, { align: 'center' });
+        doc.text("Mercería Ángel Andrés", 24, 10, { align: 'center' });
+        // doc.text("Ministerio de Salud", 24, 10, { align: 'center' });
 
+        const fecha_ = this.fecha.split('-')
         let linea = 20
         doc.setFontSize(7);
-        doc.text('fecha ' + this.fecha, 47, 15, { align: 'right' });
+        doc.text('fecha: ' + fecha_[2] + '/' + fecha_[1] + '/' + fecha_[0] + ' ' + this.hora, 47, 15, { align: 'right' });
 
         for (let item of this.carrito) {
             doc.text(item.descripcion.substring(0, 31), 1, linea);
@@ -93,11 +98,13 @@ export class CarritoComponent implements OnInit {
             linea += 4
         }
 
+        // doc.setLineDash([10, 10], 0);
+        doc.setLineDashPattern([1.5, 1], 0);
         doc.line(0, 12, 49, 12, 'D')
-        doc.line(0, 100, 49, 100, 'D')
+        doc.line(0, (alto - 10), 49, (alto - 10), 'D')
         doc.setFontSize(8);
         doc.setFont('', 'bold')
-        doc.text('Total: $ ' + this.precioTotal.toString(), 47, 104, { align: 'right' })
+        doc.text('Total: $ ' + this.precioTotal.toString(), 47, (alto - 6), { align: 'right' })
 
         doc.output('dataurlnewwindow');
     }
