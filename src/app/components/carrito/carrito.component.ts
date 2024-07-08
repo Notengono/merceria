@@ -40,7 +40,7 @@ export class CarritoComponent implements OnInit {
         const aux_ = new Date();
         const aux1_ = ((aux_.getMonth() + 1) > 9) ? (aux_.getMonth() + 1) : '0' + (aux_.getMonth() + 1);
         const aux2_ = ((aux_.getUTCDate() + 1) > 9) ? aux_.getUTCDate() : '0' + aux_.getUTCDate();
-        this.hora = aux_.getHours().toString() +':'+aux_.getMinutes().toString();
+        this.hora = aux_.getHours().toString() + ':' + aux_.getMinutes().toString();
         this.fecha = aux_.getFullYear() + '-' + aux1_ + '-' + aux2_;
 
         this.carrito = JSON.parse(localStorage.getItem('carrito') || '[{}]');
