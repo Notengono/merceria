@@ -10,6 +10,7 @@ export class PorDiaComponent implements OnInit {
     fechaBusqueda: string = '';
     listadoMostrar: any = [];
     buscando: boolean = false
+    total: number = 0;
 
     constructor(private _presupuestoService: PresupuestoService) { }
 
@@ -25,7 +26,9 @@ export class PorDiaComponent implements OnInit {
         this.buscando = true
         this._presupuestoService.buscarProductos(this.fechaBusqueda).subscribe(respuesta => {
             this.listadoMostrar = respuesta
+            this.listadoMostrar.forEach((element: any) => {
+                this.total += element.precio
+            });
         })
-
     }
 }

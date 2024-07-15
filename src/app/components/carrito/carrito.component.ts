@@ -79,16 +79,16 @@ export class CarritoComponent implements OnInit {
         const alto = (this.carrito.length * 7) + 30
         const doc = new jsPDF("p", "mm", [49, alto]);
         doc.setFont('Courier', 'Bold');
-        doc.setFontSize(7);
-        doc.text('TICKET NO VALIDO COMO FACTURA', 24, 5, { align: 'center' });
         doc.setFontSize(10);
-        doc.text("Mercería Ángel Andrés", 24, 10, { align: 'center' });
+        doc.text('COMPROBANTE NO VALIDO\nCOMO FACTURA', 24, 5, { align: 'center' });
+        doc.setFontSize(10);
+        doc.text("Mercería Ángel Andrés", 24, 13, { align: 'center' });
         // doc.text("Ministerio de Salud", 24, 10, { align: 'center' });
 
         const fecha_ = this.fecha.split('-')
-        let linea = 20
+        let linea = 23
         doc.setFontSize(7);
-        doc.text('fecha: ' + fecha_[2] + '/' + fecha_[1] + '/' + fecha_[0] + ' ' + this.hora, 47, 15, { align: 'right' });
+        doc.text('fecha: ' + fecha_[2] + '/' + fecha_[1] + '/' + fecha_[0] + ' ' + this.hora, 47, 18, { align: 'right' });
 
         for (let item of this.carrito) {
             doc.text(item.descripcion.substring(0, 31), 1, linea);
@@ -100,7 +100,7 @@ export class CarritoComponent implements OnInit {
 
         // doc.setLineDash([10, 10], 0);
         doc.setLineDashPattern([1.5, 1], 0);
-        doc.line(0, 12, 49, 12, 'D')
+        doc.line(0, 15, 49, 15, 'D')
         doc.line(0, (alto - 10), 49, (alto - 10), 'D')
         doc.setFontSize(8);
         doc.setFont('', 'bold')
