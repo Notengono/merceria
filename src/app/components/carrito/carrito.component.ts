@@ -76,25 +76,26 @@ export class CarritoComponent implements OnInit {
     }
 
     imprimirTiket() {
-        const alto = (this.carrito.length * 7) + 30
-        const doc = new jsPDF("p", "mm", [49, alto]);
+        const alto = (this.carrito.length < 4) ? 58 : (this.carrito.length * 7) + 30
+        const ancho = 46
+        const doc = new jsPDF("p", "mm", [ancho, alto]);
         doc.setFont('Courier', 'Bold');
-        doc.setFontSize(10);
+        doc.setFontSize(8);
         doc.text('COMPROBANTE NO VALIDO\nCOMO FACTURA', 24, 5, { align: 'center' });
-        doc.setFontSize(10);
+        doc.setFontSize(8);
         doc.text("Mercería Ángel Andrés", 24, 13, { align: 'center' });
         // doc.text("Ministerio de Salud", 24, 10, { align: 'center' });
 
         const fecha_ = this.fecha.split('-')
         let linea = 23
         doc.setFontSize(7);
-        doc.text('fecha: ' + fecha_[2] + '/' + fecha_[1] + '/' + fecha_[0] + ' ' + this.hora, 47, 18, { align: 'right' });
+        doc.text('fecha: ' + fecha_[2] + '/' + fecha_[1] + '/' + fecha_[0] + ' ' + this.hora, ancho - 3, 18, { align: 'right' });
 
         for (let item of this.carrito) {
             doc.text(item.descripcion.substring(0, 31), 1, linea);
             linea += 3
             doc.text('$ ' + item.precioIndividual.toString() + ' * ' + item.caintidad.toString(), 5, linea);
-            doc.text('$ ' + item.precio.toString(), 47, linea, { align: 'right' });
+            doc.text('$ ' + item.precio.toString(), ancho - 3, linea, { align: 'right' });
             linea += 4
         }
 
@@ -104,7 +105,7 @@ export class CarritoComponent implements OnInit {
         doc.line(0, (alto - 10), 49, (alto - 10), 'D')
         doc.setFontSize(8);
         doc.setFont('', 'bold')
-        doc.text('Total: $ ' + this.precioTotal.toString(), 47, (alto - 6), { align: 'right' })
+        doc.text('Total: $ ' + this.precioTotal.toString(), ancho - 3, (alto - 6), { align: 'right' })
 
         doc.output('dataurlnewwindow');
     }
