@@ -43,7 +43,7 @@ export class CarritoComponent implements OnInit {
         this.hora = aux_.getHours().toString() + ':' + aux_.getMinutes().toString();
         this.fecha = aux_.getFullYear() + '-' + aux1_ + '-' + aux2_;
 
-        this.carrito = JSON.parse(localStorage.getItem('carrito') || '[{}]');
+        this.carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
         this.contarCarrito()
 
         this._presupuestoService.numeroPresupuesto().subscribe(resultado => { this.numero = resultado.datos.numero })
