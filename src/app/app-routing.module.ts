@@ -12,9 +12,11 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { PrecioPorProductoComponent } from './components/precio-por-producto/precio-por-producto.component';
 import { PorDiaComponent } from './components/informes/por-dia/por-dia.component';
 import { InfPresupuestoComponent } from './components/informes/inf-presupuesto/inf-presupuesto.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
   { path: 'inicio', component: InicioComponent },
   { path: 'grupos', component: GruposComponent },
   { path: 'subgrupos', component: SubGruposComponent },

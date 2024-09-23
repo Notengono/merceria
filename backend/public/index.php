@@ -21,4 +21,5 @@ require __DIR__ . '/../src/auth.php';
 require __DIR__ . '/../src/reportes.php';
 require __DIR__ . '/../src/productos.php';
 require __DIR__ . '/../src/categorias.php';
+require __DIR__ . '/../src/users.php';
 $app->run();
