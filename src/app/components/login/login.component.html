@@ -22,6 +22,12 @@
                                 Contraseña es requerida.
                             </div>
                         </div>
+                        
+                        <div *ngIf="isError">
+                            <div class="alert alert-warning text-center" role="alert">
+                                {{mensajeError}}
+                            </div>
+                        </div>
 
                         <button type="submit" class="btn btn-success" [disabled]="loginForm.invalid">
                             Iniciar sesión

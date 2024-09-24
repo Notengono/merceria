@@ -12,22 +12,23 @@ $app->post('/login', function ($request, $response, array $args) {
     $sth->execute();
     $user = $sth->fetchObject();
 
+    // var_dump($user);
     // verify email address.
     if (!$user) {
+        // var_dump(['error' => true, 'message' => 'Acceso incorrecto. Usuario no encontrado']);
         return $this->response->withJson(
-            ['error' => true, 'message' => 'Acceso incorrecto. ' . $user->intentos . ' de 7 Intentos fallidos'],
-            401
+            ['error' => true, 'message' => 'Acceso incorrecto. Usuario no encontrado'], 401
         );
-    } else {
-        if ($user->intentos >= 3) {
-            return $this->response->withJson(
-                ['error' => true, 'message' => 'USUARIO BLOQUEADO.'],
-                401
-            );
-        }
-    }
+    } 
+    // else {
+    //     if ($user->intentos >= 3) {
+    //         return $this->response->withJson(
+    //             ['error' => true, 'message' => 'USUARIO BLOQUEADO.'],
+    //             401
+    //         );
+    //     }
+    // }
 
-    // verify password.
     if (hash('sha256', $input['password']) != $user->user_pass) {
         $sql = "UPDATE users SET intentos = (intentos + 1) WHERE user_name = :username";
         $sth = $this->db->prepare($sql);

@@ -13,22 +13,23 @@ import { PrecioPorProductoComponent } from './components/precio-por-producto/pre
 import { PorDiaComponent } from './components/informes/por-dia/por-dia.component';
 import { InfPresupuestoComponent } from './components/informes/inf-presupuesto/inf-presupuesto.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'inicio', component: InicioComponent },
-  { path: 'grupos', component: GruposComponent },
-  { path: 'subgrupos', component: SubGruposComponent },
-  { path: 'productos', component: ProductosComponent },
-  { path: 'nuevo_producto', component: NuevoProductoComponent },
-  { path: 'editar_producto/:id', component: EdicionProductoComponent },
-  { path: 'precio_producto', component: PreciosProductosComponent },
-  { path: 'precio_por_producto', component: PrecioPorProductoComponent },
-  { path: 'carrito', component: CarritoComponent },
-  { path: 'buscar', component: BuscarProductoComponent },
-  { path: 'inf_diario', component: PorDiaComponent },
-  { path: 'inf_presupuesto', component: InfPresupuestoComponent }
+  { path: 'login', component: LoginComponent, pathMatch: "full" },
+  { path: 'inicio', component: InicioComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'grupos', component: GruposComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'subgrupos', component: SubGruposComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'productos', component: ProductosComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'nuevo_producto', component: NuevoProductoComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'editar_producto/:id', component: EdicionProductoComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'precio_producto', component: PreciosProductosComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'precio_por_producto', component: PrecioPorProductoComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'carrito', component: CarritoComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'buscar', component: BuscarProductoComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'inf_diario', component: PorDiaComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'inf_presupuesto', component: InfPresupuestoComponent, pathMatch: "full", canActivate: [AuthGuard] }
 ];
 
 @NgModule({
