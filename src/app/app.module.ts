@@ -26,6 +26,9 @@ import { PrecioPorProductoComponent } from './components/precio-por-producto/pre
 import { PorDiaComponent } from './components/informes/por-dia/por-dia.component';
 import { InfPresupuestoComponent } from './components/informes/inf-presupuesto/inf-presupuesto.component';
 import { LoginComponent } from './components/login/login.component';
+import { NuevoComponent } from './components/usuarios/nuevo/nuevo.component';
+import { ListadoComponent } from './components/usuarios/listado/listado.component';
+import { CambioClaveComponent } from './components/usuarios/cambio-clave/cambio-clave.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { LoginComponent } from './components/login/login.component';
     PrecioPorProductoComponent,
     PorDiaComponent,
     InfPresupuestoComponent,
-    LoginComponent
+    LoginComponent,
+    NuevoComponent,
+    ListadoComponent,
+    CambioClaveComponent
   ],
   imports: [
     MatFormFieldModule,

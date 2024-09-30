@@ -1,0 +1,47 @@
+<div class="container">
+    <br />
+    <h2 class="text-light p-3">Listado de Usuarios</h2>
+    <br />
+    <div class="card">
+        <div class="card-header">
+            Ventas
+        </div>
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-body-secondary">Listado de Usuarios</h6>
+            <div class="row" *ngIf="buscando && listadoMostrar.length>0">
+                <div class="container">
+                    <table class="table table-striped table-borderless table-responsive">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">#</th> 
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Nombre Usuario</th>
+                                <th scope="col">Última Conexión</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="{{(usuario.id%2 ? 'table-primary' : 'table-success')}}"
+                                *ngFor="let usuario of listadoMostrar">
+                                <td>{{usuario.id}}</td>
+                                <td>{{usuario.nombre}}</td>
+                                <td>{{usuario.user_name}}</td>
+                                <td class="text-center">{{usuario.ultima_conexion|date:'d/MM/Y'}}</td>
+                                <td class="text-end">c A b</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="buscando && listadoMostrar.length==0">
+                <div class="alert alert-warning text-center" role="alert">
+                    <b>No</b> hay datos cargados para mostrar
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+        </div>
+    </div>
+</div>

@@ -81,7 +81,7 @@ $app->get("/logout", function ($request, $response, $args) {
 });
 
 // get all users
-$app->get('/users', function ($request, $response, $args) {
+$app->get('/getUsuarios', function ($request, $response, $args) {
     $sth = $this->db->prepare("SELECT * FROM users");
     $sth->execute();
     $todos = $sth->fetchAll();
