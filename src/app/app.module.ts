@@ -8,7 +8,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SubGruposComponent } from './components/sub-grupos/sub-grupos.component';
 import { ProductosComponent } from './components/productos/productos.component';
 import { NuevoProductoComponent } from './components/nuevo-producto/nuevo-producto.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FiltroPipe } from './pipes/filtro.pipe';
 import { PreciosProductosComponent } from './components/precios-productos/precios-productos.component';
@@ -29,6 +29,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NuevoComponent } from './components/usuarios/nuevo/nuevo.component';
 import { ListadoComponent } from './components/usuarios/listado/listado.component';
 import { CambioClaveComponent } from './components/usuarios/cambio-clave/cambio-clave.component';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -63,8 +64,13 @@ import { CambioClaveComponent } from './components/usuarios/cambio-clave/cambio-
     ReactiveFormsModule,
     HttpClientModule,
     NoopAnimationsModule,
+    
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

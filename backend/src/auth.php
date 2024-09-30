@@ -10,7 +10,6 @@ $app->get(
         $params = $request->getServerParams();
         $authorization = $params['HTTP_AUTHORIZATION'];
         $authorization = explode(' ', $authorization);
-        var_dump($authorization);
         $jwt = $authorization[1];
 
         try {
