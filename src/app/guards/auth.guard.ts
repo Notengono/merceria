@@ -11,8 +11,8 @@ export class AuthGuard implements CanActivate {
   constructor(private http: HttpClient, private _authService: AuthService, private router: Router) { }
   URL = environment.apiURL;
 
-  // async canActivate() {
-  canActivate() {
+  async canActivate() {
+    // canActivate() {
     let header = new HttpHeaders();
     header.append('Content-Type', 'applications/json');
 
@@ -20,13 +20,15 @@ export class AuthGuard implements CanActivate {
     * Falta controlar si el token expiró contra PHP *
     *************************************************/
 
-    // await this.http.get(`${this.URL}logedIn`, { headers: header }).subscribe(respuesta => {
-    //   if (!respuesta) {
-    //     localStorage.setItem('token_vademecum', '');
-    //     this.router.navigate(['/login']);
-    //     return false;
-    //   }
-    // });
+    await this.http.get(`${this.URL}logedIn`, { headers: header }).subscribe(respuesta => {
+      if (!respuesta) {
+        localStorage.setItem('token_merceria', '');
+        this.router.navigate(['/login']);
+        return false;
+      } else {
+        return
+      }
+    });
 
     if (this._authService.loggedIn()) {
       return true

@@ -32,6 +32,8 @@
               "dompurify",
               "rgbcolor",
               "raf",
+              "jspdf-autotable",
+              "core-js",
               "core-js/modules"
             ],
             "scripts": []
