@@ -6,28 +6,18 @@ use \Firebase\JWT\JWT;
 
 $app->post('/login', function ($request, $response, array $args) {
     $input = $request->getParsedBody();
-    $sql = "SELECT * FROM users u WHERE user_name = :username";
+    $sql = "SELECT * FROM users u WHERE user_name = :username AND user_baja = 0";
     $sth = $this->db->prepare($sql);
     $sth->bindParam("username", $input['username']);
     $sth->execute();
     $user = $sth->fetchObject();
 
-    // var_dump($user);
-    // verify email address.
     if (!$user) {
-        // var_dump(['error' => true, 'message' => 'Acceso incorrecto. Usuario no encontrado']);
         return $this->response->withJson(
-            ['error' => true, 'message' => 'Acceso incorrecto. Usuario no encontrado'], 401
+            ['error' => true, 'message' => 'Acceso incorrecto. Usuario no encontrado'],
+            401
         );
-    } 
-    // else {
-    //     if ($user->intentos >= 3) {
-    //         return $this->response->withJson(
-    //             ['error' => true, 'message' => 'USUARIO BLOQUEADO.'],
-    //             401
-    //         );
-    //     }
-    // }
+    }
 
     if (hash('sha256', $input['password']) != $user->user_pass) {
         $sql = "UPDATE users SET intentos = (intentos + 1) WHERE user_name = :username";
@@ -86,4 +76,13 @@ $app->get('/getUsuarios', function ($request, $response, $args) {
     $sth->execute();
     $todos = $sth->fetchAll();
     return $this->response->withJson($todos);
+});
+
+$app->post('/postHabilita', function ($request, $response, $args) {
+    $input = $request->getParsedBody();
+    $sth = $this->db->prepare("UPDATE users SET user_baja = !user_baja WHERE id = :id;");
+    $sth->bindParam("id", $input['id']);
+    $resultado = $sth->execute();
+
+    return $this->response->withJson($resultado);
 });

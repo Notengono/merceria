@@ -59,6 +59,30 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
+                        <!-- <li>
+                            <a class="dropdown-item" style="cursor: pointer" *ngIf="_authService.loggedIn()"
+                                (click)="_authService.logout()">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                Cerrar sesión
+                            </a>
+                        </li> -->
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        {{nombre}}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" routerLink="/listadoUsuarios">
+                                <i class="fa fa-object-group" aria-hidden="true"></i>
+                                &nbsp;Listado
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li>
                             <a class="dropdown-item" style="cursor: pointer" *ngIf="_authService.loggedIn()"
                                 (click)="_authService.logout()">

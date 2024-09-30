@@ -18,6 +18,13 @@ export class UsuariosService {
             `${apiURL}login`, valor, { headers: header });
     }
 
+    postHabilita(valor: any) {
+        const header = new HttpHeaders();
+        header.append("Content-Type", "applications/json");
+        return this._http.post<any>(
+            `${apiURL}postHabilita`, { id: valor }, { headers: header });
+    }
+
     getUsuarios() {
         const header = new HttpHeaders();
         header.append("Content-Type", "applications/json");

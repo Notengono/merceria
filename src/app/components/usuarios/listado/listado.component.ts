@@ -15,12 +15,21 @@ export class ListadoComponent implements OnInit {
     constructor(private _usuarioService: UsuariosService) { }
 
     ngOnInit(): void {
+        this.buscarListado()
+    }
+
+    habilita(id: number) {
+        console.log(id)
+        this._usuarioService.postHabilita(id).subscribe(resultado => {
+            resultado ? this.buscarListado() : ''
+        })
+    }
+
+    buscarListado() {
         this.buscando = true
         this._usuarioService.getUsuarios().subscribe(respuesta => {
             console.table(respuesta)
             this.listadoMostrar = respuesta
         })
-        // this.buscando = false
     }
-
 }

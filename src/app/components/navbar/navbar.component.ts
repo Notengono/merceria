@@ -10,9 +10,11 @@ import { AuthService } from 'src/app/services/auth.service';
 export class NavbarComponent implements OnInit {
 
   constructor(public _authService: AuthService, private router: Router) { }
+  nombre: string = 'Desconocido'
 
   ngOnInit(): void {
     if (this._authService.loggedIn()) {
+      this.nombre = JSON.parse(<any>this._authService.getUser()).nombre
       this.router.navigate(['/inicio']);
     }
   }
