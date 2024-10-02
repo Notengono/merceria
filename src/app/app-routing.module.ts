@@ -15,6 +15,7 @@ import { InfPresupuestoComponent } from './components/informes/inf-presupuesto/i
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ListadoComponent } from './components/usuarios/listado/listado.component';
+import { NuevoComponent } from './components/usuarios/nuevo/nuevo.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'buscar', component: BuscarProductoComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'inf_diario', component: PorDiaComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'inf_presupuesto', component: InfPresupuestoComponent, pathMatch: "full", canActivate: [AuthGuard] },
-  { path: 'listadoUsuarios', component: ListadoComponent, pathMatch: "full", canActivate: [AuthGuard] }
+  { path: 'listadoUsuarios', component: ListadoComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'nuevoUsuario', component: NuevoComponent, pathMatch: "full", canActivate: [AuthGuard] }
 ];
 
 @NgModule({

@@ -1,1 +1,58 @@
-<p>nuevo works!</p>
+<div class="container">
+    <br />
+    <h2 class="text-light p-3">Nuevo Usuario</h2>
+    <br />
+    <div class="col-8 offset-2">
+        <div class="card">
+            <div class="card-header">
+                Usuarios
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-7 col-7 ">
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Nuevo Usuario</h6>
+                    </div>
+                </div>
+                <form [formGroup]="usuarioForm" autocomplete="off">
+
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text" id="inputGroupNombre1">Nombre</span>
+                                <input type="text" class="form-control" id="nombre" name="nombre"
+                                    formControlName="nombre" aria-describedby="inputGroupNombre1 basic-addon4"
+                                    autocomplete="off">
+                            </div>
+                            <div class="form-text" id="basic-addon4">Ejemplo: Juan.</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text" id="userName1">Nombre Usuario</span>
+                                <input type="text" class="form-control" id="userName" name="userName"
+                                    formControlName="userName" aria-describedby="userName1 basic-addon4"
+                                    autocomplete="off">
+                            </div>
+                            <div class="form-text" id="basic-addon4">Ejemplo: JuanP.</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text" id="userPass1">Nombre Usuario</span>
+                                <input type="password" class="form-control" id="userPass" name="userPass"
+                                    formControlName="userPass" aria-describedby="userPass1 basic-addon4"
+                                    autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-end">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-nuevo',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NuevoComponent implements OnInit {
 
-  constructor() { }
+  usuarioForm = this.fb.group({
+    nombre: '',
+    userName: '',
+    userPass: '',
+    user_baja: 0,
+    intentos: 0
+  })
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
