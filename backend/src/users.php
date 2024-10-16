@@ -86,3 +86,19 @@ $app->post('/postHabilita', function ($request, $response, $args) {
 
     return $this->response->withJson($resultado);
 });
+
+$app->post('/postUsuario', function ($request, $response, $args) {
+    $input = $request->getParsedBody();
+    $pass = hash('sha256', $input['userPass']);
+
+    $sth = $this->db->prepare("INSERT INTO users (id, user_name, user_pass, user_baja, nombre, created, ultima_conexion, intentos)
+        VALUES(null, :user_name, :user_pass, :user_baja, :nombre, null, null, :intentos);");
+    $sth->bindParam("user_name", $input['userName']);
+    $sth->bindParam("user_pass", $pass);
+    $sth->bindParam("nombre", $input['nombre']);
+    $sth->bindParam("user_baja", $input['user_baja']);
+    $sth->bindParam("intentos", $input['intentos']);
+    $resultado = $sth->execute();
+
+    return $this->response->withJson($resultado);
+});

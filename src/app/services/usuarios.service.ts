@@ -31,4 +31,10 @@ export class UsuariosService {
         return this._http.get<any>(
             `${apiURL}getUsuarios`, { headers: header });
     }
+    postUsuario(datos: any) {
+        const header = new HttpHeaders();
+        header.append("Content-Type", "applications/json");
+        return this._http.post<any>(
+            `${apiURL}postUsuario`, datos, { headers: header });
+    }
 }

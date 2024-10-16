@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-nuevo',
@@ -16,9 +17,14 @@ export class NuevoComponent implements OnInit {
     intentos: 0
   })
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private _usuarioService: UsuariosService
+  ) { }
 
   ngOnInit(): void {
   }
 
+  aceptar() {
+    this._usuarioService.postUsuario(this.usuarioForm.value).subscribe(resultado => console.log(resultado))
+  }
 }

@@ -14,9 +14,14 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     if (this._authService.loggedIn()) {
-      this.nombre = JSON.parse(<any>this._authService.getUser()).nombre
       this.router.navigate(['/inicio']);
     }
   }
+  ngAfterContentChecked() {
+    this.nombre = this._authService.getUser() ? JSON.parse(<any>this._authService.getUser()).nombre : 'Desconocido'
+  }
 
+  onLogout(): void {
+    this._authService.logout();
+  }
 }
