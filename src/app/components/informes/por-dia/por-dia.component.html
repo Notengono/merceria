@@ -39,6 +39,7 @@
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Cantidad</th>
                                 <th scope="col">Precio</th>
+                                <th scope="col">Usuario</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,6 +51,7 @@
                                 <td>{{producto.descripcion}}</td>
                                 <td class="text-center">{{producto.cantidad}}</td>
                                 <td class="text-end">${{producto.precio|number:'1.2'}}</td>
+                                <td class="text-end">{{producto.usuario}}</td>
                             </tr>
                             <tr>
                                 <td colspan="6" class="text-end"><b>Total: $ {{total|number:'1.2'}}</b></td>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, NgModel } from '@angular/forms';
 import { jsPDF } from "jspdf";
+import { AuthService } from 'src/app/services/auth.service';
 import { PresupuestoService } from 'src/app/services/presupuesto.service';
 
 @Component({
@@ -34,9 +35,12 @@ export class CarritoComponent implements OnInit {
     precio = 0
     precioTotalModal = 0
 
-    constructor(private fb: FormBuilder, private _presupuestoService: PresupuestoService) { }
+    usuario: any;
+
+    constructor(private fb: FormBuilder, private _presupuestoService: PresupuestoService, private _auth: AuthService) { }
 
     ngOnInit(): void {
+        this.usuario = JSON.parse(<any>this._auth.getUser()).id
         const aux_ = new Date();
         const aux1_ = ((aux_.getMonth() + 1) > 9) ? (aux_.getMonth() + 1) : '0' + (aux_.getMonth() + 1);
         const aux2_ = ((aux_.getUTCDate() + 1) > 9) ? aux_.getUTCDate() : '0' + aux_.getUTCDate();
@@ -45,7 +49,6 @@ export class CarritoComponent implements OnInit {
 
         this.carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
         this.contarCarrito()
-
         this._presupuestoService.numeroPresupuesto().subscribe(resultado => { this.numero = resultado.datos.numero })
     }
 
@@ -62,7 +65,7 @@ export class CarritoComponent implements OnInit {
 
     finCarrito() {
         this._presupuestoService
-            .postProductos({ fecha: this.fecha, numero: this.numero, estado: this.estado, fechaFin: this.fecha, productos: this.carrito })
+            .postProductos({ fecha: this.fecha, numero: this.numero, estado: this.estado, fechaFin: this.fecha, productos: this.carrito, usuario: this.usuario })
             .subscribe(respuesta => console.log(respuesta))
         this.cancelarCompra()
     }
@@ -70,7 +73,7 @@ export class CarritoComponent implements OnInit {
     finPresupuesto() {
         // Va sin fecha de finalización.
         this._presupuestoService
-            .postProductosPresupuesto({ fecha: this.fecha, numero: this.numero, estado: this.estado, productos: this.carrito })
+            .postProductosPresupuesto({ fecha: this.fecha, numero: this.numero, estado: this.estado, productos: this.carrito, usuario: this.usuario })
             .subscribe(respuesta => console.log(respuesta))
         this.cancelarCompra()
     }

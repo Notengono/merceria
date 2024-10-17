@@ -15,11 +15,12 @@
 
 $app->get('/ventasPorDia/{fecha}',
     function ($request, $response, $args) {
-        $sth = $this->db->prepare("SELECT numero, fecha, estado, precio, cantidad, descuento, codigo, descripcion
+        $sth = $this->db->prepare("SELECT numero, fecha, estado, precio, cantidad, descuento, codigo, descripcion, u.nombre AS usuario
                 FROM `presupuesto` p
                 LEFT JOIN producto_presupuesto pp ON pp.idpresupuesto = p.idpresupuesto
                 LEFT JOIN productos pr ON pr.idproducto = pp.idproducto
                 LEFT JOIN productos_meta pm ON pm.id = pr.idproductometa
+                LEFT JOIN users u ON u.id = p.usuario
                 WHERE fecha = :fecha;");
         
         $sth->bindParam("fecha", $args['fecha']);

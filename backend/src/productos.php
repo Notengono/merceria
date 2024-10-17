@@ -429,12 +429,13 @@ $app->post(
     function ($request, $response, $args) {
         $input = $request->getParsedBody();
         try {
-            $sth = $this->db->prepare("INSERT INTO presupuesto (idpresupuesto, numero, fecha, estado, fecha_fin)
-            VALUES(null, :numero, :fecha, :estado, :fechaFin);");
+            $sth = $this->db->prepare("INSERT INTO presupuesto (idpresupuesto, numero, fecha, estado, fecha_fin, usuario)
+            VALUES(null, :numero, :fecha, :estado, :fechaFin, :usuario);");
             $sth->bindParam("fecha", $input["fecha"]);
             $sth->bindParam("estado", $input["estado"]);
             $sth->bindParam("numero", $input["numero"]);
             $sth->bindParam("fechaFin", $input["fechaFin"]);
+            $sth->bindParam("usuario", $input["usuario"]);
             $sth->execute();
 
             $idpresupuesto = $this->db->lastInsertId();
@@ -469,11 +470,12 @@ $app->post(
     function ($request, $response, $args) {
         $input = $request->getParsedBody();
         try {
-            $sth = $this->db->prepare("INSERT INTO presupuesto (idpresupuesto, numero, fecha, estado)
-            VALUES(null, :numero, :fecha, :estado);");
+            $sth = $this->db->prepare("INSERT INTO presupuesto (idpresupuesto, numero, fecha, estado, usuario)
+            VALUES(null, :numero, :fecha, :estado, :usuario);");
             $sth->bindParam("fecha", $input["fecha"]);
             $sth->bindParam("estado", $input["estado"]);
             $sth->bindParam("numero", $input["numero"]);
+            $sth->bindParam("usuario", $input["usuario"]);
             $sth->execute();
 
             $idpresupuesto = $this->db->lastInsertId();
