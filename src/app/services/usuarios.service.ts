@@ -31,10 +31,24 @@ export class UsuariosService {
         return this._http.get<any>(
             `${apiURL}getUsuarios`, { headers: header });
     }
+
+    getUsuario(dato: any) {
+        const header = new HttpHeaders();
+        header.append("Content-Type", "applications/json");
+        return this._http.get<any>(
+            `${apiURL}getUsuario/${dato}`, { headers: header });
+    }
     postUsuario(datos: any) {
         const header = new HttpHeaders();
         header.append("Content-Type", "applications/json");
         return this._http.post<any>(
             `${apiURL}postUsuario`, datos, { headers: header });
+    }
+
+    putUsuario(datos: any) {
+        const header = new HttpHeaders();
+        header.append("Content-Type", "applications/json");
+        return this._http.put<any>(
+            `${apiURL}putUsuario`, datos, { headers: header });
     }
 }

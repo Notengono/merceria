@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -18,12 +19,15 @@ export class NuevoComponent implements OnInit {
   })
 
   constructor(private fb: FormBuilder,
+    private router: Router,
     private _usuarioService: UsuariosService
   ) { }
 
   ngOnInit(): void {
   }
-
+  cancelar() {
+    this.router.navigate(['/listadoUsuarios']);
+  }
   aceptar() {
     this._usuarioService.postUsuario(this.usuarioForm.value).subscribe(resultado => console.log(resultado))
   }

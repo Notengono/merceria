@@ -42,7 +42,7 @@
                     <div class="row">
                         <div class="col-12 mb-3">
                             <div class="input-group">
-                                <span class="input-group-text" id="userPass1">Nombre Usuario</span>
+                                <span class="input-group-text" id="userPass1">Clave Usuario</span>
                                 <input type="password" class="form-control" id="userPass" name="userPass"
                                     formControlName="userPass" aria-describedby="userPass1 basic-addon4"
                                     autocomplete="off">
@@ -52,7 +52,9 @@
                 </form>
             </div>
             <div class="card-footer text-end">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                <button type="button" class="col-2 btn btn-sm btn-primary" data-bs-dismiss="modal"
+                    (click)="cancelar()">Cancelar</button>
+                <button type="button" class="col-2 btn btn-sm btn-success" data-bs-dismiss="modal"
                     (click)="aceptar()">aceptar</button>
             </div>
         </div>

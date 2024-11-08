@@ -80,7 +80,7 @@ export class CarritoComponent implements OnInit {
 
     imprimirTiket() {
         const alto = (this.carrito.length < 4) ? 58 : (this.carrito.length * 7) + 30
-        const ancho = 46
+        const ancho = 70
         const doc = new jsPDF("p", "mm", [ancho, alto]);
         doc.setFont('Courier', 'Bold');
         doc.setFontSize(8);

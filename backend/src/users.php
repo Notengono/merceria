@@ -78,6 +78,14 @@ $app->get('/getUsuarios', function ($request, $response, $args) {
     return $this->response->withJson($todos);
 });
 
+$app->get('/getUsuario/{id}', function ($request, $response, $args) {
+    $sth = $this->db->prepare("SELECT * FROM users WHERE id = :id");
+    $sth->bindParam('id', $args['id']);
+    $sth->execute();
+    $resultado = $sth->fetchObject();
+    return $this->response->withJson($resultado);
+});
+
 $app->post('/postHabilita', function ($request, $response, $args) {
     $input = $request->getParsedBody();
     $sth = $this->db->prepare("UPDATE users SET user_baja = !user_baja WHERE id = :id;");
@@ -98,6 +106,24 @@ $app->post('/postUsuario', function ($request, $response, $args) {
     $sth->bindParam("nombre", $input['nombre']);
     $sth->bindParam("user_baja", $input['user_baja']);
     $sth->bindParam("intentos", $input['intentos']);
+    $resultado = $sth->execute();
+
+    return $this->response->withJson($resultado);
+});
+
+$app->put('/putUsuario', function ($request, $response, $args) {
+    $input = $request->getParsedBody();
+    $pass = hash('sha256', $input['userPass']);
+
+    $sth = $this->db->prepare("UPDATE users SET user_name = :user_name, user_pass = :user_pass,
+            user_baja = :user_baja, nombre =:nombre, intentos = :intentos
+            WHERE id = :id;");
+    $sth->bindParam("user_name", $input['userName']);
+    $sth->bindParam("user_pass", $pass);
+    $sth->bindParam("nombre", $input['nombre']);
+    $sth->bindParam("user_baja", $input['user_baja']);
+    $sth->bindParam("intentos", $input['intentos']);
+    $sth->bindParam("id", $input['id']);
     $resultado = $sth->execute();
 
     return $this->response->withJson($resultado);

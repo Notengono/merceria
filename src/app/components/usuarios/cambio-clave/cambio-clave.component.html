@@ -1,1 +1,59 @@
-<p>cambio-clave works!</p>
+<div class="container">
+    <br />
+    <div class="col-8 offset-2">
+        <div class="card">
+            <div class="card-header">
+                <!-- Usuario -->
+                Edición de Usuario
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-7 col-7 ">
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Usuario</h6>
+                    </div>
+                </div>
+                <form [formGroup]="usuarioForm" autocomplete="off">
+
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text" id="inputGroupNombre1">Nombre</span>
+                                <input type="text" class="form-control" id="nombre" name="nombre"
+                                    formControlName="nombre" aria-describedby="inputGroupNombre1 basic-addon4"
+                                    autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text" id="userName1">Nombre Usuario</span>
+                                <input type="text" class="form-control" id="userName" name="userName"
+                                    formControlName="userName" aria-describedby="userName1 basic-addon4"
+                                    autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text" id="userPass1">Clave Usuario</span>
+                                <input type="password" class="form-control" id="userPass" name="userPass"
+                                    formControlName="userPass" aria-describedby="userPass1 basic-addon4"
+                                    autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-end">
+                <button type="button" class="col-2 btn btn-sm btn-primary" data-bs-dismiss="modal"
+                    (click)="cancelar()">Cancelar</button>
+                <button type="button" class="col-2 btn btn-sm btn-success" data-bs-dismiss="modal"
+                    (click)="aceptar()">aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
