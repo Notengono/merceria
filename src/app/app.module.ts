@@ -30,6 +30,8 @@ import { NuevoComponent } from './components/usuarios/nuevo/nuevo.component';
 import { ListadoComponent } from './components/usuarios/listado/listado.component';
 import { CambioClaveComponent } from './components/usuarios/cambio-clave/cambio-clave.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { MensualMontosComponent } from './components/informes/mensual-montos/mensual-montos.component';
+import { MensualProductosComponent } from './components/informes/mensual-productos/mensual-productos.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     LoginComponent,
     NuevoComponent,
     ListadoComponent,
-    CambioClaveComponent
+    CambioClaveComponent,
+    MensualMontosComponent,
+    MensualProductosComponent
   ],
   imports: [
     MatFormFieldModule,

@@ -24,6 +24,7 @@ export class PorDiaComponent implements OnInit {
     buscar() {
         console.clear()
         this.buscando = true
+        this.total = 0
         this._presupuestoService.buscarProductos(this.fechaBusqueda).subscribe(respuesta => {
             this.listadoMostrar = respuesta
             this.listadoMostrar.forEach((element: any) => {

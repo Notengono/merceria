@@ -44,7 +44,7 @@ export class CarritoComponent implements OnInit {
         const aux_ = new Date();
         const aux1_ = ((aux_.getMonth() + 1) > 9) ? (aux_.getMonth() + 1) : '0' + (aux_.getMonth() + 1);
         const aux2_ = ((aux_.getUTCDate() + 1) > 9) ? aux_.getUTCDate() : '0' + aux_.getUTCDate();
-        this.hora = aux_.getHours().toString() + ':' + aux_.getMinutes().toString();
+        this.hora = aux_.getHours().toString() + ':' + (aux_.getMinutes().toString().length == 1 ? ('0' + aux_.getMinutes().toString()) : aux_.getMinutes().toString());
         this.fecha = aux_.getFullYear() + '-' + aux1_ + '-' + aux2_;
 
         this.carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
@@ -79,23 +79,23 @@ export class CarritoComponent implements OnInit {
     }
 
     imprimirTiket() {
-        const alto = (this.carrito.length < 4) ? 58 : (this.carrito.length * 7) + 30
+        const alto = (this.carrito.length < 4) ? 70 : (this.carrito.length * 7) + 30
         const ancho = 70
         const doc = new jsPDF("p", "mm", [ancho, alto]);
         doc.setFont('Courier', 'Bold');
-        doc.setFontSize(8);
-        doc.text('COMPROBANTE NO VALIDO\nCOMO FACTURA', 24, 5, { align: 'center' });
-        doc.setFontSize(8);
-        doc.text("Mercería Ángel Andrés", 24, 13, { align: 'center' });
+        doc.setFontSize(10);
+        doc.text('COMPROBANTE NO VALIDO\nCOMO FACTURA', 35, 5, { align: 'center' });
+        doc.setFontSize(10);
+        doc.text("Mercería Ángel Andrés", 35, 13, { align: 'center' });
         // doc.text("Ministerio de Salud", 24, 10, { align: 'center' });
 
         const fecha_ = this.fecha.split('-')
         let linea = 23
-        doc.setFontSize(7);
+        doc.setFontSize(9);
         doc.text('fecha: ' + fecha_[2] + '/' + fecha_[1] + '/' + fecha_[0] + ' ' + this.hora, ancho - 3, 18, { align: 'right' });
 
         for (let item of this.carrito) {
-            doc.text(item.descripcion.substring(0, 31), 1, linea);
+            doc.text(item.descripcion.substring(0, 31), 3, linea);
             linea += 3
             doc.text('$ ' + item.precioIndividual.toString() + ' * ' + item.caintidad.toString(), 5, linea);
             doc.text('$ ' + item.precio.toString(), ancho - 3, linea, { align: 'right' });
@@ -104,9 +104,9 @@ export class CarritoComponent implements OnInit {
 
         // doc.setLineDash([10, 10], 0);
         doc.setLineDashPattern([1.5, 1], 0);
-        doc.line(0, 15, 49, 15, 'D')
-        doc.line(0, (alto - 10), 49, (alto - 10), 'D')
-        doc.setFontSize(8);
+        doc.line(0, 15, ancho, 15, 'D')
+        doc.line(0, (alto - 10), ancho, (alto - 10), 'D')
+        doc.setFontSize(10);
         doc.setFont('', 'bold')
         doc.text('Total: $ ' + this.precioTotal.toString(), ancho - 3, (alto - 6), { align: 'right' })
 
