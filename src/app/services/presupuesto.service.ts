@@ -45,6 +45,13 @@ export class PresupuestoService {
       `${apiURL}buscarPresupuestoDetalle/${valor}`, { headers: header });
   }
 
+  buscarInfMensualMonto(valor: any) {
+    const header = new HttpHeaders();
+    header.append("Content-Type", "applications/json");
+    return this._http.post<any>(
+      `${apiURL}buscarInfMensualMonto`, valor, { headers: header });
+  }
+
   numeroPresupuesto() {
     const header = new HttpHeaders();
     header.append("Content-Type", "applications/json");

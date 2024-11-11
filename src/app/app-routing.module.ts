@@ -17,6 +17,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { ListadoComponent } from './components/usuarios/listado/listado.component';
 import { NuevoComponent } from './components/usuarios/nuevo/nuevo.component';
 import { CambioClaveComponent } from './components/usuarios/cambio-clave/cambio-clave.component';
+import { MensualMontosComponent } from './components/informes/mensual-montos/mensual-montos.component';
+import { MensualProductosComponent } from './components/informes/mensual-productos/mensual-productos.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -35,6 +37,8 @@ const routes: Routes = [
   { path: 'inf_presupuesto', component: InfPresupuestoComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'listadoUsuarios', component: ListadoComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'nuevoUsuario', component: NuevoComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'inf_mensualMonto', component: MensualMontosComponent, pathMatch: "full", canActivate: [AuthGuard] },
+  { path: 'inf_mensualProducto', component: MensualProductosComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: 'cambioClave/:id', component: CambioClaveComponent, pathMatch: "full", canActivate: [AuthGuard] }
 ];
 
