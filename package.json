@@ -1,6 +1,6 @@
 {
   "name": "merceria",
-  "version": "1.5.01",
+  "version": "1.6.01",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

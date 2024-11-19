@@ -1,1 +1,85 @@
-<p>mensual-productos works!</p>
+<div class="container">
+    <br />
+    <h2 class="text-light p-3">Informe de Ventas</h2>
+    <br />
+    <div class="card">
+        <div class="card-header">
+            Ventas
+        </div>
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-body-secondary">Informe de Ventas Mensuales</h6>
+
+            <div>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="fechaBusqueda01">Año</span>
+                            <input type="number" class="form-control" placeholder="2024" aria-label="fechaBusqueda"
+                                [(ngModel)]="anio" id="anio" name="anio" aria-describedby="fechaBusqueda01">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="fechaBusqueda01">Mes</span>
+                            <select class="form-control" id="mes" [(ngModel)]="mes" name="mes">
+                                <option value="1">Enero</option>
+                                <option value="2">Febrero</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Mayo</option>
+                                <option value="6">Junio</option>
+                                <option value="7">Julio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-bottom btn-outline-primary" (click)="buscar()">
+                            <i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp;Buscar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <div class="row" *ngIf="buscando && listadoMostrar.length>0">
+                <div class="container">
+                    <div class="col-sm-6 offset-sm-3">
+                        <table class="table table-striped table-borderless table-responsive">
+                            <thead>
+                                <tr class="text-center">
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Monto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of listadoMostrar">
+                                    <td class="">{{producto.producto}}</td>
+                                    <td class="text-center">{{producto.cantidad}}</td>
+                                    <td class="text-end">${{producto.monto|number:'1.2'}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" class="text-end"><b>Total: $ {{total|number:'1.2'}}</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="buscando && listadoMostrar.length==0">
+                <div class="alert alert-warning text-center" role="alert">
+                    <b>No</b> hay datos cargados para la fecha "<b>{{anio}}+{{mes}}</b>".
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+        </div>
+    </div>
+</div>

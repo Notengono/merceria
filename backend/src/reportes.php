@@ -49,3 +49,24 @@ $app->post(
         return $this->response->withJson($todos);
     }
 );
+$app->post(
+    '/buscarInfMensualProducto',
+    function ($request, $response, $args) {
+        $input = $request->getParsedBody();
+        $mes = intval($input['mes']) < 10 ? '0' . $input['mes'] : $input['mes'];
+        $anio = intval($input['anio']);
+        $sth = $this->db->prepare("SELECT pp.idproducto, descripcion AS producto, SUM(precio) AS monto, sum(cantidad) AS cantidad
+                FROM `producto_presupuesto` pp
+                LEFT JOIN presupuesto p ON p.idpresupuesto = pp.idpresupuesto
+                LEFT JOIN productos prod ON prod.idproducto = pp.idproducto
+                LEFT JOIN productos_meta pm ON prod.idproductometa = pm.id
+                WHERE date_format(p.fecha, '%Y') = :anio AND DATE_FORMAT(p.fecha, '%m') = :mes
+                GROUP BY idproducto;");
+        $sth->bindParam("mes", $mes);
+        $sth->bindParam("anio", $anio);
+
+        $sth->execute();
+        $todos = $sth->fetchAll();
+        return $this->response->withJson($todos);
+    }
+);
